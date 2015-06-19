@@ -25,8 +25,10 @@ module.exports = function(grunt) {
         compass: {
             dist: {
                 options: {
-                    sassDir: 'sass',
-                    cssDir: 'css'
+                    sassDir: 'src/sass',
+                    cssDir: 'src/css',
+                    environment: 'production',
+                    require: 'bootstrap-sass'
                 }
             }
         },
@@ -43,7 +45,7 @@ module.exports = function(grunt) {
         
         watch: {
             css: {
-                files: '**/*.scss',
+                files: 'src/**/*.scss',
                 tasks: ['compass']
             }
         },
@@ -64,6 +66,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-connect');
+    grunt.loadNpmTasks('bootstrap-sass');
 
     grunt.registerTask('default',['watch']);
 }
