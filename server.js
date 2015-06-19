@@ -121,8 +121,8 @@ var SampleApp = function() {
             self.app.get(r, self.routes[r]);
         }
         
-        ['css', 'img', 'js', 'plugin', 'lib'].forEach(function (dir){
-            self.app.use('/src/'+dir, express.static(__dirname+'/'+dir));
+        ['src'].forEach(function (dir){
+            self.app.use('/'+dir, express.static(__dirname+'/'+dir));
         });
     };
 
