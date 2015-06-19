@@ -122,7 +122,7 @@ var SampleApp = function() {
         }
         
         ['css', 'img', 'js', 'plugin', 'lib'].forEach(function (dir){
-            self.app.use('/src/'+dir, express.static(__dirname+'/src/'+dir));
+            self.app.use('/'+dir, express.static(__dirname+'/src/'+dir));
         });
     };
 
