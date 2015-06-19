@@ -29,78 +29,8 @@
 	<!-- results here -->
 </section>
 <script type="text/javascript" src="js/libs/jquery/jquery-1.10.2.js"></script>
-<script>
-$(function() {
-	var filterList = [];
-	var fdaAPI = "https://api.fda.gov/drug/label.json";
-	
-	function addFilter(key, val){
-		filterList.push([key, val]);
-		console.log(filterList);
-	}
-	
-	function constructQuery(){
-		var qs = '?search=';
-		if(filterList.length > 0){
-			console.log('filter found');
-			for(i=0; i<filterList.length;i++){
-				if(i>0){
-					qs+= "AND";
-				}
-				qs += filterList[i][0] + ':'  + filterList[i][1];
-			}
-			console.log("qs: " + fdaAPI + qs);
-		}
-		return qs;
-	}
-	
-	function stringifyResult(resultset, delimiter){
-		delimiter = delimiter || '<br />';
-		var resultString = '';
-		if( typeof resultset === 'array' ) {
-    		for(i=0;i<resultset.length;i++){
-				resultString += resultset[i] + delimiter;
-			}
-		}else {
-			resultString = (!resultset)? "": resultset;
-		}
-		return resultString;
-	}
-
-	
-	function queryAPI(overrideURL){
-		var APIurl = overrideURL || "https://api.fda.gov/drug/label.json";
-		var qs = constructQuery();
-		
-		$.getJSON( APIurl+qs,function(data){
-			console.log("connection success:\n" + data);
-		}).done(function( data ) {
-			var contents = "";
-			$.each(data, function(){
-			  contents += "<div style=\"margin-bottom: 15px;\"><div>Generic Name: " + stringifyResult(data.results[0].openfda.generic_name) + 
-			"</div><div>Purpose: " +  stringifyResult(data.results[0].purpose) + 
-			"</div><div>Match Count: " + stringifyResult(data.meta.results.total) + "</div>"
-			});
-			
-			$('#results').html( contents );
-			filterList = [];
-		}).fail(function() {
-			$('#results').html('<p>No Results Found</p>');
-		});
-	}
-
-	$('.btn-query').click(function(){
-		filterList = [];
-		var nonEmpty = $('input:text').filter(function() { return this.value != ""; });
-		nonEmpty.each(function(){
-			addFilter(this.id, this.value);
-		});
-		queryAPI();
-	});
-	
-	
-});
-</script>
+<script src="js/client/helperClass.js"></script>
+<script src="js/client/drugSearch.js"></script>
 
 </body>
 </html>
