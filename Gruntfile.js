@@ -69,4 +69,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('bootstrap-sass');
 
     grunt.registerTask('default',['watch']);
+    grunt.registerTask('jenkins',['watch']);
 }
