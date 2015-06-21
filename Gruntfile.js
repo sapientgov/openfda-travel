@@ -27,8 +27,13 @@ module.exports = function(grunt) {
                 options: {
                     sassDir: 'src/sass',
                     cssDir: 'src/css',
-                    environment: 'production',
-                    require: 'bootstrap-sass'
+                    environment: 'production'
+                }
+            },
+			dev: {
+                options: {
+                    sassDir: 'src/sass',
+                    cssDir: 'src/css'
                 }
             }
         },
