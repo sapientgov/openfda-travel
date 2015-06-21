@@ -10,9 +10,19 @@
 </head>
 
 <body>
-<h2>Display Drug Recall Info</h2>
-<section class="api-info"></section>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a href="#" class="navbar-brand">1515</a> </div>
+    <div class="navbar-collapse collapse" id="navbar"></div>
+    <!--/.navbar-collapse --> 
+  </div>
+</nav>
+
 <section class="search-input">
+<div class="container">
+<h2>Display Drug Recall Info</h2>
 	<form>
     <fieldset>
         <label for="brand_name"><div>Brand Name</label>
@@ -24,14 +34,16 @@
     </fieldset>
     <button type="button" class="drug-recall-info-btn-query">Submit</button>
     </form>
+    </div>
 </section>
-<section id="results">
+<section>
+<div class="container" id="results">
 	<!-- results here -->
+    </div>
 </section>
 <script type="text/javascript" src="js/libs/jquery/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="js/libs/bootstrap/bootstrap.min.js"></script>
 <script src="js/client/drugRecallHelper.js"></script>
-
-
 <!--Your new content will be displayed in here-->
 <div class="content-placeholder"></div>
 

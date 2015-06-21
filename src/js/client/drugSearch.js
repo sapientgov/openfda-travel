@@ -8,7 +8,7 @@ function queryAPI(overrideURL){
 			console.log("connection success:\n" + data);
 		}).done(function( data ) {
 			var contents = "";
-			$.each(data, function(){
+			$.each(data.results, function(){
 			  contents += "<div style=\"margin-bottom: 15px;\"><div>Generic Name: " + stringifyResult(data.results[0].openfda.generic_name) + 
 			"</div><div>Purpose: " +  stringifyResult(data.results[0].purpose) + 
 			"</div><div>Match Count: " + stringifyResult(data.meta.results.total) + "</div>"
