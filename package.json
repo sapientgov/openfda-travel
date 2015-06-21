@@ -23,6 +23,7 @@
     "phantomjs": "^1.9.17"
   },
   "dependencies": {
+    "jquery": "^2.1.4",
     "node-handlebars": "^0.9.7"
   }
 }

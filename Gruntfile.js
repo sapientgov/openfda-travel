@@ -40,8 +40,8 @@ module.exports = function(grunt) {
 
 		browserify: {
             web: {
-                dest: 'src/js/app.js',
-                src: ['src/js/main.js'],
+                dest: 'dist/js/client/app.js',
+                src: ['src/js/client/main.js'],
                 options: {
                     watch: true
                 }
