@@ -17,7 +17,13 @@ h4{
 }
 span{
 	font-size: 11px;
+	
 	&.fancy{
 		font-style: italic;
 	}
+}
+#results{
+	background: #f2f2f2;
+	padding: 15px;
+	margin: 15px 0;
 }
