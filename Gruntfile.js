@@ -59,7 +59,11 @@ module.exports = function(grunt) {
             },
             js_client: {
                 files: 'src/js/client/**/*.js',
-                tasks: ['copy:js_client']
+                tasks: ['karma:dev:run', 'copy:js_client']
+            },
+            js_test: {
+                files: 'test/js/**/*.js',
+                tasks: ['karma:dev:run']
             }
         },
 
@@ -69,6 +73,19 @@ module.exports = function(grunt) {
                     port: 8080,
                     base: 'dist'
                 }
+            }
+        },
+        
+        karma: {
+            dev: {
+                configFile: 'karma.conf.js',
+                singleRun: false,
+                background: true,
+                port: 9877
+            },
+            ci: {
+                configFile: 'karma.conf.js',
+                singleRun: true
             }
         }
 
@@ -80,10 +97,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('bootstrap-sass');
+    grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist']);
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev']);
     grunt.registerTask('default',['build-prod']);
-    grunt.registerTask('dev', ['build-dev', 'connect:server', 'watch']);
-    grunt.registerTask('jenkins',['']);
+    grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server', 'watch']);
+    grunt.registerTask('jenkins',['build-prod', 'karma:ci']);
 }
