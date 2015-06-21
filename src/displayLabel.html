@@ -7,11 +7,11 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a href="#" class="navbar-brand">1515</a> </div>
+      <a href="index.html" class="navbar-brand">1515</a> </div>
     <div class="navbar-collapse collapse" id="navbar"></div>
     <!--/.navbar-collapse --> 
   </div>
@@ -22,15 +22,15 @@
 <div class="container">
 <h2>Display Label Info</h2>
 	<form>
-    <fieldset>
-        <label for="ai"><div>Brand Name</label>
-		<input type="text" id="openfda.brand_name" size="30" placeholder="Brand Name" />
-        </fieldset>
-    	<fieldset>
-    	<label for="active_ingredient"><div>Active Ingredient</label>
-		<input type="text" id="active_ingredient" size="30" placeholder="Active Ingredient" />
-        </fieldset>
-        <button type="button" class="label-info-btn-query">Submit</button>
+    <div class="form-group">
+        <label for="openfda.brand_name">Brand Name</label>
+		<input type="text" id="openfda.brand_name" class="form-control" placeholder="Brand Name" />
+        </div>
+    	<div class="form-group">
+    	<label for="active_ingredient">Active Ingredient</label>
+		<input type="text" id="active_ingredient" class="form-control" placeholder="Active Ingredient" />
+        </div>
+        <button type="button" class="btn btn-primary label-info-btn-query">Submit</button>
     </form>
     </div>
 </section>
