@@ -4,21 +4,21 @@ module.exports = function(grunt) {
 
         // Task configuration.
         clean: {
-            dist: ['dist/js', 'dist/*.html', 'dist/img/', 'dist/css']
+            dist: ['dist']
         },
 
         copy : {
-            js : {
-                src : ['js/**/*js'],
-                dest: 'dist/js'
+            js_client : {
+                cwd: 'src/',
+                src : ['js/client/**/*.js', 'js/libs/**/*.js'],
+                dest: 'dist/',
+                expand: true
             },
             html : {
+                cwd: 'src/',
                 src : ['*.html'],
-                dest : 'dist/'              
-            },
-            css: {
-                src : ['css/**/*.css'],
-                dest : 'dist/css' 
+                dest : 'dist/',
+                expand: true
             }
         },
 
@@ -26,14 +26,14 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     sassDir: 'src/sass',
-                    cssDir: 'src/css',
+                    cssDir: 'dist/css',
                     environment: 'production'
                 }
             },
 			dev: {
                 options: {
                     sassDir: 'src/sass',
-                    cssDir: 'src/css'
+                    cssDir: 'dist/css'
                 }
             }
         },
@@ -49,9 +49,17 @@ module.exports = function(grunt) {
         },
         
         watch: {
-            css: {
-                files: 'src/**/*.scss',
-                tasks: ['compass']
+            sass: {
+                files: ['src/sass/**/*.scss', 'src/css/**/*.css'],
+                tasks: ['compass:dev']
+            },
+            html: {
+                files: 'src/**/*.html',
+                tasks: ['copy:html']
+            },
+            js: {
+                files: 'src/js/**/*.js',
+                tasks: ['copy:js']
             }
         },
 
@@ -70,9 +78,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-connect');
+    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('bootstrap-sass');
 
-    grunt.registerTask('default',['watch']);
+    grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist']);
+    grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev']);
+    grunt.registerTask('default',['build-prod']);
+    grunt.registerTask('dev', ['build-dev', 'connect:server', 'watch']);
     grunt.registerTask('jenkins',['']);
 }
