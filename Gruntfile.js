@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         copy : {
             js_client : {
                 cwd: 'src/',
-                src : ['js/client/**/*.js', 'js/libs/**/*.js'],
+                src : ['js/*.js','js/client/**/*.js', 'js/libs/**/*.js'],
                 dest: 'dist/',
                 expand: true
             },
@@ -40,8 +40,8 @@ module.exports = function(grunt) {
 
 		browserify: {
             web: {
-                dest: 'dist/js/app.js',
-                src: ['js/main.js'],
+                dest: 'src/js/app.js',
+                src: ['src/js/main.js'],
                 options: {
                     watch: true
                 }
@@ -102,6 +102,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist']);
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev']);
     grunt.registerTask('default',['build-prod']);
-    grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server', 'watch']);
+    grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server','browserify:web', 'watch']);
     grunt.registerTask('jenkins',['build-prod', 'karma:ci']);
+
 }
