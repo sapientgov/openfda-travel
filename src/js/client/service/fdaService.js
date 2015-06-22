@@ -40,18 +40,47 @@ var FdaService = {
      * @param {String} ingQ Ingredient query to search for
      */
     findDrugsByActiveIng: function(ingQ) {
-        throw new Error('not implemented yet');
+        //throw new Error('not implemented yet');
+		
+		var reqUrl = LABEL_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '&count=active_ingredient.exact&search=active_ingredient:' + ingQ
+        
+        //make json call
+        var deferred = $.Deferred();
+        $.getJSON(reqUrl + qs).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
     },
     
     /**
      * Returns a "count" query from the labeling data
-     * for all drugs with the specified query in the "generic"
+     * for all drugs with the specified query in the "generic_name"
      * attribute
      * 
      * @param {String} genericQ Generic query to search for
      */
     findDrugsByGeneric: function(genericQ) {
-        throw new Error('not implemented yet');
+        
+		var reqUrl = LABEL_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.generic_name:' + genericQ
+        
+        //make json call
+        var deferred = $.Deferred();
+        $.getJSON(reqUrl + qs).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
     },
     
     /**
@@ -62,7 +91,22 @@ var FdaService = {
      * @param {String} query Query to search for
      */
     findDrugsByAny: function(query) {
-        throw new Error('not implemented yet');
+        
+		var reqUrl = LABEL_URL;
+        
+        //add qs parameters 
+		//TODO count field may be changed - ask design team
+        var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.brand_name:' + query + '+openfda.active_ingredient:' + query + '+openfda.generic_name:' + query
+        
+        //make json call
+        var deferred = $.Deferred();
+        $.getJSON(reqUrl + qs).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
     },
     
     /**
@@ -72,16 +116,43 @@ var FdaService = {
      * @param {String} ndc NDC ID of the target drug
      */
     findRecallInfo: function(ndc) {
-        throw new Error('not implemented yet');
+        var reqUrl = ENFORCEMENT_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '?search=application_number:' + ndc
+        
+        //make json call
+        var deferred = $.Deferred();
+        $.getJSON(reqUrl + qs).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
+		
     },
     
     /**
-     * Retrieves labeling infor for the target drug by NDC ID
+     * Retrieves labelling info for for the target drug by NDC ID
      * 
      * @param {String} ndc NDC ID of the target drug
      */
     findLabelInfo: function(ndc) {
-        throw new Error('not implemented yet');
+        var reqUrl = LABEL_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '?search=application_number:' + ndc
+        
+        //make json call
+        var deferred = $.Deferred();
+        $.getJSON(reqUrl + qs).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
     }
 };
 
