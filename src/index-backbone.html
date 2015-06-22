@@ -44,8 +44,12 @@
     
     <script type="text/template" id="search-result-template">
         <div style="margin-bottom:15px">
-            <strong><%- term %></strong> (<%- count %>)
+            <a href="#label/<%-term%>"><%- term %> (<%- count %>)</a>
         </div>
+    </script>
+    
+    <script type="text/template" id="drug-label-info">
+        <h1>Drug Label Info For <%- openfda.brand_name %></h1>
     </script>
 
     <!-- Main JS File -->

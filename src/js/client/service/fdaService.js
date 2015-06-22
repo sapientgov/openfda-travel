@@ -119,7 +119,7 @@ var FdaService = {
         var reqUrl = ENFORCEMENT_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '?search=application_number:' + ndc
+        var qs = BEGIN_QS + '&search=application_number:' + ndc
         
         //make json call
         var deferred = $.Deferred();
@@ -142,8 +142,30 @@ var FdaService = {
         var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '?search=application_number:' + ndc
+        var qs = BEGIN_QS + '&search=application_number:' + ndc
         
+        //make json call
+        var deferred = $.Deferred();
+        $.getJSON(reqUrl + qs).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
+    },
+    
+    /**
+     * Retrieves labelling info for for the target drug by Brand Name
+     * 
+     * @param {String} brand Brand name of the target drug
+     */
+    findLabelInfoByBrand: function(brand) {
+        var reqUrl = LABEL_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand + '"'
+        console.log('api call: ' + qs);
         //make json call
         var deferred = $.Deferred();
         $.getJSON(reqUrl + qs).done(function(data) {
