@@ -8,12 +8,6 @@ module.exports = function(grunt) {
         },
 
         copy : {
-            js_client : {
-                cwd: 'src/',
-                src : ['js/*.js','js/client/**/*.js', 'js/libs/**/*.js'],
-                dest: 'dist/',
-                expand: true
-            },
             html : {
                 cwd: 'src/',
                 src : ['*.html'],
@@ -57,12 +51,8 @@ module.exports = function(grunt) {
                 files: 'src/**/*.html',
                 tasks: ['copy:html']
             },
-            js_client: {
-                files: 'src/js/client/**/*.js',
-                tasks: ['karma:dev:run', 'copy:js_client']
-            },
             js_test: {
-                files: 'test/js/**/*.js',
+                files: ['test/js/**/*.js', 'src/js/client/**/*.js'],
                 tasks: ['karma:dev:run']
             }
         },
@@ -99,10 +89,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('bootstrap-sass');
     grunt.loadNpmTasks('grunt-karma');
 
-    grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist']);
-    grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev']);
+    grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify:web']);
+    grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify:web']);
     grunt.registerTask('default',['build-prod']);
-    grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server','browserify:web', 'watch']);
+    grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server', 'watch']);
     grunt.registerTask('jenkins',['build-prod', 'karma:ci']);
 
 }
