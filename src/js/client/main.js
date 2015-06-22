@@ -55,15 +55,16 @@ $(function() {
 			var index = 0;
 			var contents = "";
 			$.each(dataObj.results, function(){
-				contents += "<div style=\"margin-bottom: 15px;\"><div>Generic Name: " + utility.stringifyResult(dataObj.results[0].openfda.generic_name) + 
-				"</div><div>Indications: " + utility.stringifyResult(dataObj.results[0].indications_and_usage) +  
-				"</div><div>Warnings: " +  utility.stringifyResult(dataObj.results[0].ask_doctor + " " + dataObj.results[0].boxed_warning) + 
-				"</div><div>Adverse Effects: " + utility.stringifyResult(dataObj.results[0].adverse_reactions) +
-				"</div><div>Dosage Recommendation: " + utility.stringifyResult(dataObj.results[0].dosage_and_administration) +
-				"</div><div>Counter-Indications: " + utility.stringifyResult(dataObj.results[0].contraindications) +
-				"</div><div>Special User Groups: " + utility.stringifyResult(dataObj.results[0].use_in_specific_populations + " " + dataObj.results[0].pregnancy + " " + dataObj.results[0].teratogenic_effects + " " + dataObj.results[0].nonteratogenic_effects + " " + dataObj.results[0].labor_and_delivery + " " + dataObj.results[0].nursing_mothers + " " + dataObj.results[0].pregnancy_or_breast_feeding + " " + dataObj.results[0].pediatric_use + " " + dataObj.results[0].geriatric_use) +			"</div>"
-			});
-			index++;	
+				contents += "<div style=\"margin-bottom: 15px;\"><div>Generic Name: " + utility.stringifyResult(dataObj.results[index].openfda.generic_name) + 
+				"</div><div>Indications: " + utility.stringifyResult(dataObj.results[index].indications_and_usage) +  
+				"</div><div>Warnings: " +  utility.stringifyResult(dataObj.results[index].ask_doctor + " " + dataObj.results[index].boxed_warning) + 
+				"</div><div>Adverse Effects: " + utility.stringifyResult(dataObj.results[index].adverse_reactions) +
+				"</div><div>Dosage Recommendation: " + utility.stringifyResult(dataObj.results[index].dosage_and_administration) +
+				"</div><div>Counter-Indications: " + utility.stringifyResult(dataObj.results[index].contraindications) +
+				"</div><div>Special User Groups: " + utility.stringifyResult(dataObj.results[index].use_in_specific_populations + " " + dataObj.results[index].pregnancy + " " + dataObj.results[index].teratogenic_effects + " " + dataObj.results[index].nonteratogenic_effects + " " + dataObj.results[index].labor_and_delivery + " " + dataObj.results[index].nursing_mothers + " " + dataObj.results[index].pregnancy_or_breast_feeding + " " + dataObj.results[index].pediatric_use + " " + dataObj.results[index].geriatric_use) +			
+				"</div><div><br/></div></div>"
+				index++;
+			});	
 			$('#results').html( contents );
 		}
 		utility.submitQuery(APIurl+qs, outputLabel);
