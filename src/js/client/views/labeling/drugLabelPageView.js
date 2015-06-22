@@ -7,7 +7,7 @@ var _ = require('underscore');
 var FdaService = require('../../service/fdaService');
 var DrugLabelInfoView = require('./drugLabelInfoView');
 
-var DrugSearchPageView = Backbone.View.extend({
+var DrugLabelPageView = Backbone.View.extend({
     el: '.main-content',
     
     initialize: function(options) {
@@ -22,4 +22,4 @@ var DrugSearchPageView = Backbone.View.extend({
     },
 });
 
-module.exports = DrugSearchPageView;
+module.exports = DrugLabelPageView;

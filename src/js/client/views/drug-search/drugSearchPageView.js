@@ -10,7 +10,8 @@ var DrugSearchResultsView = require('./drugSearchResultsView');
 var DrugSearchPageView = Backbone.View.extend({
     
     events: {
-        'click .query-labelIndex': 'searchSubmit'
+        'click .query-labelIndex': 'searchSubmit',
+        'keydown input[name="brand-name"]': 'checkEnter'
     },
     
     render: function() {
@@ -33,6 +34,13 @@ var DrugSearchPageView = Backbone.View.extend({
         }).fail(function() {
             console.error('call failed!');
         });
+    },
+    
+    checkEnter: function(event) {
+        if(event.which === 13 || event.keyCode === 13){
+            event.preventDefault();
+            this.searchSubmit();
+        }
     }
 });
 
