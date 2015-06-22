@@ -8,7 +8,7 @@ var DataUtils = require('../utils/dataUtils');
 
 //page view objects
 var DrugSearchPageView = require('../views/drug-search/drugSearchPageView');
-var DrugLabelInfoView = require('../views/labeling/drugLabelPageView');
+var DrugLabelPageView = require('../views/labeling/drugLabelPageView');
 
 var AppRouter = Backbone.Router.extend({
     
