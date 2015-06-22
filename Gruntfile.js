@@ -4,21 +4,15 @@ module.exports = function(grunt) {
 
         // Task configuration.
         clean: {
-            dist: ['dist/js', 'dist/*.html', 'dist/img/', 'dist/css']
+            dist: ['dist']
         },
 
         copy : {
-            js : {
-                src : ['js/**/*js'],
-                dest: 'dist/js'
-            },
             html : {
+                cwd: 'src/',
                 src : ['*.html'],
-                dest : 'dist/'              
-            },
-            css: {
-                src : ['css/**/*.css'],
-                dest : 'dist/css' 
+                dest : 'dist/',
+                expand: true
             }
         },
 
@@ -26,27 +20,48 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     sassDir: 'src/sass',
-                    cssDir: 'src/css',
-                    environment: 'production',
-                    require: 'bootstrap-sass'
+                    cssDir: 'dist/css',
+                    environment: 'production'
+                }
+            },
+			dev: {
+                options: {
+                    sassDir: 'src/sass',
+                    cssDir: 'dist/css'
                 }
             }
         },
 
 		browserify: {
             web: {
-                dest: 'dist/js/app.js',
-                src: ['js/main.js'],
+                dest: 'dist/js/client/app.js',
+                src: ['src/js/client/main.js'],
+                options: {
+                    watch: true
+                }
+            },
+            web_backbone: {
+                dest: 'dist/js/client/app-backbone.js',
+                src: ['src/js/client/main-backbone.js'],
                 options: {
                     watch: true
                 }
             }
+            
         },
         
         watch: {
-            css: {
-                files: 'src/**/*.scss',
-                tasks: ['compass']
+            sass: {
+                files: ['src/sass/**/*.scss', 'src/css/**/*.css'],
+                tasks: ['compass:dev']
+            },
+            html: {
+                files: 'src/**/*.html',
+                tasks: ['copy:html']
+            },
+            js_test: {
+                files: ['test/js/**/*.js', 'src/js/client/**/*.js'],
+                tasks: ['karma:dev:run']
             }
         },
 
@@ -57,6 +72,19 @@ module.exports = function(grunt) {
                     base: 'dist'
                 }
             }
+        },
+        
+        karma: {
+            dev: {
+                configFile: 'karma.conf.js',
+                singleRun: false,
+                background: true,
+                port: 9877
+            },
+            ci: {
+                configFile: 'karma.conf.js',
+                singleRun: true
+            }
         }
 
     });
@@ -65,9 +93,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-connect');
+    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('bootstrap-sass');
+    grunt.loadNpmTasks('grunt-karma');
 
-    grunt.registerTask('default',['watch']);
-    grunt.registerTask('jenkins',['']);
+    grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify']);
+    grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
+    grunt.registerTask('default',['build-prod']);
+    grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server', 'watch']);
+    grunt.registerTask('jenkins',['build-prod', 'karma:ci']);
+
 }

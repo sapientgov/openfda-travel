@@ -4,34 +4,37 @@
 <meta charset="UTF-8">
 <title>1515 App - Display Drug Recall Information</title>
 <link href="css/appstyles.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#results{background: #f2f2f2; border: 1px solid #ccc;padding: 30px;margin-top: 30px;}
-</style>
 </head>
 
 <body>
-<h2>Display Drug Recall Info</h2>
-<section class="api-info"></section>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a href="index.html" class="navbar-brand">1515</a> </div>
+    <div class="navbar-collapse collapse" id="navbar"></div>
+    <!--/.navbar-collapse --> 
+  </div>
+</nav>
+
 <section class="search-input">
+<div class="container">
+<h2>Display Drug Recall Info</h2>
 	<form>
-    <fieldset>
-        <label for="brand_name"><div>Brand Name</label>
-		<input type="text" id="openfda.brand_name" size="30" placeholder="Brand Name" />
-    </fieldset>
-    <fieldset>
-    	<label for="ndc"><div>National Drug Code (NDC)</label>
-		<input type="text" id="openfda.product_ndc" size="30" placeholder="National Drug Code" />
-    </fieldset>
-    <button type="button" class="drug-recall-info-btn-query">Submit</button>
+    <div class="form-group">
+    	<label for="ndc">National Drug Code (NDC)</label>
+		<input type="text" id="openfda.product_ndc"  class="form-control" placeholder="National Drug Code (eg. 0009-0775)" />
+    </div>
+    <button type="button" class="btn btn-primary query-recallByNDC">Submit</button>
     </form>
+    </div>
 </section>
-<section id="results">
+<section>
+<div class="container" id="results">
 	<!-- results here -->
+    </div>
 </section>
-<script type="text/javascript" src="js/libs/jquery/jquery-1.10.2.js"></script>
-<script src="js/client/drugRecallHelper.js"></script>
-
-
+<script src="./js/client/app.js"></script>
 <!--Your new content will be displayed in here-->
 <div class="content-placeholder"></div>
 

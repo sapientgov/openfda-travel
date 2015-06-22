@@ -3,7 +3,7 @@
 var express = require('express');
 var fs      = require('fs');
 
-var publicDirectory = "css";
+
 
 
 /**
@@ -127,9 +127,11 @@ var SampleApp = function() {
             self.app.get(r, self.routes[r]);
         }
         
+        self.app.use(express.static('/src/'+__dirname));
         ['css', 'img', 'js', 'plugin', 'lib'].forEach(function (dir){
             self.app.use('/'+dir, express.static(__dirname+'/src/'+dir));
         });
+        
     };
 
 

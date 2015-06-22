@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>1515 App</title>
+    <link href="css/appstyles.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#" class="navbar-brand">1515</a> </div>
+            <div class="navbar-collapse collapse" id="navbar"></div>
+            <!--/.navbar-collapse -->
+        </div>
+    </nav>
+
+    <!-- main content -->
+    <div class="main-content"></div>
+
+    <!-- templates -->
+    <script type="text/template" id="drug-search-template">
+        <section class="search-input">
+            <div class="container">
+                <form>
+                    <div class="form-group">
+                        <label for="openfda.brand_name">Brand Name</label>
+                        <input type="text" name="brand-name" class="form-control" placeholder="Brand Name" />
+                    </div>
+                    <button type="button" role="button" class="btn btn-primary query-labelIndex">Submit</button>
+                </form>
+            </div>
+        </section>
+        <div id="results" class="container">
+            <!-- results here -->
+        </div>
+    </script>
+    
+    <script type="text/template" id="search-result-template">
+        <div style="margin-bottom:15px">
+            <strong><%- term %></strong> (<%- count %>)
+        </div>
+    </script>
+
+    <!-- Main JS File -->
+    <script src="./js/client/app-backbone.js"></script>
+</body>
+
+</html>
