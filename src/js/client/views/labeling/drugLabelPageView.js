@@ -8,7 +8,7 @@ var FdaService = require('../../service/fdaService');
 var DrugLabelInfoView = require('./drugLabelInfoView');
 
 var DrugLabelPageView = Backbone.View.extend({
-    el: '.main-content',
+    el: '#primary-content',
     
     initialize: function(options) {
         this.drug = options.drug;

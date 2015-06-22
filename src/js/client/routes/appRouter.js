@@ -22,7 +22,7 @@ var AppRouter = Backbone.Router.extend({
     
     drugSearch: function() {
         //initialize the drug search page view
-        this.currentView = new DrugSearchPageView({el: $('.main-content')});
+        this.currentView = new DrugSearchPageView();
         this.currentView.render();
     },
     
