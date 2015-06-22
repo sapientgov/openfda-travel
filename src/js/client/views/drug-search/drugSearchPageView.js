@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
 var FdaService = require('../../service/fdaService');
+var DrugSearchResultsView = require('./drugSearchResultsView');
 
 var DrugSearchPageView = Backbone.View.extend({
     
@@ -22,10 +23,16 @@ var DrugSearchPageView = Backbone.View.extend({
     },
     
     searchSubmit: function() {
+        var self = this;
         var q = this.$('input[name="brand-name"]').val();
         console.log('searching for %s', q);
         FdaService.findDrugsByBrand(q).done(function(data) {
+            
             console.log('result received:', data);
+            self.resultsView = new DrugSearchResultsView({resultsList: data.results});
+            self.resultsView.render();
+            self.$('#results').html(self.resultsView.el);
+            
         }).fail(function() {
             console.error('call failed!');
         });
