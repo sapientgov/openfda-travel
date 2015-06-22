@@ -55,47 +55,27 @@
                 <!-- segmented buttons -->
                 <h3>Enter medication by: </h3>
                 <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn fda-search search-all">All</button>
+                    </div>
                     <div class="btn-group active" role="group">
-                        <button type="button" class="btn">All</button>
+                        <button type="button" class="btn fda-search search-brand">Brand</button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn">Brand</button>
+                        <button type="button" class="btn fda-search search-generic">Generic</button>
                     </div>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn">Generic</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn">Ingredient</button>
+                        <button type="button" class="btn fda-search search-ingredient">Ingredient</button>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="ndc" class="sr-only">medication entry</label>
-                    <input type="text" id="openfda.product_ndc" class="form-control" placeholder="Enter text here" />
+                    <input type="text" name="brand-name" class="form-control" placeholder="Enter text here" />
                 </div>
             </form>
             <div id="info-list-panel">
                     Information you can access
             </div>
-        </div>
-    </script>
-    <script type="text/template" id="drug-search-template_bak">
-        <section class="search-input">
-            <div class="container">
-                <form>
-                    <input class="btn btn-default fda-search search-all" type="button" value="All">
-                    <input class="btn btn-default fda-search search-brand" type="button" value="Brand Name">
-                    <input class="btn btn-default fda-search search-generic" type="button" value="Generic">
-                    <input class="btn btn-default fda-search search-ingredient" type="button" value="Active Ingredient">
-                    <div class="form-group">
-                        <label for="openfda.brand_name">Brand Name</label>
-                        <input type="text" name="brand-name" class="form-control" placeholder="Brand Name" />
-                    </div>
-                    <button type="button" role="button" class="btn btn-primary query-labelIndex">Submit</button>
-                </form>
-            </div>
-        </section>
-        <div id="results" class="container">
-            <!-- results here -->
         </div>
     </script>
     

@@ -17,7 +17,7 @@ var DrugSearchPageView = Backbone.View.extend({
     events: {
         'click .query-labelIndex': 'searchSubmit',
         'keydown input[name="brand-name"]': 'checkEnter',
-        'click input.fda-search': 'clickSearchType'
+        'click button.fda-search': 'clickSearchType'
     },
     
     render: function() {
@@ -58,7 +58,7 @@ var DrugSearchPageView = Backbone.View.extend({
             
             self.resultsView = new DrugSearchResultsView({resultsList: data.results});
             self.resultsView.render();
-            self.$('#results').html(self.resultsView.el);
+            self.$('#info-list-panel').html(self.resultsView.el);
             
         }).fail(function() {
             console.error('call failed!');
@@ -75,18 +75,21 @@ var DrugSearchPageView = Backbone.View.extend({
     clickSearchType: function(e) {
         var $clicked = $(e.target);
         if($clicked.hasClass('search-all')) {
-            this.changeSearchType('ALL', 'All');
+            this.changeSearchType('ALL', 'All', 'search-all');
         } else if($clicked.hasClass('search-brand')) {
-            this.changeSearchType('BRAND', 'Brand Name');
+            this.changeSearchType('BRAND', 'Brand Name', 'search-brand');
         } else if($clicked.hasClass('search-generic')) {
-            this.changeSearchType('GENERIC', 'Generic');
+            this.changeSearchType('GENERIC', 'Generic', 'search-generic');
         } else if($clicked.hasClass('search-ingredient')) {
-            this.changeSearchType('INGREDIENT', 'Active Ingredient');
+            this.changeSearchType('INGREDIENT', 'Active Ingredient', 'search-ingredient');
         }
     },
     
-    changeSearchType: function(newType, label) {
+    changeSearchType: function(newType, label, activeClass) {
         this.searchType = newType;
+        console.log('active class: %s', activeClass);
+        this.$('.btn-group').removeClass('active');
+        this.$('.' + activeClass).parent().addClass('active');
         this.$('input[name="brand-name"]').attr('placeholder', label).val('');
     }
 });
