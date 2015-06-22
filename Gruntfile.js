@@ -39,7 +39,15 @@ module.exports = function(grunt) {
                 options: {
                     watch: true
                 }
+            },
+            web_backbone: {
+                dest: 'dist/js/client/app-backbone.js',
+                src: ['src/js/client/main-backbone.js'],
+                options: {
+                    watch: true
+                }
             }
+            
         },
         
         watch: {
@@ -89,8 +97,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('bootstrap-sass');
     grunt.loadNpmTasks('grunt-karma');
 
-    grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify:web']);
-    grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify:web']);
+    grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify']);
+    grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
     grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server', 'watch']);
     grunt.registerTask('jenkins',['build-prod', 'karma:ci']);
