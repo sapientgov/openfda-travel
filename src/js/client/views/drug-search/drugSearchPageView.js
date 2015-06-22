@@ -8,6 +8,7 @@ var FdaService = require('../../service/fdaService');
 var DrugSearchResultsView = require('./drugSearchResultsView');
 
 var DrugSearchPageView = Backbone.View.extend({
+    el: '#primary-content',
     
     initialize: function() {
         this.searchType = 'BRAND';
