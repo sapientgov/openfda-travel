@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
 var FdaService = require('../../service/fdaService');
-var DrugLabelInfoView = require('./drugRecallInfoView');
+var DrugRecallInfoView = require('./drugRecallInfoView');
 
 var DrugRecallPageView = Backbone.View.extend({
     el: '.main-content',
