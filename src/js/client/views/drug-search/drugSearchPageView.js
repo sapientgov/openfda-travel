@@ -9,9 +9,14 @@ var DrugSearchResultsView = require('./drugSearchResultsView');
 
 var DrugSearchPageView = Backbone.View.extend({
     
+    initialize: function() {
+        this.searchType = 'BRAND';
+    },
+    
     events: {
         'click .query-labelIndex': 'searchSubmit',
-        'keydown input[name="brand-name"]': 'checkEnter'
+        'keydown input[name="brand-name"]': 'checkEnter',
+        'click input.fda-search': 'clickSearchType'
     },
     
     render: function() {
@@ -21,10 +26,33 @@ var DrugSearchPageView = Backbone.View.extend({
         this.$el.html(inputTemplate());
     },
     
-    searchSubmit: function() {
-        var self = this;
+    searchSubmit: function(e) {
+        
         var q = this.$('input[name="brand-name"]').val();
         console.log('searching for %s', q);
+        
+        //check the search type and react accordingly
+        switch(this.searchType) {
+            case 'BRAND':
+                this.searchByBrand(q);
+                break;
+            case 'ALL':
+                alert('Cannot search by this yet');
+                break;
+            case 'GENERIC':
+                alert('Cannot search by this yet');
+                break;
+            case 'INGREDIENT':
+                alert('Cannot search by this yet');
+                break;
+            default:
+                throw new Error('Unexpected search type!');
+        }
+    },
+    
+    searchByBrand: function(q) {
+        var self = this;
+        
         FdaService.findDrugsByBrand(q).done(function(data) {
             
             self.resultsView = new DrugSearchResultsView({resultsList: data.results});
@@ -41,6 +69,24 @@ var DrugSearchPageView = Backbone.View.extend({
             event.preventDefault();
             this.searchSubmit();
         }
+    },
+    
+    clickSearchType: function(e) {
+        var $clicked = $(e.target);
+        if($clicked.hasClass('search-all')) {
+            this.changeSearchType('ALL', 'All');
+        } else if($clicked.hasClass('search-brand')) {
+            this.changeSearchType('BRAND', 'Brand Name');
+        } else if($clicked.hasClass('search-generic')) {
+            this.changeSearchType('GENERIC', 'Generic');
+        } else if($clicked.hasClass('search-ingredient')) {
+            this.changeSearchType('INGREDIENT', 'Active Ingredient');
+        }
+    },
+    
+    changeSearchType: function(newType, label) {
+        this.searchType = newType;
+        this.$('input[name="brand-name"]').attr('placeholder', label).val('');
     }
 });
 
