@@ -45,11 +45,16 @@
     <script type="text/template" id="search-result-template">
         <div style="margin-bottom:15px">
             <a href="#label/<%-term%>"><%- term %> (<%- count %>)</a>
+            <a href="#recall/<%-term%>">&nbsp&nbsp&nbsp[RECALL INFO]</a>
         </div>
     </script>
     
     <script type="text/template" id="drug-label-info">
         <h1>Drug Label Info For <%- openfda.brand_name %></h1>
+    </script>
+
+    <script type="text/template" id="drug-recall-info">
+        <h1>Drug Recall Info For <%- openfda.brand_name %></h1>
     </script>
 
     <!-- Main JS File -->

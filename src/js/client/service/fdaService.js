@@ -111,15 +111,16 @@ var FdaService = {
     
     /**
      * Finds all enforcement actions for the drug with
-     * the specified NDC ID
+     * the specified product NDC ID
      * 
-     * @param {String} ndc NDC ID of the target drug
+     * @param {String} product ndc NDC ID of the target drug
      */
-    findRecallInfo: function(ndc) {
+    findRecallInfoByBrandName: function(brand_name) {
         var reqUrl = ENFORCEMENT_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&search=application_number:' + ndc
+        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand_name + '"'
+        console.log('api call: ' + qs);
         
         //make json call
         var deferred = $.Deferred();
