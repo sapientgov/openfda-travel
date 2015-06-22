@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>1515 App</title>
+  <link href="css/appstyles.css" rel="stylesheet" type="text/css">
+  <script src="./js/client/app.js"></script>
+</head>
+
+<body>
+  <header role="banner">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        <a href="#" class="navbar-brand"><strong>FDA</strong>Anywhere</a> </div>
+        <div class="navbar-collapse collapse" id="navbar"></div>
+        <!--/.navbar-collapse --> 
+      </div>
+    </nav>
+</header>
+<main id="content" role="main">
+    <section id="drug-search">
+    
+      <div class="container">
+        <form id="search" class="col-xs-12 col-md-8">
+        <h1>Can I take this medication?</h1>
+          <!-- segmented buttons -->
+          <h3>Enter medication by: </h3>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group active" role="group">
+              <button type="button" class="btn">All</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn">Brand</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn">Generic</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn">Ingredient</button>
+            </div>
+          </div>
+          <div class="form-group">
+      <label for="ndc" class="sr-only">medication entry</label>
+    <input type="text" id="openfda.product_ndc"  class="form-control" placeholder="" />
+    </form>
+        <div id="info-list-panel" class="col-xs-12 col-md-8">
+          <h3>Information you can access</h3>
+        </div>
+      </div>
+    </section>
+
+<footer class="footer" role="contentinfo">
+<div class="container">
+  footer text here
+</div>
+</footer>
+  </body>
+  </html>

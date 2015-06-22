@@ -1,0 +1,27 @@
+#drug-search {
+    #info-list-panel {
+        border: 1px solid #fff;
+    }
+    .btn-group {
+        .btn {
+            @include border-radius(0);
+            background: none;
+            border: 1px solid #fff;
+            font-size: 12px;
+            &:hover {
+                background: rgba(255, 255, 255, 0.25);
+                color: #fff;
+            }
+        }
+        &.active {
+            .btn {
+                background: #fff;
+                color: #ff9900;
+                &:hover {
+                    background: #fff;
+                    color: #ff9900;
+                }
+            }
+        }
+    }
+}
