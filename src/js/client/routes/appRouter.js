@@ -31,7 +31,6 @@ var AppRouter = Backbone.Router.extend({
                 
                 //make sure we only include exact matches
                 var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-                console.log('exacts: ', exacts);
                 if(exacts.length > 0) {
                     
                     //for now just take the first result - may need to have the user choose?
