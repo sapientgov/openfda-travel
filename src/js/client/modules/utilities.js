@@ -3,8 +3,17 @@ module.exports =  {
 	test: function(){
 		return "Test Successful";
 	},
+	submitQuery: function(requesturl, successfn){
+		console.log("sq");
+		$.getJSON( requesturl,function(data){
+			}).done(function(data){
+				successfn(data);
+			}).fail(function() {
+				$('#results').html( "An error occurred." );
+			});
+	},
 
-	 stringifyResult: function(resultset, delimiter){
+	stringifyResult: function(resultset, delimiter){
 			delimiter = delimiter || '<br />';
 			var resultString = '';
 			if( typeof resultset === 'array' ) {

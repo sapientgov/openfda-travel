@@ -19,21 +19,14 @@ $(function() {
 
 	function queryGeneric(){
 		var filterList = [];
-
-			var APIurl = "https://api.fda.gov/drug/label.json";
-			var q = utility.addFilters();
-			var qs = (q.length > 0)? utility.constructQuery(q): "";
-			
-			console.log("querying API: " + APIurl + "\nsearch params: " + qs);
-			$.getJSON( APIurl+qs,function(data){
-			}).done(function( data ) {
-				outputLabel(data);
-			}).fail(function() {
-				$('#results').html( "An error occurred." );
-			});
+		var APIurl = "https://api.fda.gov/drug/label.json";
+		var q = utility.addFilters();
 		filterList = [];
+		var qs = (q.length > 0)? utility.constructQuery(q): "";
+			
+		console.log("querying API: " + APIurl + "\nsearch params: " + qs);
 		
-		function outputLabel(dataObj){
+		var outputLabel = function(dataObj){
 			var index = 0;
 			var contents = "";
 			$.each(dataObj.results, function(){
@@ -45,6 +38,8 @@ $(function() {
 			
 			$('#results').html( contents );
 		}
+
+		utility.submitQuery(APIurl+qs, outputLabel);
 	}
 
 	function queryLabelInfo(){
@@ -53,17 +48,10 @@ $(function() {
 			var APIurl = "https://api.fda.gov/drug/label.json";
 			var q = utility.addFilters();
 			var qs = (q.length > 0)? utility.constructQuery(q): "";
-			
+			filterList = [];
 			console.log("querying API: " + APIurl + "\nsearch params: " + qs);
-			$.getJSON( APIurl+qs,function(data){
-			}).done(function( data ) {
-				outputLabel(data);
-			}).fail(function() {
-				$('#results').html( "An error occurred." );
-			});
-		filterList = [];
 		
-		function outputLabel(dataObj){
+		var outputLabel = function(dataObj){
 			var index = 0;
 			var contents = "";
 			$.each(dataObj.results, function(){
@@ -76,9 +64,10 @@ $(function() {
 				"</div><div>Special User Groups: " + utility.stringifyResult(dataObj.results[0].use_in_specific_populations + " " + dataObj.results[0].pregnancy + " " + dataObj.results[0].teratogenic_effects + " " + dataObj.results[0].nonteratogenic_effects + " " + dataObj.results[0].labor_and_delivery + " " + dataObj.results[0].nursing_mothers + " " + dataObj.results[0].pregnancy_or_breast_feeding + " " + dataObj.results[0].pediatric_use + " " + dataObj.results[0].geriatric_use) +			"</div>"
 			});
 			index++;	
-			
 			$('#results').html( contents );
 		}
+		utility.submitQuery(APIurl+qs, outputLabel);
+
 	}
 
 	function queryDrugRecallInfo(){
@@ -87,17 +76,10 @@ $(function() {
 			var APIurl = "https://api.fda.gov/drug/enforcement.json";
 			var q = utility.addFilters();
 			var qs = (q.length > 0)? utility.constructQuery(q): "";
-			
+			filterList = [];
 			console.log("querying API: " + APIurl + "\nsearch params: " + qs);
-			$.getJSON( APIurl+qs,function(data){
-			}).done(function( data ) {
-				outputRecall(data);
-			}).fail(function() {
-				$('#results').html( "An error occurred." );
-			});
-		filterList = [];
 		
-		function outputRecall(dataObj){
+		var outputRecall = function(dataObj){
 			var contents = "<div>Total found:" + utility.stringifyResult(dataObj.meta.results.total) 
 				+ "</div><div>Displaying: "+dataObj.results.length+"</div><br/><br/>";
 			var index = 0;
@@ -125,7 +107,7 @@ $(function() {
 			
 			$('#results').html( contents );
 		}
-		
+		utility.submitQuery(APIurl+qs, outputRecall);
 			
 	}
 
