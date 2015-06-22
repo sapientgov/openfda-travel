@@ -17,9 +17,7 @@ var DrugSearchPageView = Backbone.View.extend({
         
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
-        this.$el.html(inputTemplate(new Backbone.Model({
-            mydata: 'Blah!'
-        }).toJSON()));
+        this.$el.html(inputTemplate());
     },
     
     searchSubmit: function() {
@@ -28,7 +26,6 @@ var DrugSearchPageView = Backbone.View.extend({
         console.log('searching for %s', q);
         FdaService.findDrugsByBrand(q).done(function(data) {
             
-            console.log('result received:', data);
             self.resultsView = new DrugSearchResultsView({resultsList: data.results});
             self.resultsView.render();
             self.$('#results').html(self.resultsView.el);

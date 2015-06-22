@@ -20,7 +20,6 @@ var DrugSearchResultsView = Backbone.View.extend({
         }
         
         _.each(this.resultsList, function(result) {
-            console.log(result);
             if(result.term) {
                 self.$el.append(self.template(result));
             }
