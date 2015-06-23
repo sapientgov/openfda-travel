@@ -3,7 +3,7 @@
 OLD_HOME=$HOME
 cd $OPENSHIFT_REPO_DIR
 export HOME=$OPENSHIFT_REPO_DIR
-
+echo "Building dist directory"
 grunt
-
+echo "Finished building dist directory"
 export HOME=$OLD_HOME
