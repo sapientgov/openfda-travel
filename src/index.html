@@ -92,7 +92,17 @@
                 <ul id="count-results-list">
                 </ul>
             </div>
+            <div id="product-results" style="display:none">
+                <p>We found multiple products that may match your search. Please select the product below that best matches what you are looking for.</p>
+                <ul id="product-result-list"></ul>
+            </div>
         </div>
+    </script>
+    
+    <script type="text/template" id="search-product-result">
+        Brand: <%- openfda.brand_name %><br />
+        Generic: <%- openfda.generic_name %><br />
+        Ingredients: <%- openfda.substance_name %><br />
     </script>
     
    <script type="text/template" id="drug-label-info">

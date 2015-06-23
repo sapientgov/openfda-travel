@@ -162,6 +162,36 @@ var FdaService = {
         
         //make json call
         return this.executeApiQuery(reqUrl + qs);
+    },
+    
+    /**
+     * Retrieves labelling info for for the target drug by Generic
+     * 
+     * @param {String} brand Brand name of the target drug
+     */
+    findLabelInfoByGeneric: function(generic) {
+        var reqUrl = LABEL_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '&limit=100&search=openfda.generic_name:"' + generic + '"';
+        
+        //make json call
+        return this.executeApiQuery(reqUrl + qs);
+    },
+    
+    /**
+     * Retrieves labelling info for for the target drug by Generic
+     * 
+     * @param {String} brand Ingredient name of the target drug
+     */
+    findLabelInfoByIngredient: function(ing) {
+        var reqUrl = LABEL_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '&limit=100&search=openfda.substance_name:"' + ing + '"';
+        
+        //make json call
+        return this.executeApiQuery(reqUrl + qs);
     }
 };
 
