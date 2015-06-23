@@ -58,6 +58,7 @@ section{
 }
 
 h1 {
+
     font-size: 34px;
     padding: 10px 0;
     &.welcome{
@@ -121,7 +122,9 @@ header {
     .navbar {
         margin: 0;
     }
-    .navbar-brand {
+    .navbar-brand *{
+
+        font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
         color: #333 !important
     }
 }
