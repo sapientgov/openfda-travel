@@ -22,9 +22,10 @@ var DrugSearchPageView = Backbone.View.extend({
     
     events: {
         'click .query-labelIndex': 'searchSubmit',
-        'keyup input[name="brand-name"]': 'checkKey',
+        'keyup input[name="brand-name"]': 'updateAutocomplete',
+        'keydown input[name="brand-name"]': 'checkEnter',
         'blur input[name="brand-name"]': 'clearResultsOnDelay',
-        'focus input[name="brand-name"]': 'checkKey',
+        'focus input[name="brand-name"]': 'updateAutocomplete',
         'click button.fda-search': 'clickSearchType'
     },
     
@@ -69,10 +70,10 @@ var DrugSearchPageView = Backbone.View.extend({
                 alert('Cannot search by this yet');
                 break;
             case 'GENERIC':
-                alert('Cannot search by this yet');
+                this.searchByGeneric(q, apiQ);
                 break;
             case 'INGREDIENT':
-                alert('Cannot search by this yet');
+                this.searchByActive(q, apiQ);
                 break;
             default:
                 throw new Error('Unexpected search type!');
@@ -91,7 +92,27 @@ var DrugSearchPageView = Backbone.View.extend({
         var self = this;
         
         //search the label database by brand
-        FdaService.findDrugsByBrand(apiQ).done(function(data) {
+        this.handleDrugSearch(FdaService.findDrugsByBrand(apiQ), q);
+    },
+    
+    searchByGeneric: function(q, apiQ) {
+        var self = this;
+        
+        //search the label database by brand
+        this.handleDrugSearch(FdaService.findDrugsByGeneric(apiQ), q);
+    },
+    
+    searchByActive: function(q, apiQ) {
+        var self = this;
+        
+        //search the label database by brand
+        this.handleDrugSearch(FdaService.findDrugsByActiveIng(apiQ), q);
+    },
+    
+    handleDrugSearch: function(apiPromise, q) {
+        var self = this;
+        
+        apiPromise.done(function(data) {
             
             //only update results if the field value is the same as what was requested
             if(self.$('input[name="brand-name"]').val() === q) {
@@ -125,17 +146,19 @@ var DrugSearchPageView = Backbone.View.extend({
        }, 100);
     },
     
-    checkKey: function(event) {
+    checkEnter: function(event) {
         if(event && (event.which === 13 || event.keyCode === 13)) {
             //do nothing on enter key
             event.preventDefault();
-        } else {
-            var val = this.$('input[name="brand-name"]').val();
-            if(val && val.length > 2) {
-                this.updateResults(val);
-            }
         }
     },
+    
+    updateAutocomplete: _.debounce(function(event) {
+        var val = this.$('input[name="brand-name"]').val();
+        if(val && val.length > 2) {
+            this.updateResults(val);
+        }
+    }, 200),
     
     clickSearchType: function(e) {
         var $clicked = $(e.target);
