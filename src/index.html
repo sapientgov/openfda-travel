@@ -26,21 +26,33 @@
     <main id="content" role="main">
         <section>
             <div class="container">
-                <p id="intro" class="col-md-offset-2 col-md-8"></p>
+                <div  id="intro" class="col-xs-12 col-sm-8 col-md-offset-2 col-md-8"></div>
                 <div class="row clearfix">
+
                     <div id="primary-content"  class="col-xs-12 col-sm-8 col-md-offset-2 col-md-5">
                         
                     </div>
                     <!-- <div id="search-results"  class="col-xs-12 col-sm-8 col-md-8"></div> -->
                     <aside class="col-xs-12 col-sm-4 col-md-3">
-                            <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
+                            <button class="btn-cta full-width add-margin-bottom">Click here to enter your profile information</button>
+
                             <div class="map-module">
-                                <div class="map-ph">Map Placeholder</div>
-                                <div class="list-group">
-                                    <button type="button" class="list-group-item">Pharmacies near you</button>
-                                    <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
-                                    <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
+
+                                <div class="module-title">Local Information</div>
+                                <div class="module-item">
+                                    <div class="module-content">
+                                        <div class="map-ph">Map Placeholder</div>
+                                    </div>
                                 </div>
+
+                                <dl>
+                                    <dt>Pharmacies near you</dt>
+                                    <dd></dd>
+                                    <dt>Hospitals / Clinics near you</dt>
+                                    <dd></dd>
+                                    <dt>U.S. Embassy / Consulates near you</dt>
+                                    <dd></dd>
+                                </dl>
                             </div>
                     </aside>
 
@@ -61,7 +73,8 @@
     </script>
     
     <script type="text/template" id="dashboard-intro-template">
-        This system will allow you to search the FDA Database and find out more information about your medications or potential medications you may be taking on the go.
+        <h1>Welcome to FDAAnywhere</h1>
+        <p>This system will allow you to search the FDA Database and find out more information about your medications or potential medications you may be taking on the go.</p>
     </script>
     
     
