@@ -41,12 +41,11 @@ var SampleApp = function() {
      */
     self.populateCache = function() {
         if (typeof self.zcache === "undefined") {
-            self.zcache = { 'index.html': '', 'displayLabel.html':'' };
+            self.zcache = { 'index.html': '' };
         }
 
         //  Local cache for static content.
         self.zcache['index.html'] = fs.readFileSync('./dist/index.html');
-        self.zcache['displayLabel.html'] = fs.readFileSync('./dist/displayLabel.html');
     };
 
 
@@ -107,11 +106,6 @@ var SampleApp = function() {
             res.setHeader('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };
-        
-        self.routes['/displayLabel'] = function(req, res){
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('displayLabel.html'));
-        }
     };
 
     /**
