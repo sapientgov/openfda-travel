@@ -45,8 +45,8 @@ var SampleApp = function() {
         }
 
         //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./src/index.html');
-        self.zcache['displayLabel.html'] = fs.readFileSync('./src/displayLabel.html');
+        self.zcache['index.html'] = fs.readFileSync('./dist/index-backbone.html');
+        self.zcache['displayLabel.html'] = fs.readFileSync('./dist/displayLabel.html');
     };
 
 
@@ -129,7 +129,7 @@ var SampleApp = function() {
         
         self.app.use(express.static(__dirname+'/dist'));
         ['css', 'img', 'js', 'plugin', 'lib'].forEach(function (dir){
-            self.app.use('/'+dir, express.static(__dirname+'/src/'+dir));
+            self.app.use('/'+dir, express.static(__dirname+'/dist/'+dir));
         });
         
     };
