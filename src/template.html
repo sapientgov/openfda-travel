@@ -14,134 +14,117 @@
             <div class="container">
                 <div class="navbar-header">
                     <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-
-                    <a href="#" class="navbar-brand">FDA<strong>Anywhere</strong></a> 
+                    <a href="#" class="navbar-brand">FDA<strong>Anywhere</strong></a>
                 </div>
-                <div class="navbar-collapse collapse" id="navbar"></div>
-                <!--/.navbar-collapse -->
+                <div class="navbar-collapse collapse" id="navbar">
+                    <!--
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#"><i class="fa fa-user-plus fa-2x"></i></a></li>
+                    </ul>
+                    -->
+                </div>
             </div>
         </nav>
     </header>
     <main id="content" role="main">
         <section id="drug-search">
             <div class="container">
-            <div class="row clearfix">
-                <div id="primary-content">
-                <div id="search-area" class="col-xs-12 col-sm-8 col-md-8">
-                    <form>
-                        <h1>Can I take this medication?</h1>
-                        <!-- segmented buttons -->
-                        <h3>Enter medication by: </h3>
-                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                            <div class="btn-group active" role="group">
-                                <button type="button" class="btn">All</button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn">Brand</button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn">Generic</button>
-                            </div>
-                            <div class="btn-group" role="group">
-                                <button type="button" class="btn">Ingredient</button>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ndc" class="sr-only">medication entry</label>
-                            <input type="text" id="openfda.product_ndc" class="form-control" placeholder="Enter text here" />
-                        </div>
-                    </form>
-                    <div id="info-list-panel">
-                            Information you can access
-                    </div>
-                </div>
-                </div>
-                
+                    <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
 
-                <aside class="col-xs-12 col-sm-4 col-md-4">
-                        <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
-                        <div class="map-module">
-                            <div class="map-ph">Map Placeholder</div>
-                            <div class="list-group">
-                                <button type="button" class="list-group-item">Pharmacies near you</button>
-                                <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
-                                <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
+                        <!-- home -->
+                        <div class="home">
+                            <h1 class="welcome">Welcome to FDA<strong>Anywhere</strong></h1>
+                            <div class="intro">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu ornare purus. In vulputate leo elit, non suscipit turpis condimentum aliquet. Donec interdum consectetur risus faucibus sagittis. Suspendisse facilisis at sapien vel consequat. In consequat lacus a arcu fermentum, id egestas nulla tristique.
+                            </div>
+                            <div class="row clearfix">
+                                <div class="question-nav list-group col-md-8">
+                                    <button type="button" class="list-group-item">Can I take this medication?</button>
+                                    <button type="button" class="list-group-item">Is this medication FDA approved?</button>
+                                    <button type="button" class="list-group-item">Has this medication been recalled?</button>
+                                    <button type="button" class="list-group-item">Is this medication available abroad?</button>
+                                </div>
                             </div>
                         </div>
-                </aside>
 
-                </div><!-- End row-->
+                        <!-- Search area -->
+                        <div id="search-area">
+                            <form>
+                                <h1>Can I take this medication?</h1>
+                                <!-- segmented buttons -->
+                                <h3>Enter medication by: </h3>
+                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <div class="btn-group active" role="group">
+                                        <button type="button" class="btn">All</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn">Brand</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn">Generic</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn">Ingredient</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ndc" class="sr-only">medication entry</label>
+                                    <input type="text" id="openfda.product_ndc" class="form-control" placeholder="Enter text here" />
+                                </div>
+                            </form>
+                            <div id="info-list-panel">
+                                Information you can access
+                            </div>
+                        </div>
+                        
+                        <!-- Result List template-->
+                        <div id="result" class="row clearfix add-margin-top">
+                            <h1>Can I take this medication?</h1>
+                            <div id="search-area" class="col-xs-12 col-sm-8 col-md-8">
+                                <ul id="drug-overview">
+                                    <li class="overview">Drug overview card</li>
+                                    <!-- part of loop -->
+                                    <li>Warnings &amp; Precautions</li>
+                                    <li>Indications, Usage &amp; Dosage</li>
+                                    <li>Abuse &amp; Overdosage</li>
+                                    <li>Adverse Effects &amp; Interactions</li>
+                                    <li>Special Populations</li>
+                                    <li>Other Fields</li>
+                                </ul>
+                                <div id="showMore" class="showMore">
+                                    <button class="btn-wire full-width">View More</button>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div><!-- end primary content -->
+
+                    <aside class=" col-xs-12 col-md-4 col-md-4">
+                                <button class="btn btn-primary full-width add-margin-bottom">Check more medications ></button>
+                                <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
+                                <button class="btn btn-primary full-width add-margin-bottom">Share results ></button>
+                                <div class="map-module">
+                                    <div class="map-ph">Map Placeholder</div>
+                                    <div class="list-group">
+                                        <button type="button" class="list-group-item">Pharmacies near you</button>
+                                        <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
+                                        <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
+                                    </div>
+                                </div>
+                            </aside>
+
+
+
+
+                </div>
+                <!-- End row-->
             </div>
         </section>
-        <section id="dashboard">
-            <div class="container">
-                <div class="intro">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu ornare purus. In vulputate leo elit, non suscipit turpis condimentum aliquet. Donec interdum consectetur risus faucibus sagittis. Suspendisse facilisis at sapien vel consequat. In consequat lacus a arcu fermentum, id egestas nulla tristique.
-                </div>
-                <div class="row clearfix">
-                    <div class="question-nav list-group col-md-8">
-                        <button type="button" class="list-group-item">Can I take this medication?</button>
-                        <button type="button" class="list-group-item">Is this medication FDA approved?</button>
-                        <button type="button" class="list-group-item">Has this medication been recalled?</button>
-                        <button type="button" class="list-group-item">Is this medication available abroad?</button>
-                    </div>
-                    <aside class="col-xs-12 col-sm-4 col-md-4">
-                        <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
-                        <div class="map-module">
-                            <div class="map-ph">Map Placeholder</div>
-                            <div class="list-group">
-                                <button type="button" class="list-group-item">Pharmacies near you</button>
-                                <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
-                                <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-            </div>
-        </section>
-
-        <section id="drug-detail">
-            <div class="container">
-              
-            <div class="row clearfix add-margin-top">
-            <h1>Can I take this medication?</h1>
-                <div id="search-area" class="col-xs-12 col-sm-8 col-md-8">
-                      <ul id="drug-overview">
-                        <li class="overview">Drug overview card</li>
-                        <!-- part of loop -->
-                        <li>Warnings &amp; Precautions</li>
-                        <li>Indications, Usage &amp; Dosage</li>
-                        <li>Abuse &amp; Overdosage</li>
-                        <li>Adverse Effects &amp; Interactions</li>
-                        <li>Special Populations</li>
-                        <li>Other Fields</li>
-                      </ul>
-                      <div id="showMore" class="showMore"><button class="btn-wire full-width">View More</button></div>
-                </div>
-                <aside class=" col-xs-12 col-md-4 col-md-4">
-                <button class="btn btn-primary full-width add-margin-bottom">Check more medications ></button>
-                <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
-                <button class="btn btn-primary full-width add-margin-bottom">Share results ></button>
-                        <div class="map-module">
-                            <div class="map-ph">Map Placeholder</div>
-                            <div class="list-group">
-                                <button type="button" class="list-group-item">Pharmacies near you</button>
-                                <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
-                                <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
-                            </div>
-                        </div>
-                </aside>
-            </div>
-            </div>
-            </section>
-
-
-
-
     </main>
     <footer class="footer" role="contentinfo">
         <div class="container">
-            &copy; 2015 Publicis.Sapient.  All Rights Reseved.
+            &copy; 2015 Publicis.Sapient. All Rights Reseved.
         </div>
     </footer>
 </body>
