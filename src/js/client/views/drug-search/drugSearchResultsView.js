@@ -37,9 +37,8 @@ var DrugSearchResultsView = Backbone.View.extend({
     },
     
     handleSelect: function() {
-        //trigger an event on the parent <ul> node
         console.log('triggering callback, term=%s', this.result.term);
-        this.callback(this.result.term);
+        this.callback(this.result.term, this.result.count);
     }
 });
 

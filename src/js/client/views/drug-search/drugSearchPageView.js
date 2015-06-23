@@ -7,6 +7,7 @@ var _ = require('underscore');
 var FdaService = require('../../service/fdaService');
 var DataUtils = require('../../utils/dataUtils');
 var DrugSearchResultsView = require('./drugSearchResultsView');
+var DrugProductResultsView = require('./drugProductResultsView');
 
 var DrugSearchPageView = Backbone.View.extend({
     initialize: function(options) {
@@ -56,7 +57,7 @@ var DrugSearchPageView = Backbone.View.extend({
         return this;
     },
     
-    updateResults: function(q) {
+    updateAutocompleteResults: function(q) {
         //split the query into parts
         var apiQ = DataUtils.combineMultipartQuery(q, '+AND+');
         console.log('count results for query %s', apiQ);
@@ -64,52 +65,135 @@ var DrugSearchPageView = Backbone.View.extend({
         //check the search type and react accordingly
         switch(this.searchType) {
             case 'BRAND':
-                this.searchByBrand(q, apiQ);
+                this.countByBrand(q, apiQ);
                 break;
             case 'ALL':
                 alert('Cannot search by this yet');
                 break;
             case 'GENERIC':
-                this.searchByGeneric(q, apiQ);
+                this.countByGeneric(q, apiQ);
                 break;
             case 'INGREDIENT':
-                this.searchByActive(q, apiQ);
+                this.countByActive(q, apiQ);
                 break;
             default:
                 throw new Error('Unexpected search type!');
         }
     },
     
-    chooseResult: function(term) {
-        console.log('triggering search for %s', term);
-        this.trigger('drug-search-complete', {
-            type: this.searchType,
-            q: term
+    showProductOptions: function(q) {
+        
+        //check the search type and react accordingly
+        switch(this.searchType) {
+            case 'BRAND':
+                this.getProductsByBrand(q);
+                break;
+            case 'ALL':
+                alert('Cannot search by this yet');
+                break;
+            case 'GENERIC':
+                this.getProductsByGeneric(q);
+                break;
+            case 'INGREDIENT':
+                this.getProductsByActive(q);
+                break;
+            default:
+                throw new Error('Unexpected search type!');
+        }
+    },
+    
+    chooseResult: function(selection, count) {
+        if(_.isObject(selection)) {
+            //this is an actual object being passed back - send it to the target page
+            console.log('triggering search for %s', selection);
+            this.trigger('drug-search-complete', {
+                type: this.searchType,
+                result: selection
+            });
+            return;
+        }
+        
+        //if the selection is not an object, it must be a query term
+        if(count > 1) {
+            //we need the user to choose a product since we have multiple matches
+            this.showProductOptions(selection);
+        } else {
+            //only one object to match - just send it back
+            //should we go ahead and fetch the actual result object here?
+            console.log('triggering search for %s', selection);
+            this.trigger('drug-search-complete', {
+                type: this.searchType,
+                q: selection
+            });
+        }
+    },
+    
+    getProductsByBrand: function(q) {
+        var self = this;
+        FdaService.findLabelInfoByBrand(q).done(function(data) {
+            
+            //trim brand data and display
+            var exacts = DataUtils.findExactBrandMatches(data.results, q);
+            self.displayProductOptions(exacts);
         });
     },
     
-    searchByBrand: function(q, apiQ) {
+    getProductsByActive: function(q) {
+        var self = this;
+        FdaService.findLabelInfoByIngredient(q).done(function(data) {
+            
+            //display products
+            self.displayProductOptions(data.results);
+        });
+    },
+    
+    getProductsByGeneric: function(q) {
+        var self = this;
+        FdaService.findLabelInfoByGeneric(q).done(function(data) {
+            
+            //display products
+            self.displayProductOptions(data.results);
+        });
+    },
+    
+    displayProductOptions: function(prodList) {
+        var self = this;
+        
+        console.log('found label data for product list', prodList);
+        _.each(prodList, function(item) {
+            var view = new DrugProductResultsView({
+                result: item,
+                callback: _.bind(self.chooseResult, self)
+            });
+            self.$('#product-result-list').append(view.render().el);
+        });
+
+        //show the section
+        this.$('#product-results').show();
+    },
+    
+    countByBrand: function(q, apiQ) {
         var self = this;
         
         //search the label database by brand
-        this.handleDrugSearch(FdaService.findDrugsByBrand(apiQ), q);
+        this.handleAutocompleteDrugSearch(FdaService.findDrugsByBrand(apiQ), q);
     },
     
-    searchByGeneric: function(q, apiQ) {
+    countByGeneric: function(q, apiQ) {
         var self = this;
         
         //search the label database by brand
-        this.handleDrugSearch(FdaService.findDrugsByGeneric(apiQ), q);
+        this.handleAutocompleteDrugSearch(FdaService.findDrugsByGeneric(apiQ), q);
     },
     
-    searchByActive: function(q, apiQ) {
+    countByActive: function(q, apiQ) {
         var self = this;
         
         //search the label database by brand
-        this.handleDrugSearch(FdaService.findDrugsByActiveIng(apiQ), q);
+        this.handleAutocompleteDrugSearch(FdaService.findDrugsByActiveIng(apiQ), q);
     },
     
-    handleDrugSearch: function(apiPromise, q) {
+    handleAutocompleteDrugSearch: function(apiPromise, q) {
         var self = this;
         
         apiPromise.done(function(data) {
@@ -156,7 +240,7 @@ var DrugSearchPageView = Backbone.View.extend({
     updateAutocomplete: _.debounce(function(event) {
         var val = this.$('input[name="brand-name"]').val();
         if(val && val.length > 2) {
-            this.updateResults(val);
+            this.updateAutocompleteResults(val);
         }
     }, 200),
     

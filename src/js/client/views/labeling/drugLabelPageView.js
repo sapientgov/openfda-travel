@@ -28,14 +28,24 @@ var DrugLabelPageView = Backbone.View.extend({
     
     renderLabelInfo: function(searchData) {
         console.log('Rendering label info!', searchData);
-		var searchType = searchData.type;
-		var brand = searchData.q;
-		console.log('Data type: ', searchType);
-		console.log('Brand: ', brand);
-		if(searchType == 'BRAND')
-		{
-			this.brandSearch(brand);
-		}
+        
+        //if we got an actual result object from the search we just need to show it
+        if(searchData.result) {
+            //hide the search result stuff
+            this.$('#product-results').hide();
+            this.labelInfoView = new DrugLabelInfoView({drug: searchData.result});
+            this.$el.append(this.labelInfoView.render().el);
+        } else {
+
+            var searchType = searchData.type;
+            var brand = searchData.q;
+            console.log('Data type: ', searchType);
+            console.log('Brand: ', brand);
+            if(searchType == 'BRAND')
+            {
+                this.brandSearch(brand);
+            }
+        }
     },
 	
     /* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
