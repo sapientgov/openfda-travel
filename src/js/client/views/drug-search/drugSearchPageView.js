@@ -77,7 +77,7 @@ var DrugSearchPageView = Backbone.View.extend({
                 apiPromise = FdaService.findDrugsByBrand(q);
                 break;
             case 'RECALL':
-                apiPromise = FdaService.findRecallsByBrand(q);
+                apiPromise = FdaService.findDrugRecallsByBrand(q);
                 break;
             default:
                 throw new Error('Unsupported search target');

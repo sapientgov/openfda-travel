@@ -33,6 +33,31 @@ var FdaService = {
     },
     
     /**
+     * Returns a "count" query from the recall data
+     * for all drugs with the specified query in the "brand"
+     * attribute
+     * 
+     * @param {String}  brandQ Brand query to search for
+     * @returns {Promise} jQuery promise object for API call
+     */
+    findDrugRecallsByBrand: function(brandQ) {
+        var reqUrl = ENFORCEMENT_URL;
+        
+        //add qs parameters
+        var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ
+        
+        //make json call
+        var deferred = $.Deferred();
+        $.getJSON(reqUrl + qs).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
+    },
+    
+    /**
      * Returns a "count" query from the labeling data
      * for all drugs with the specified query in the "active_ingredient"
      * attribute
