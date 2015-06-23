@@ -24,7 +24,7 @@
 
     <!-- main content -->
     <main id="content" role="main">
-        <section id="drug-search">
+        <section>
             <div class="container">
             <div class="row clearfix">
                 <div id="primary-content"></div>
@@ -49,40 +49,32 @@
 
     <!-- templates -->
     <script type="text/template" id="drug-search-template">
-        <div id="search-area" class="col-xs-12 col-sm-8 col-md-8">
-            <form>
-                <h1>Can I take this medication?</h1>
-                <!-- segmented buttons -->
-                <h3>Enter medication by: </h3>
-                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn fda-search search-all">All</button>
-                    </div>
-                    <div class="btn-group active" role="group">
-                        <button type="button" class="btn fda-search search-brand">Brand</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn fda-search search-generic">Generic</button>
-                    </div>
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn fda-search search-ingredient">Ingredient</button>
-                    </div>
+        <div id="drug-search" class="col-xs-12 col-sm-8 col-md-8">
+            <h1>Can I take this medication?</h1>
+            <!-- segmented buttons -->
+            <h3>Enter medication by: </h3>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn fda-search search-all">All</button>
                 </div>
-                <div class="form-group">
-                    <label for="ndc" class="sr-only">medication entry</label>
-                    <input type="text" name="brand-name" class="form-control" placeholder="Enter text here" />
+                <div class="btn-group active" role="group">
+                    <button type="button" class="btn fda-search search-brand">Brand</button>
                 </div>
-            </form>
-            <div id="info-list-panel">
-                    Information you can access
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn fda-search search-generic">Generic</button>
+                </div>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn fda-search search-ingredient">Ingredient</button>
+                </div>
             </div>
-        </div>
-    </script>
-    
-    <script type="text/template" id="search-result-template">
-        <div style="margin-bottom:15px">
-            <a href="#label/<%-term%>"><%- term %> (<%- count %>)</a>
-            <a href="#recall/<%-term%>">&nbsp&nbsp&nbsp[RECALL INFO]</a>
+            <div class="form-group">
+                <label for="ndc" class="sr-only">medication entry</label>
+                <input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
+            </div>
+            <div id="drug-search-results">
+                <ul id="count-results-list">
+                </ul>
+            </div>
         </div>
     </script>
     
