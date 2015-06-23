@@ -31,6 +31,23 @@ module.exports = function(grunt) {
                 }
             }
         },
+        
+        jshint: {
+            scripts: {
+                src : [ 'src/js/**/*.js', '!src/js/client/libs/**/*.js'],
+                options: {
+                    laxbreak : true,
+				    smarttabs : true,
+                    browserify: true,
+                    browser: true,
+                    devel: true,
+                    strict: true,
+                    globals: {
+                        google: false
+                    }
+                }
+            }
+        },
 
 		browserify: {
             web: {
@@ -54,6 +71,10 @@ module.exports = function(grunt) {
             js_test: {
                 files: ['test/js/**/*.js', 'src/js/client/**/*.js'],
                 tasks: ['karma:dev:run']
+            },
+            js: {
+                files: ['src/js/**/*.js'],
+                tasks: ['jshint']
             }
         },
 
@@ -86,13 +107,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('bootstrap-sass');
     grunt.loadNpmTasks('grunt-karma');
 
     grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify']);
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
-    grunt.registerTask('dev', ['build-dev', 'karma:dev:start', 'connect:server', 'watch']);
-    grunt.registerTask('jenkins',['build-prod', 'karma:ci']);
+    grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'connect:server', 'watch']);
+    grunt.registerTask('jenkins',['build-prod', 'jshint', 'karma:ci']);
 
 }
