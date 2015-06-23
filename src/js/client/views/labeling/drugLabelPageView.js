@@ -50,13 +50,7 @@ var DrugLabelPageView = Backbone.View.extend({
                 
                 //make sure we only include exact matches
 				var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-                if(exacts.length === 1) {
-                    
-                    //for now just take the first result - may need to have the user choose?
-                    self.labelInfoView = new DrugLabelInfoView({drug: exacts[0]});
-					self.$el.append(self.labelInfoView.render().el);
-					
-                } else if (exacts.length > 0) {
+                if (exacts.length > 0) {
                     //for now just take the first result - may need to have the user choose?
                     self.labelInfoView = new DrugLabelInfoView({drug: exacts[0]});
 					self.$el.append(self.labelInfoView.render().el);
