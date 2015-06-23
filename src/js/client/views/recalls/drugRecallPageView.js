@@ -27,15 +27,79 @@ var DrugRecallPageView = Backbone.View.extend({
     },
     
     renderRecallInfo: function(searchData) {
-        console.log('Rendering drug recall info!', searchData);
+        console.log('Rendering label info!', searchData);
+        var searchType = searchData.type;
+        var brand = searchData.q;
+        console.log('Data type: ', searchType);
+        console.log('Brand: ', brand);
+        if(searchType == 'BRAND')
+        {
+            this.brandSearch(brand);
+        }
     },
     
-    ///////////
-    //just a placeholder for now - not functional
-    ////////////
-    search: function(brand) {
+    /*This function hides sections in the label search results that are empty.
+    */
+    toggleSectionDisplays: function() {
+                    if(document.getElementById('id-and-versions-data').childNodes.length == '1'){
+                        document.getElementById('id-and-versions').style.display='none';
+                    }
+                    
+                    if(document.getElementById('abuse-and-overdosage-data').childNodes.length == '1'){
+                        document.getElementById('abuse-and-overdosage').style.display='none';
+                    }
+                    
+                    if(document.getElementById('adverse-effects-data').childNodes.length == '1'){
+                        document.getElementById('adverse-effects').style.display='none';
+                    }
+                    
+                    if(document.getElementById('clinical-pharmacology-data').childNodes.length == '1'){
+                        document.getElementById('clinical-pharmacology').style.display='none';
+                    }
+                    
+                    if(document.getElementById('indications-data').childNodes.length == '1'){
+                        document.getElementById('indications').style.display='none';
+                    }
+                    
+                    if(document.getElementById('patient-info-data').childNodes.length == '1'){
+                        document.getElementById('patient-info').style.display='none';
+                    }
+                    
+                    if(document.getElementById('special-populations-data').childNodes.length == '1'){
+                        document.getElementById('special-populations').style.display='none';
+                    }
+                    
+                    if(document.getElementById('non-clinical-tox-data').childNodes.length == '1'){
+                        document.getElementById('non-clinical-tox').style.display='none';
+                    }
+                    if(document.getElementById('references-data').childNodes.length == '1'){
+                        document.getElementById('references').style.display='none';
+                    }
+                    
+                    if(document.getElementById('supply-data').childNodes.length == '1'){
+                        document.getElementById('supply').style.display='none';
+                    }
+                    
+                    if(document.getElementById('warnings-data').childNodes.length == '1'){
+                        document.getElementById('warnings').style.display='none';
+                    }
+                    
+                    if(document.getElementById('other-fields-data').childNodes.length == '1'){
+                        document.getElementById('other-fields').style.display='none';
+                    }
+                    
+                    if(document.getElementById('open-fda-fields-data').childNodes.length == '1'){
+                        document.getElementById('open-fda-fields').style.display='none';
+                    }
+    },
+    
+    /* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
+    */
+    brandSearch: function(brand) {
         //find the drug we want
         console.log('getting drug recall info for %s.', brand);
+        var self=this;
+
         FdaService.findRecallInfoByBrandName(brand).done(function(data) {
             if(data.results && data.results.length > 0) {
                 
@@ -45,6 +109,10 @@ var DrugRecallPageView = Backbone.View.extend({
                     
                     //for now just take the first result - may need to have the user choose?
                     this.currentView = new DrugRecallPageView({drug: exacts[0]});
+                    $('#search-results').append(this.currentView.render().el);
+
+                    self.toggleSectionDisplays();
+                    
                     this.currentView.render();
                     return;
                 }
