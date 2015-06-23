@@ -17,7 +17,7 @@ var AppRouter = Backbone.Router.extend({
     
     routes: {
         '': 'intro',
-        'label/:brand': 'drugLabel',
+        'label': 'label',
         'recall/:brand': 'drugRecall'
     },
     
@@ -28,6 +28,15 @@ var AppRouter = Backbone.Router.extend({
         
         //add buttons
         this.currentView = new InitialQuestionsView();
+        this.currentView.render();
+    },
+    
+    label: function() {
+        //get rid of intro content
+        this.clearIntroContent();
+        
+        //init drug label view
+        this.currentView = new DrugLabelPageView();
         this.currentView.render();
     },
     
@@ -79,6 +88,14 @@ var AppRouter = Backbone.Router.extend({
         }).fail(function() {
             console.error('failed to find drug recall info by brand name');
         });
+    },
+    
+    clearIntroContent: function() {
+        //make sure intro content is gone
+        if(this.introView) {
+            this.introView.remove();
+            this.introView = undefined;
+        }
     }
 
 });

@@ -46,6 +46,7 @@
     &.question-nav{
         padding: 0 15px 15px 15px;
         .list-group-item{
+            text-align: left;
             margin-bottom: 15px;
             @include border-radius(8px);
             font-size: 24px;

@@ -8,8 +8,6 @@ var FdaService = require('../../service/fdaService');
 var DrugSearchResultsView = require('./drugSearchResultsView');
 
 var DrugSearchPageView = Backbone.View.extend({
-    el: '#primary-content',
-    
     initialize: function(options) {
         
         //default search type
@@ -34,6 +32,9 @@ var DrugSearchPageView = Backbone.View.extend({
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
         this.$el.html(inputTemplate());
+        
+        //enable chaining
+        return this;
     },
     
     updateResults: function(q) {
