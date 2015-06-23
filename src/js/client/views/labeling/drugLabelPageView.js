@@ -108,8 +108,8 @@ var DrugLabelPageView = Backbone.View.extend({
                 if(exacts.length > 0) {
                     
                     //for now just take the first result - may need to have the user choose?
-                    this.currentView = new DrugLabelInfoView({drug: exacts[0]});
-					$('#search-results').append(this.currentView.render().el);
+                    self.labelInfoView = new DrugLabelInfoView({drug: exacts[0]});
+					self.$el.append(self.labelInfoView.render().el);
 					
 					self.toggleSectionDisplays();
 					
