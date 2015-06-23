@@ -1,5 +1,13 @@
+/***************
+* Variables
+****************/
 $global-margin: 15px;
-
+$fda-yellow: #fdcc4c;
+$fda-blue: #0b1b4f;
+$fda-teal: #19b8a6;
+/***************
+* Fonts
+****************/
 @font-face {
     font-family: 'RobotoCondensed';
     src: url('../fonts/Roboto_Condensed/Roboto-Condensed-webfont.eot');
@@ -30,22 +38,31 @@ $global-margin: 15px;
          url('../fonts/fontawesome-webfont.svg') format('svg');
 }
 */
+
+
 body {
     font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
-    font-size: 12px;
-    background: #0b1b4f;
+    font-size: 14px;
+    background: $fda-blue  url(../img/bg-home.jpg) no-repeat center center fixed; 
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
 }
 strong{
     font-weight: 700;
 }
 section{
     padding: 15px 0;
+
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 34px;
     padding: 10px 0;
-    border-bottom: 3px solid #fff;
+    &.welcome{
+        font-weight: 400;
+    }
 }
 
 h3 {
@@ -116,7 +133,7 @@ main {
 
 .footer {
     width: 100%;
-    background: #fdcc4c;
+    background: $fda-yellow;
     padding: 15px 0;
     margin-top: 30px;
     height: 60px;

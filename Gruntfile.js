@@ -1,4 +1,8 @@
 module.exports = function(grunt) {
+    
+    //if this is in the openshift environment look up the correct port to use
+    var ci_port = process.env.OPENSHIFT_NODEJS_PORT || 32000;
+    
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
@@ -10,7 +14,7 @@ module.exports = function(grunt) {
         copy : {
             html : {
                 cwd: 'src/',
-                src : ['*.html', 'fonts/*'],
+                src : ['*.html', 'fonts/*', 'img/*'],
                 dest : 'dist/',
                 expand: true
             }
@@ -96,7 +100,8 @@ module.exports = function(grunt) {
             },
             ci: {
                 configFile: 'karma.conf.js',
-                singleRun: true
+                singleRun: true,
+                port: ci_port
             }
         }
 
