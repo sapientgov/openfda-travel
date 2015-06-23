@@ -1,3 +1,5 @@
+'use strict';
+
 var $ = require('jquery');
 
 var LABEL_URL = "https://api.fda.gov/drug/label.json";
@@ -19,7 +21,7 @@ var FdaService = {
         var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ
+        var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ;
         
         //make json call
         var deferred = $.Deferred();
@@ -44,7 +46,7 @@ var FdaService = {
         var reqUrl = ENFORCEMENT_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ
+        var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ;
         
         //make json call
         var deferred = $.Deferred();
@@ -70,7 +72,7 @@ var FdaService = {
 		var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&count=active_ingredient.exact&search=active_ingredient:' + ingQ
+        var qs = BEGIN_QS + '&count=active_ingredient.exact&search=active_ingredient:' + ingQ;
         
         //make json call
         var deferred = $.Deferred();
@@ -95,7 +97,7 @@ var FdaService = {
 		var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.generic_name:' + genericQ
+        var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.generic_name:' + genericQ;
         
         //make json call
         var deferred = $.Deferred();
@@ -121,7 +123,7 @@ var FdaService = {
         
         //add qs parameters 
 		//TODO count field may be changed - ask design team
-        var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.brand_name:' + query + '+openfda.active_ingredient:' + query + '+openfda.generic_name:' + query
+        var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.brand_name:' + query + '+openfda.active_ingredient:' + query + '+openfda.generic_name:' + query;
         
         //make json call
         var deferred = $.Deferred();
@@ -144,7 +146,7 @@ var FdaService = {
         var reqUrl = ENFORCEMENT_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand_name + '"'
+        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand_name + '"';
         console.log('api call: ' + qs);
         
         //make json call
@@ -168,7 +170,7 @@ var FdaService = {
         var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&search=application_number:' + ndc
+        var qs = BEGIN_QS + '&search=application_number:' + ndc;
         
         //make json call
         var deferred = $.Deferred();
@@ -190,7 +192,7 @@ var FdaService = {
         var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand + '"'
+        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand + '"';
         console.log('api call: ' + qs);
         //make json call
         var deferred = $.Deferred();

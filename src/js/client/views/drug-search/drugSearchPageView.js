@@ -28,10 +28,13 @@ var DrugSearchPageView = Backbone.View.extend({
     },
     
     render: function() {
+        //figure out the recall title
         
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
-        this.$el.html(inputTemplate());
+        this.$el.html(inputTemplate({
+            title: 'title!'
+        }));
         
         //enable chaining
         return this;

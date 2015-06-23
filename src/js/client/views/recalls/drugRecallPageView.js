@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
 var FdaService = require('../../service/fdaService');
+var DataUtils = require('../../utils/dataUtils');
 var DrugRecallInfoView = require('./drugRecallInfoView');
 var DrugSearchPageView = require('../drug-search/drugSearchPageView');
 
@@ -32,7 +33,7 @@ var DrugRecallPageView = Backbone.View.extend({
     ///////////
     //just a placeholder for now - not functional
     ////////////
-    search: function() {
+    search: function(brand) {
         //find the drug we want
         console.log('getting drug recall info for %s.', brand);
         FdaService.findRecallInfoByBrandName(brand).done(function(data) {
