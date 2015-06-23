@@ -1,14 +1,47 @@
 $global-margin: 15px;
 
+@font-face {
+    font-family: 'RobotoCondensed';
+    src: url('../fonts/Roboto_Condensed/Roboto-Condensed-webfont.eot');
+    src: url('../fonts/Roboto_Condensed/Roboto-Condensed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Roboto_Condensed/Roboto-Condensed-webfont.woff') format('woff'),
+         url('../fonts/Roboto_Condensed/Roboto-Condensed-webfont.ttf') format('truetype'),
+         url('../fonts/Roboto_Condensed/Roboto-Condensed-webfont.svg#robotoregular') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'RobotoCondensed';
+    src: url('../fonts/Roboto_Condensed/Roboto-BoldCondensed-webfont.eot');
+    src: url('../fonts/Roboto_Condensed/Roboto-BoldCondensed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Roboto_Condensed/Roboto-BoldCondensed-webfont.woff') format('woff'),
+         url('../fonts/Roboto_Condensed/Roboto-BoldCondensed-webfont.ttf') format('truetype'),
+         url('../fonts/Roboto_Condensed/Roboto-BoldCondensed-webfont.svg#robotoregular') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}
+/*
+@font-face {
+    font-family: 'FontAwesome';
+    src: url('../fonts/fontawesome-webfont.eot');
+    src: url('../fonts/fontawesome-webfont.eot') format('embedded-opentype'),
+         url('../fonts/fontawesome-webfont.woff') format('woff'),
+         url('../fonts/fontawesome-webfontt.ttf') format('truetype'),
+         url('../fonts/fontawesome-webfont.svg') format('svg');
+}
+*/
 body {
-    font-family: Arial, Verdana, sans-serif;
+    font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
     font-size: 12px;
     background: #0b1b4f;
 }
+strong{
+    font-weight: 700;
+}
 section{
-    border-bottom: 2px dashed rgba(255,255,255, 0.2);
     padding: 15px 0;
 }
+
 h1 {
     font-size: 24px;
     padding: 10px 0;
@@ -29,6 +62,9 @@ span {
     &.fancy {
         font-style: italic;
     }
+}
+.debug{
+    border: 1px solid #fff !important;
 }
 .full-width{
     width: 100%;
