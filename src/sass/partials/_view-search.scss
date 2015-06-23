@@ -34,6 +34,25 @@
         }
     }
 }
+#product-result-list{
+    li{
+        background: rgba(255, 255, 255, 0.25);
+        color: #fff;
+        border: 1px solid #fff;
+        margin-bottom: 5px;
+        padding: 5px 15px;
+        label{
+            font-weight: bold;
+        }
+        &:hover{
+            background: $fda-teal;
+            color: #fff;
+            cursor: pointer;
+        }
+
+    }
+}
+
 
 #dashboard{
     &.question-nav{
