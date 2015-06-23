@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
 var FdaService = require('../../service/fdaService');
+var DataUtils = require('../../utils/dataUtils');
 var DrugSearchResultsView = require('./drugSearchResultsView');
 
 var DrugSearchPageView = Backbone.View.extend({
@@ -55,11 +56,14 @@ var DrugSearchPageView = Backbone.View.extend({
     },
     
     updateResults: function(q) {
-        console.log('update results');
+        //split the query into parts
+        var apiQ = DataUtils.combineMultipartQuery(q, '+AND+');
+        console.log('count results for query %s', apiQ);
+        
         //check the search type and react accordingly
         switch(this.searchType) {
             case 'BRAND':
-                this.searchByBrand(q);
+                this.searchByBrand(q, apiQ);
                 break;
             case 'ALL':
                 alert('Cannot search by this yet');
@@ -83,12 +87,11 @@ var DrugSearchPageView = Backbone.View.extend({
         });
     },
     
-    searchByBrand: function(q) {
+    searchByBrand: function(q, apiQ) {
         var self = this;
-        console.log('count results for query %s', q);
         
         //search the label database by brand
-        FdaService.findDrugsByBrand(q).done(function(data) {
+        FdaService.findDrugsByBrand(apiQ).done(function(data) {
             
             //only update results if the field value is the same as what was requested
             if(self.$('input[name="brand-name"]').val() === q) {

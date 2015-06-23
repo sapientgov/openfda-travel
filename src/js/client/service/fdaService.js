@@ -10,6 +10,22 @@ var BEGIN_QS = '?api_key=' + API_KEY;
 var FdaService = {
     
     /**
+     * Executes JSON query against API and returns promise object
+     * @param   {String}  url URL of query
+     * @returns {Promise} Promise object to be resolved/rejected on API response
+     */
+    executeApiQuery: function(url) {
+        var deferred = $.Deferred();
+        $.getJSON(url).done(function(data) {
+            deferred.resolve(data);
+        }).fail(function() {
+            deferred.reject();
+        });
+        
+        return deferred.promise();
+    },
+    
+    /**
      * Returns a "count" query from the labeling data
      * for all drugs with the specified query in the "brand"
      * attribute
@@ -24,14 +40,7 @@ var FdaService = {
         var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ;
         
         //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
-        
-        return deferred.promise();
+        return this.executeApiQuery(reqUrl + qs);
     },
     
     /**
@@ -49,14 +58,7 @@ var FdaService = {
         var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ;
         
         //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
-        
-        return deferred.promise();
+        return this.executeApiQuery(reqUrl + qs);
     },
     
     /**
@@ -75,14 +77,7 @@ var FdaService = {
         var qs = BEGIN_QS + '&count=active_ingredient.exact&search=active_ingredient:' + ingQ;
         
         //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
-        
-        return deferred.promise();
+        return this.executeApiQuery(reqUrl + qs);
     },
     
     /**
@@ -100,14 +95,7 @@ var FdaService = {
         var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.generic_name:' + genericQ;
         
         //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
-        
-        return deferred.promise();
+        return this.executeApiQuery(reqUrl + qs);
     },
     
     /**
@@ -126,14 +114,7 @@ var FdaService = {
         var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.brand_name:' + query + '+openfda.active_ingredient:' + query + '+openfda.generic_name:' + query;
         
         //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
-        
-        return deferred.promise();
+        return this.executeApiQuery(reqUrl + qs);
     },
     
     /**
@@ -150,15 +131,7 @@ var FdaService = {
         console.log('api call: ' + qs);
         
         //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
-        
-        return deferred.promise();
-		
+        return this.executeApiQuery(reqUrl + qs);
     },
     
     /**
@@ -173,14 +146,7 @@ var FdaService = {
         var qs = BEGIN_QS + '&search=application_number:' + ndc;
         
         //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
-        
-        return deferred.promise();
+        return this.executeApiQuery(reqUrl + qs);
     },
     
     /**
@@ -193,16 +159,9 @@ var FdaService = {
         
         //add qs parameters
         var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand + '"';
-        console.log('api call: ' + qs);
-        //make json call
-        var deferred = $.Deferred();
-        $.getJSON(reqUrl + qs).done(function(data) {
-            deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
-        });
         
-        return deferred.promise();
+        //make json call
+        return this.executeApiQuery(reqUrl + qs);
     }
 };
 

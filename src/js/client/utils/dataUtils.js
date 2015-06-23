@@ -19,6 +19,22 @@ var DataUtils = {
         });
         
         return matches;
+    },
+
+    /**
+     * Combines a space-separated string into a string separated
+     * by the specified separator
+     * 
+     * @param   {String} q Space seperated query
+     * @param   {String} separator Character or string to separate instead of ' '
+     * @returns {String} Query separated by specified string
+     */
+    combineMultipartQuery: function(q, separator) {
+        if(!_.isEmpty(q)) {
+            var queryParts = q.split(' ');
+            return queryParts.join(separator);
+        }
+        return '';
     }
 };
 
