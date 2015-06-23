@@ -10,6 +10,9 @@ if [ `gem list compass -i` == 'false' ]; then
 	gem install compass 
 fi
 
+export PATH=$OPENSHIFT_DATA_DIR/bin:$OPENSHIFT_DATA_DIR/gems/bin:$PATH
+export GEM_HOME=$OPENSHIFT_DATA_DIR/gems
+
 OLD_HOME=$HOME
 cd $OPENSHIFT_REPO_DIR
 export HOME=$OPENSHIFT_REPO_DIR
