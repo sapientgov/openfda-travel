@@ -9,6 +9,7 @@ var DataUtils = require('../utils/dataUtils');
 //page view objects
 var DrugSearchPageView = require('../views/drug-search/drugSearchPageView');
 var DrugRecallPageView = require('../views/recalls/drugRecallPageView');
+var DrugApprovedPageView = require('../views/approved/drugApprovedPageView');
 var DrugLabelPageView = require('../views/labeling/drugLabelPageView');
 var IntroductionContentView = require('../views/landing/introductionContentView');
 var InitialQuestionsView = require('../views/landing/initialQuestionsView');
@@ -53,7 +54,12 @@ var AppRouter = Backbone.Router.extend({
    },
     
     approved: function() {
-        //TODO: IMPLEMENT ME
+         //get rid of intro content
+        this.clearIntroContent();
+        
+        //init drug approved view
+        this.currentView = new DrugApprovedPageView();
+        this.currentView.render();
     },
     
     foreign: function() {
