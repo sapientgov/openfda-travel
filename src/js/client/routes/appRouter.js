@@ -8,47 +8,51 @@ var DataUtils = require('../utils/dataUtils');
 
 //page view objects
 var DrugSearchPageView = require('../views/drug-search/drugSearchPageView');
-
 var DrugRecallPageView = require('../views/recalls/drugRecallPageView');
 var DrugLabelPageView = require('../views/labeling/drugLabelPageView');
+var IntroductionContentView = require('../views/landing/introductionContentView');
+var InitialQuestionsView = require('../views/landing/initialQuestionsView');
 
 var AppRouter = Backbone.Router.extend({
     
     routes: {
-        '': 'drugSearch',
-        'label/:brand': 'drugLabel',
+        '': 'intro',
+        'label': 'label',
+        'recall': 'recall',
+        'approved': 'approved',
+        'foreign': 'foreign',
         'recall/:brand': 'drugRecall'
     },
     
-    drugSearch: function() {
-        //initialize the drug search page view
-        this.currentView = new DrugSearchPageView();
+    intro: function() {
+        //add intro content
+        this.introView = new IntroductionContentView();
+        this.introView.render();
+        
+        //add buttons
+        this.currentView = new InitialQuestionsView();
         this.currentView.render();
     },
     
-    drugLabel: function(brand) {
-        //find the drug we want
-        console.log('getting drug label info for %s.', brand);
-        FdaService.findLabelInfoByBrand(brand).done(function(data) {
-            if(data.results && data.results.length > 0) {
-                
-                //make sure we only include exact matches
-                var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-                if(exacts.length > 0) {
-                    
-                    //for now just take the first result - may need to have the user choose?
-                    this.currentView = new DrugLabelPageView({drug: exacts[0]});
-                    this.currentView.render();
-                    return;
-                }
-            }
-            
-            //if we get here there were no results we could use
-            console.log('no results returned');
-            
-        }).fail(function() {
-            console.error('failed to find label by brand');
-        });
+    label: function() {
+        //get rid of intro content
+        this.clearIntroContent();
+        
+        //init drug label view
+        this.currentView = new DrugLabelPageView();
+        this.currentView.render();
+    },
+    
+    recall: function() {
+        //TODO: IMPLEMENT ME
+    },
+    
+    approved: function() {
+        //TODO: IMPLEMENT ME
+    },
+    
+    foreign: function() {
+        //TODO: IMPLEMENT ME
     },
 
     drugRecall: function(brand) {
@@ -74,6 +78,14 @@ var AppRouter = Backbone.Router.extend({
         }).fail(function() {
             console.error('failed to find drug recall info by brand name');
         });
+    },
+    
+    clearIntroContent: function() {
+        //make sure intro content is gone
+        if(this.introView) {
+            this.introView.remove();
+            this.introView = undefined;
+        }
     }
 
 });

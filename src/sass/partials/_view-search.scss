@@ -1,10 +1,5 @@
 #drug-search {
     padding-bottom: 30px;
-    #info-list-panel {
-        border: 1px solid #fff;
-        padding: 15px;
-        min-height: 450px;
-    }
     .btn-group {
         .btn {
             @include border-radius(0);
@@ -27,16 +22,31 @@
             }
         }
     }
+    #drug-search-results {
+        background-color:#fff;
+        margin-top:-15px;
+        #count-results-list {
+            color:#555;
+            .result-item {
+                padding: 5px 10px;
+                cursor: pointer;
+            }
+            .result-item:hover {
+                background-color: #fdcc4c;
+            }
+        }
+    }
 }
 
+#intro {
+    margin-bottom: 30px;
+    font-size: 16px;
+}
 #dashboard{
-    .intro{
-        margin-bottom: 30px;
-        font-size: 16px;
-    }
-    .question-nav{
+    &.question-nav{
         padding: 0 15px 15px 15px;
         .list-group-item{
+            text-align: left;
             margin-bottom: 15px;
             @include border-radius(8px);
             font-size: 24px;

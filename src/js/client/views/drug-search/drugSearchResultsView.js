@@ -6,24 +6,40 @@ Backbone.$ = $;
 var _ = require('underscore');
 
 var DrugSearchResultsView = Backbone.View.extend({
+    tagName: 'li',
+    
+    attributes: {
+        'class': 'result-item'
+    },
+    
+    events: {
+        'click': 'handleSelect'
+    },
+    
     initialize: function(options) {
-        this.resultsList = options.resultsList;
-        this.template = _.template($('#search-result-template').html());
+        this.result = options.result;
+        this.callback = options.callback;
     },
     
     render: function() {
         var self = this;
         
         //check that we have results to show
-        if(!this.resultsList) {
-            throw new Error('No results to render');
+        if(!this.result) {
+            throw new Error('No result to render');
         }
         
-        _.each(this.resultsList, function(result) {
-            if(result.term) {
-                self.$el.append(self.template(result));
-            }
-        });
+        //add the term to the item
+        this.$el.text(this.result.term);
+        
+        //enable chaining
+        return this;
+    },
+    
+    handleSelect: function() {
+        //trigger an event on the parent <ul> node
+        console.log('triggering callback, term=%s', this.result.term);
+        this.callback(this.result.term);
     }
 });
 
