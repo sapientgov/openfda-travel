@@ -39,15 +39,7 @@ module.exports = function(grunt) {
                 options: {
                     watch: true
                 }
-            },
-            web_backbone: {
-                dest: 'dist/js/client/app-backbone.js',
-                src: ['src/js/client/main-backbone.js'],
-                options: {
-                    watch: true
-                }
             }
-            
         },
         
         watch: {
