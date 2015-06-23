@@ -28,25 +28,87 @@ var DrugLabelPageView = Backbone.View.extend({
     
     renderLabelInfo: function(searchData) {
         console.log('Rendering label info!', searchData);
+		var searchType = searchData.type;
+		var brand = searchData.q;
+		console.log('Data type: ', searchType);
+		console.log('Brand: ', brand);
+		if(searchType == 'BRAND')
+		{
+			this.brandSearch(brand);
+		}
     },
     
     ///////////
     //just a placeholder for now - not functional
     ////////////
-    search: function(brand) {
+    brandSearch: function(brand) {
         //find the drug we want
         console.log('getting drug label info for %s.', brand);
+		
         FdaService.findLabelInfoByBrand(brand).done(function(data) {
             if(data.results && data.results.length > 0) {
                 
                 //make sure we only include exact matches
-                var exacts = DataUtils.findExactBrandMatches(data.results, brand);
+                //var exacts = DataUtils.findExactBrandMatches(data.results, brand);
+				var exacts = DataUtils.findExactBrandMatches(data.results, brand);
                 if(exacts.length > 0) {
                     
                     //for now just take the first result - may need to have the user choose?
                     this.currentView = new DrugLabelInfoView({drug: exacts[0]});
-                    this.$el.eppend(this.currentView.render().el);
-                    return;
+					$('#search-results').append(this.currentView.render().el);
+					
+					if(document.getElementById('id-and-versions-data').childNodes.length == '1'){
+						document.getElementById('id-and-versions').style.display='none';
+					}
+					
+					if(document.getElementById('abuse-and-overdosage-data').childNodes.length == '1'){
+						document.getElementById('abuse-and-overdosage').style.display='none';
+					}
+					
+					if(document.getElementById('adverse-effects-data').childNodes.length == '1'){
+						document.getElementById('adverse-effects').style.display='none';
+					}
+					
+					if(document.getElementById('clinical-pharmacology-data').childNodes.length == '1'){
+						document.getElementById('clinical-pharmacology').style.display='none';
+					}
+					
+					if(document.getElementById('indications-data').childNodes.length == '1'){
+						document.getElementById('indications').style.display='none';
+					}
+					
+					if(document.getElementById('patient-info-data').childNodes.length == '1'){
+						document.getElementById('patient-info').style.display='none';
+					}
+					
+					if(document.getElementById('special-populations-data').childNodes.length == '1'){
+						document.getElementById('special-populations').style.display='none';
+					}
+					
+					if(document.getElementById('non-clinical-tox-data').childNodes.length == '1'){
+						document.getElementById('non-clinical-tox').style.display='none';
+					}
+					if(document.getElementById('references-data').childNodes.length == '1'){
+						document.getElementById('references').style.display='none';
+					}
+					
+					if(document.getElementById('supply-data').childNodes.length == '1'){
+						document.getElementById('supply').style.display='none';
+					}
+					
+					if(document.getElementById('warnings-data').childNodes.length == '1'){
+						document.getElementById('warnings').style.display='none';
+					}
+					
+					if(document.getElementById('other-fields-data').childNodes.length == '1'){
+						document.getElementById('other-fields').style.display='none';
+					}
+					
+					if(document.getElementById('open-fda-fields-data').childNodes.length == '1'){
+						document.getElementById('open-fda-fields').style.display='none';
+					}
+					
+					return;
                 }
             }
             
