@@ -17,9 +17,18 @@ var DrugLabelInfoView = Backbone.View.extend({
         console.log('rendering label: ', this.drug);
         this.$el.html(this.template(this.drug));
         
+        var self = this;
+        this.$('dt').click(function(){
+            self.$(this).closest('dl').find('dd').toggle();
+        });
+
         //toggle the sections
         this.toggleSectionDisplays();
         return this;
+
+
+        
+
     },
     
 	/**
