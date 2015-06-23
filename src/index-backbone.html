@@ -26,21 +26,21 @@
     <main id="content" role="main">
         <section>
             <div class="container">
-            <div class="row clearfix">
-                <div id="primary-content"></div>
-                
+                <div id="intro"></div>
+                <div class="row clearfix">
+                    <div id="primary-content"></div>
 
-                <aside class="col-xs-12 col-sm-4 col-md-4">
-                        <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
-                        <div class="map-module">
-                            <div class="map-ph">Map Placeholder</div>
-                            <div class="list-group">
-                                <button type="button" class="list-group-item">Pharmacies near you</button>
-                                <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
-                                <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
+                    <aside class="col-xs-12 col-sm-4 col-md-4">
+                            <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
+                            <div class="map-module">
+                                <div class="map-ph">Map Placeholder</div>
+                                <div class="list-group">
+                                    <button type="button" class="list-group-item">Pharmacies near you</button>
+                                    <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
+                                    <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
+                                </div>
                             </div>
-                        </div>
-                </aside>
+                    </aside>
 
                 </div><!-- End row-->
             </div>
@@ -48,6 +48,20 @@
     </main> <!-- /main-content -->
 
     <!-- templates -->
+    <script type="text/template" id="dashboard-template">
+        <div id="dashboard" class="question-nav list-group col-md-8">
+            <button type="button" class="list-group-item">Can I take this medication?</button>
+            <button type="button" class="list-group-item">Is this medication FDA approved?</button>
+            <button type="button" class="list-group-item">Has this medication been recalled?</button>
+            <button type="button" class="list-group-item">Is this medication available abroad?</button>
+        </div>
+    </script>
+    
+    <script type="text/template" id="dashboard-intro-template">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu ornare purus. In vulputate leo elit, non suscipit turpis condimentum aliquet. Donec interdum consectetur risus faucibus sagittis. Suspendisse facilisis at sapien vel consequat. In consequat lacus a arcu fermentum, id egestas nulla tristique.
+    </script>
+    
+    
     <script type="text/template" id="drug-search-template">
         <div id="drug-search" class="col-xs-12 col-sm-8 col-md-8">
             <h1>Can I take this medication?</h1>

@@ -8,21 +8,26 @@ var DataUtils = require('../utils/dataUtils');
 
 //page view objects
 var DrugSearchPageView = require('../views/drug-search/drugSearchPageView');
-
 var DrugRecallPageView = require('../views/recalls/drugRecallPageView');
 var DrugLabelPageView = require('../views/labeling/drugLabelPageView');
+var IntroductionContentView = require('../views/landing/introductionContentView');
+var InitialQuestionsView = require('../views/landing/initialQuestionsView');
 
 var AppRouter = Backbone.Router.extend({
     
     routes: {
-        '': 'drugSearch',
+        '': 'intro',
         'label/:brand': 'drugLabel',
         'recall/:brand': 'drugRecall'
     },
     
-    drugSearch: function() {
-        //initialize the drug search page view
-        this.currentView = new DrugSearchPageView();
+    intro: function() {
+        //add intro content
+        this.introView = new IntroductionContentView();
+        this.introView.render();
+        
+        //add buttons
+        this.currentView = new InitialQuestionsView();
         this.currentView.render();
     },
     
