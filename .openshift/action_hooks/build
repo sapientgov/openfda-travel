@@ -1,9 +1,20 @@
 #!/bin/bash
+if [ ! -d $OPENSHIFT_DATA_DIR/gems ]; then
+	echo "Making Gems dir"
+	mkdir $OPENSHIFT_DATA_DIR/gems
+fi
+
+export GEM_HOME=$OPENSHIFT_DATA_DIR/gems
+if [ `gem list compass -i` == 'false' ]; then
+	echo "Install Gems"
+	gem install compass 
+fi
 
 OLD_HOME=$HOME
 cd $OPENSHIFT_REPO_DIR
 export HOME=$OPENSHIFT_REPO_DIR
 echo "Building dist directory"
+npm install grunt-cli
 grunt
 echo "Finished building dist directory"
 export HOME=$OLD_HOME
