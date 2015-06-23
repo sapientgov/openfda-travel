@@ -44,8 +44,13 @@ var AppRouter = Backbone.Router.extend({
     },
     
     recall: function() {
-        //TODO: IMPLEMENT ME
-    },
+        //get rid of intro content
+        this.clearIntroContent();
+        
+        //init drug recall view
+        this.currentView = new DrugRecallPageView();
+        this.currentView.render();
+   },
     
     approved: function() {
         //TODO: IMPLEMENT ME
