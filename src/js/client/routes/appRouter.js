@@ -18,6 +18,9 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         '': 'intro',
         'label': 'label',
+        'recall': 'recall',
+        'approved': 'approved',
+        'foreign': 'foreign',
         'recall/:brand': 'drugRecall'
     },
     
@@ -38,6 +41,18 @@ var AppRouter = Backbone.Router.extend({
         //init drug label view
         this.currentView = new DrugLabelPageView();
         this.currentView.render();
+    },
+    
+    recall: function() {
+        //TODO: IMPLEMENT ME
+    },
+    
+    approved: function() {
+        //TODO: IMPLEMENT ME
+    },
+    
+    foreign: function() {
+        //TODO: IMPLEMENT ME
     },
 
     drugRecall: function(brand) {
