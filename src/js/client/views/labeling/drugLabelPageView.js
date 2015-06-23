@@ -37,26 +37,10 @@ var DrugLabelPageView = Backbone.View.extend({
 			this.brandSearch(brand);
 		}
     },
-    
-    ///////////
-    //just a placeholder for now - not functional
-    ////////////
-    brandSearch: function(brand) {
-        //find the drug we want
-        console.log('getting drug label info for %s.', brand);
-		
-        FdaService.findLabelInfoByBrand(brand).done(function(data) {
-            if(data.results && data.results.length > 0) {
-                
-                //make sure we only include exact matches
-                //var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-				var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-                if(exacts.length > 0) {
-                    
-                    //for now just take the first result - may need to have the user choose?
-                    this.currentView = new DrugLabelInfoView({drug: exacts[0]});
-					$('#search-results').append(this.currentView.render().el);
-					
+	
+	/*This function hides sections in the label search results that are empty.
+	*/
+	toggleSectionDisplays: function() {
 					if(document.getElementById('id-and-versions-data').childNodes.length == '1'){
 						document.getElementById('id-and-versions').style.display='none';
 					}
@@ -107,6 +91,27 @@ var DrugLabelPageView = Backbone.View.extend({
 					if(document.getElementById('open-fda-fields-data').childNodes.length == '1'){
 						document.getElementById('open-fda-fields').style.display='none';
 					}
+	},
+    
+    /* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
+	*/
+    brandSearch: function(brand) {
+        //find the drug we want
+        console.log('getting drug label info for %s.', brand);
+		var self = this; 
+		
+        FdaService.findLabelInfoByBrand(brand).done(function(data) {
+            if(data.results && data.results.length > 0) {
+                
+                //make sure we only include exact matches
+				var exacts = DataUtils.findExactBrandMatches(data.results, brand);
+                if(exacts.length > 0) {
+                    
+                    //for now just take the first result - may need to have the user choose?
+                    this.currentView = new DrugLabelInfoView({drug: exacts[0]});
+					$('#search-results').append(this.currentView.render().el);
+					
+					self.toggleSectionDisplays();
 					
 					return;
                 }
