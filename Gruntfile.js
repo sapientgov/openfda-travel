@@ -96,7 +96,8 @@ module.exports = function(grunt) {
             },
             ci: {
                 configFile: 'karma.conf.js',
-                singleRun: true
+                singleRun: true,
+                port: 32000
             }
         }
 
