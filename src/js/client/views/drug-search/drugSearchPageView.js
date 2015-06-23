@@ -132,22 +132,44 @@ var DrugSearchPageView = Backbone.View.extend({
         var self = this;
         FdaService.findLabelInfoByBrand(q).done(function(data) {
             
-            //trim brand data
+            //trim brand data and display
             var exacts = DataUtils.findExactBrandMatches(data.results, q);
-            console.log('found label data for product list', exacts);
-            _.each(exacts, function(item) {
-                var view = new DrugProductResultsView({
-                    result: item,
-                    callback: _.bind(self.chooseResult, self)
-                });
-                self.$('#product-result-list').append(view.render().el);
-            });
-            
-            //show the section
-            self.$('#product-results').show();
-        }).fail(function() {
-            console.error('service error!');
+            self.displayProductOptions(exacts);
         });
+    },
+    
+    getProductsByActive: function(q) {
+        var self = this;
+        FdaService.findLabelInfoByIngredient(q).done(function(data) {
+            
+            //display products
+            self.displayProductOptions(data.results);
+        });
+    },
+    
+    getProductsByGeneric: function(q) {
+        var self = this;
+        FdaService.findLabelInfoByGeneric(q).done(function(data) {
+            
+            //display products
+            self.displayProductOptions(data.results);
+        });
+    },
+    
+    displayProductOptions: function(prodList) {
+        var self = this;
+        
+        console.log('found label data for product list', prodList);
+        _.each(prodList, function(item) {
+            var view = new DrugProductResultsView({
+                result: item,
+                callback: _.bind(self.chooseResult, self)
+            });
+            self.$('#product-result-list').append(view.render().el);
+        });
+
+        //show the section
+        this.$('#product-results').show();
     },
     
     countByBrand: function(q, apiQ) {
