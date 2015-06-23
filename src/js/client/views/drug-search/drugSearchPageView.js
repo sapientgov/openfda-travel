@@ -13,8 +13,8 @@ var DrugSearchPageView = Backbone.View.extend({
         //default search type
         this.searchType = 'BRAND';
         
-        //set the search target
-        //default is LABEL - other supported value is RECALL
+        //set the search target - used for the title
+        //default is LABEL - other supported values are RECALL or APPROVED
         //pass this into the constructor to set
         this.searchTarget = (options && options.searchTarget) || 'LABEL';
     },
@@ -28,12 +28,26 @@ var DrugSearchPageView = Backbone.View.extend({
     },
     
     render: function() {
-        //figure out the recall title
+        //figure out the correct title
+        var title;
+        switch(this.searchTarget) {
+            case 'LABEL':
+                title = 'Can I take this medication?';
+                break;
+            case 'RECALL':
+                title = 'Has this medication been recalled?';
+                break;
+            case 'APPROVED':
+                title = 'Has this medication been approved?';
+                break;
+            default:
+                title = 'TITLE NOT CONFIGURED';
+        }
         
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
         this.$el.html(inputTemplate({
-            title: 'title!'
+            title: title
         }));
         
         //enable chaining
@@ -71,23 +85,10 @@ var DrugSearchPageView = Backbone.View.extend({
     
     searchByBrand: function(q) {
         var self = this;
-        console.log('count results from data %s for query %s', this.searchTarget, q);
+        console.log('count results for query %s', q);
         
-        //perform the search against the correct dataset
-        var apiPromise;
-        switch(this.searchTarget) {
-            case 'LABEL':
-                apiPromise = FdaService.findDrugsByBrand(q);
-                break;
-            case 'RECALL':
-                apiPromise = FdaService.findDrugRecallsByBrand(q);
-                break;
-            default:
-                throw new Error('Unsupported search target');
-        }
-        
-        //when the promise is resolved update the search results
-        apiPromise.done(function(data) {
+        //search the label database by brand
+        FdaService.findDrugsByBrand(q).done(function(data) {
             
             //only update results if the field value is the same as what was requested
             if(self.$('input[name="brand-name"]').val() === q) {
