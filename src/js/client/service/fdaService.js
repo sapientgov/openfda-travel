@@ -74,7 +74,7 @@ var FdaService = {
 		var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&count=active_ingredient.exact&search=active_ingredient:' + ingQ;
+        var qs = BEGIN_QS + '&count=openfda.substance_name.exact&search=openfda.substance_name:' + ingQ;
         
         //make json call
         return this.executeApiQuery(reqUrl + qs);
