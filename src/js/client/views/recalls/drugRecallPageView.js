@@ -27,18 +27,29 @@ var DrugRecallPageView = Backbone.View.extend({
     },
     
     renderRecallInfo: function(searchData) {
-        console.log('Rendering label info!', searchData);
-        var searchType = searchData.type;
-        var brand = searchData.q;
-        console.log('Data type: ', searchType);
-        console.log('Brand: ', brand);
-        if(searchType == 'BRAND')
-        {
-            this.brandSearch(brand);
+        console.log('Rendering recall info!', searchData);
+        
+        //if we got an actual result object from the search we just need to show it
+        if(searchData.result) {
+            //hide the search result stuff
+            this.$('#product-results').hide();
+            this.recallInfoView = new DrugRecallInfoView({drug: searchData.result, isRecalled: true});
+            this.$el.append(this.recallInfoView.render().el);
+			console.log("render recall info: the drug has been recalled");
+        } else {
+
+            var searchType = searchData.type;
+            var brand = searchData.q;
+            console.log('Data type: ', searchType);
+            console.log('Brand: ', brand);
+            if(searchType == 'BRAND')
+            {
+                this.brandSearch(brand);
+            }
         }
     },
     
-    /*This function hides sections in the label search results that are empty.
+    /*This function hides sections in the recall search results that are empty.
     */
     toggleSectionDisplays: function() {
                     if(document.getElementById('id-and-versions-data').childNodes.length == '1'){
@@ -95,25 +106,22 @@ var DrugRecallPageView = Backbone.View.extend({
     
     /* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
     */
-    brandSearch: function(brand) {
+    brandSearch: function(drugId) {
         //find the drug we want
-        console.log('getting drug recall info for %s.', brand);
+        console.log('getting drug recall info for %s.', drugId);
         var self=this;
 
-        FdaService.findRecallInfoByBrandName(brand).done(function(data) {
+		//FdaService.findDrugRecallsByBrand(drugId).done(function(data) {
+        FdaService.findRecallInfoByDrugId(drugId).done(function(data) {
             if(data.results && data.results.length > 0) {
                 
                 //make sure we only include exact matches
-                var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-                if(exacts.length > 0) {
-                    
+                //var exacts = DataUtils.findExactBrandMatches(data.results, drugId);
+                if(data.results.length > 0) {
+                    console.log("drug has been recalled");
                     //for now just take the first result - may need to have the user choose?
-                    this.currentView = new DrugRecallPageView({drug: exacts[0]});
-                    $('#search-results').append(this.currentView.render().el);
-
-                    self.toggleSectionDisplays();
-                    
-                    this.currentView.render();
+                    self.currentView = new DrugRecallInfoView({drug: data.results[0], isRecalled: true});
+					self.$el.append(self.currentView.render().el);
                     return;
                 }
             }
@@ -121,8 +129,17 @@ var DrugRecallPageView = Backbone.View.extend({
             //if we get here there were no results we could use
             console.log('no results returned');
             
-        }).fail(function() {
+        }).fail(function(jqXHR, textStatus, errorThrown) {
             console.error('failed to find drug recall by brand');
+			if(jqXHR.status == 404)
+			{
+				console.log("drug has not been recalled");
+				
+				var curView = self.currentView = new DrugRecallInfoView({drug: drugId, isRecalled: false});
+				console.log("currentView: ", curView); 
+                self.currentView.render();
+				self.$el.append(self.currentView.render().el);
+			}
         });
     }
 });
