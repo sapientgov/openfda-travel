@@ -4,19 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <title>1515 App</title>
-    <link href="css/appstyles.css" rel="stylesheet" type="text/css">
+    <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
 </head>
 
 <body>
     <header role="banner">
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container col-md-offset-1 col-md-10 ">
                 <div class="navbar-header">
-                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-
-                    <a href="#" class="navbar-brand">FDA<strong>Anywhere</strong></a> 
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
+                        <span class="sr-only">Toggle navigation</span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                    </button>
+                    
+                    <a href="#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.svg" alt"FDA | anywhere" width="250px" height="auto"></a> 
+                                  
                 </div>
-                <div class="navbar-collapse collapse" id="navbar"></div>
+                <div class="navbar-collapse collapse" id="navbar">
+                    
+                </div>
                 <!--/.navbar-collapse -->
             </div>
         </nav>
@@ -25,15 +34,11 @@
     <!-- main content -->
     <main id="content" role="main">
         <section>
-            <div class="container">
-                <div  id="intro" class="col-xs-12 col-sm-8 col-md-offset-2 col-md-8"></div>
+            <div id="container-main" class="container">
+                <div  id="intro" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-10"></div>
                 <div class="row clearfix">
-
-                    <div id="primary-content"  class="col-xs-12 col-sm-8 col-md-offset-2 col-md-5">
-                        
-                    </div>
-                    <!-- <div id="search-results"  class="col-xs-12 col-sm-8 col-md-8"></div> -->
-                    <aside class="col-xs-12 col-sm-4 col-md-3">
+                    <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6"></div>
+                    <aside class="col-xs-12 col-sm-4 col-md-4">
                             <button class="btn-cta full-width add-margin-bottom">Click here to enter your profile information</button>
 
                             <div id="map-module">
@@ -63,6 +68,18 @@
     </main> <!-- /main-content -->
 
     <!-- templates -->
+    <script type="text/template" id="landing-content-template">
+        <!-- landing page -->
+        <div class="landing-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-8">
+            <h1>Welcome to FDAanywhere</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+            <div class="landing-actions">
+                <a href="#">Sign In</a>
+                <a href="#q">Continue as guest</a>
+            </div>
+        </div>
+    </script>
+    
     <script type="text/template" id="dashboard-template">
         <div id="dashboard" class="question-nav list-group">
             <a class="list-group-item" href="#label" role="button">Can I take this medication?</a>
@@ -98,7 +115,14 @@
             </div>
             <div class="form-group">
                 <label for="ndc" class="sr-only">medication entry</label>
-                <input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
+                
+				<%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
+				<input type="text" name="brand-name" class="form-control" placeholder=<%- openfda.brand_name %> autocomplete="off" />
+				<% } %>
+				
+				<%if (typeof(openfda) == "undefined") {%>
+				<input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
+				<% } %>
             </div>
             <div id="drug-search-results">
                 <ul id="count-results-list">
@@ -111,6 +135,7 @@
         </div>
     </script>
     
+    <!-- multiple results li content -->
     <script type="text/template" id="search-product-result">
         <label>Brand:</label> <%- openfda.brand_name %><br />
         <label>Generic:</label> <%- openfda.generic_name %><br />
@@ -486,12 +511,15 @@
         <script type="text/template" id="drug-recall-info" style=\"margin-top: 25px;\">
         
 		<div class="toggle">
-			<%if (typeof(isRecalled) !== "undefined" && isRecalled == true) {%>
-			<div id="yesBtn" class="active" style="border: 1px solid #fff; line-height: 48px;height: 48px;background: #00ff00">Yes</div>
-			<%}%>
-			<%if (typeof(isRecalled) !== "undefined" && isRecalled == false) {%>
-			<div id="noBtn" class="negatory" style="border: 1px solid #fff; line-height: 48px;height: 48px; background: #cc0000;">No</div>
-			<%}%>
+
+			<%if (typeof(recall_initiation_date) !== "undefined" && recall_initiation_date == true) {%>
+
+			<div class="approved active" style="display:inline-box;border: 1px solid #fff; line-height: 48px;height: 48px;background: #00ff00">Yes</div>
+			<% } %>
+			
+			<%if (typeof(recall_initiation_date) == "undefined") {%>
+			<div class="negatory" style="display:inline-box;border: 1px solid #fff; margin-left: 5px;line-height: 48px;height: 48px; background: #cc0000;">No</div>
+			<% } %>
 		</div>
 		
 		<div style=\"margin-bottom: 15px;\">
@@ -519,7 +547,7 @@
 				<p style="word-break: break-all;"><i>Package NDCs:</i> <%- openfda.package_ndc %> </p>
 			<%}%>
 			
-			<%if (typeof(status) !== "undefined") {%>
+			<%if (typeof(status) !== "undefined" && status.length > 0) {%>
 				<p><i>Recall Status:</i> <%- status %> </p>
 			<%}%>
 			

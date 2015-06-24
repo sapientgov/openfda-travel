@@ -14,17 +14,36 @@ var DrugLabelPageView = require('../views/labeling/drugLabelPageView');
 var IntroductionContentView = require('../views/landing/introductionContentView');
 var InitialQuestionsView = require('../views/landing/initialQuestionsView');
 var MapModuleView = require('../views/location/mapModuleView');
+var AppLandingView = require('../views/landing/appLandingView');
 
 var AppRouter = Backbone.Router.extend({
     
     routes: {
         '': 'intro',
+        'q': 'questions',
         'label': 'label',
         'recall': 'recall',
         'approved': 'approved'
     },
     
-    intro: function() {
+    'intro': function() {
+        
+        //get rid of intro content
+        this.clearIntroContent();
+        
+        //setup the landing view
+        this.landingView = new AppLandingView();
+        this.landingView.render();
+    },
+    
+    questions: function() {
+        
+        //get rid of intro content
+        this.clearLanding();
+        
+        //setup map view
+        //TODO - this should probably go somewhere better
+        MapModuleView.createInstance();
         
         //add intro content
         this.introView = new IntroductionContentView();
@@ -38,6 +57,7 @@ var AppRouter = Backbone.Router.extend({
     label: function() {
         //get rid of intro content
         this.clearIntroContent();
+        this.clearLanding();
         
         //init drug label view
         this.currentView = new DrugLabelPageView();
@@ -47,6 +67,7 @@ var AppRouter = Backbone.Router.extend({
     recall: function() {
         //get rid of intro content
         this.clearIntroContent();
+        this.clearLanding();
         
         //init drug recall view
         this.currentView = new DrugRecallPageView();
@@ -56,6 +77,7 @@ var AppRouter = Backbone.Router.extend({
     approved: function() {
          //get rid of intro content
         this.clearIntroContent();
+        this.clearLanding();
         
         //init drug approved view
         this.currentView = new DrugApprovedPageView();
@@ -65,6 +87,11 @@ var AppRouter = Backbone.Router.extend({
     ///////////////////////////
     //NON-ROUTING FUNCTIONS//
     ///////////////////////////
+    
+    clearLanding: function() {
+        $('.landing-page').remove();
+        $('#container-main .row').show();
+    },
     
     clearIntroContent: function() {
         //make sure intro content is gone

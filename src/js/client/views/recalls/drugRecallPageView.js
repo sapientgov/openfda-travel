@@ -31,10 +31,13 @@ var DrugRecallPageView = Backbone.View.extend({
         
         //if we got an actual result object from the search we just need to show it
         if(searchData.result) {
+		
+			this.brandSearch(searchData.result.openfda.spl_id);
+			
             //hide the search result stuff
             this.$('#product-results').hide();
-            this.recallInfoView = new DrugRecallInfoView({drug: searchData.result, isRecalled: true});
-            this.$el.append(this.recallInfoView.render().el);
+            //this.recallInfoView = new DrugRecallInfoView({drug: searchData.result, isRecalled: true});
+            //this.$el.append(this.recallInfoView.render().el);
 			console.log("render recall info: the drug has been recalled");
         } else {
 
