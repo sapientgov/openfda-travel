@@ -90,13 +90,15 @@ h4 {
 }
 
 span {
-    font-size: 11px;
     &.fancy {
         font-style: italic;
     }
 }
 .debug{
     border: 1px solid #fff !important;
+}
+.capitalize{
+    text-transform: capitalize;
 }
 .full-width{
     width: 100%;
