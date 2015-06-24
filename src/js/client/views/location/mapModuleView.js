@@ -6,7 +6,7 @@ Backbone.$ = $;
 var _ = require('underscore');
 
 var MAPS_API_URL = 'https://maps.googleapis.com/maps/api/js';
-var API_KEY = 'AIzaSyDBieoAwKA8Tz-GczAf8vzcGfUgRrXTtzw';
+var API_KEY = 'AIzaSyC0l32fdHosB1b5YmlUtlWBfmnUIaI2BMU';
 
 var _instance;
 
