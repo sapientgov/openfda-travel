@@ -6,6 +6,7 @@ before_install:
 - "sh -e /etc/init.d/xvfb start"
 - "gem install sass"
 - "gem install compass"
+- "npm install grunt-cli"
 services:
 - mongodb
 deploy:
