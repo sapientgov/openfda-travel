@@ -109,6 +109,14 @@ module.exports = function(grunt) {
                 singleRun: true,
                 port: ci_port
             }
+        },
+        
+        express: {
+            dev: {
+                options: {
+                    script: 'dist/js/server/app.js'
+                }
+            }
         }
 
     });
@@ -121,11 +129,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('bootstrap-sass');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-express-server');
 
     grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify']);
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
-    grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'connect:server', 'watch']);
+    grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'connect:server', 'express:dev', 'watch']);
     grunt.registerTask('jenkins',['build-prod', 'jshint', 'karma:ci']);
 
 }
