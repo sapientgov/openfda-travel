@@ -41,7 +41,7 @@
                                 <div class="module-title">Local Information</div>
                                 <div class="module-item">
                                     <div class="module-content">
-                                        <div class="map-ph">Map Placeholder</div>
+                                        <div class="map-ph"></div>
                                     </div>
                                 </div>
 
@@ -844,6 +844,14 @@
 			<br/><br/>
 			</div>
 			
+    </script>
+    
+    <!-- event trigger for google map api loading -->
+    <script type="text/javascript">
+        function mapApiLoaded() {
+            var event = new Event('map-api-load');
+            document.dispatchEvent(event);
+        }
     </script>
 
     <!-- Main JS File -->
