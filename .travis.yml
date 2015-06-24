@@ -18,3 +18,4 @@ deploy:
   domain: fifteenfifteen
   on:
     repo: sapientgov/openfda-travel
+  skip_cleanup: true
