@@ -28,7 +28,6 @@
     <main id="content" role="main">
         <section>
             <div class="container">
-                <div class="g-signin2" data-onsuccess="onSignIn"></div>
                 <button class="btn btn-default" id="btn-twitter" onclick="twitLogin()" type="submit">Login with Digits</button>
                 <button class="btn btn-default" id="btn-logout" onclick="logout();" type="submit">Logout</button>
             </div>
@@ -36,13 +35,6 @@
     </main> <!-- /main-content -->
     
     <script type="text/javascript">
-        function onSignIn(googleUser) {
-            var profile = googleUser.getBasicProfile();
-            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-            console.log('Name: ' + profile.getName());
-            console.log('Image URL: ' + profile.getImageUrl());
-            console.log('Email: ' + profile.getEmail());
-        }
         
         function logout() {
             console.log('logout called');
@@ -58,16 +50,16 @@
         
         function twitLogin() {
             console.log('twitter!');
-            Digits.logIn().done(function() {
-                console.log('login success!');
-            }).fail(function() {
-                console.log('login error');
+            Digits.logIn().done(function(loginResponse) {
+                console.log('login success!', loginResponse);
+            }).fail(function(reason) {
+                console.log('login error', reason);
             });
         }
         
         //setup digits
         document.getElementById('digits-sdk').onload = function() {
-          Digits.init({ consumerKey: '3fRmH8jiHfBH2CPu8ekjxsDXv' });
+            Digits.init({ consumerKey: '3fRmH8jiHfBH2CPu8ekjxsDXv' });
         }
     </script>
     
