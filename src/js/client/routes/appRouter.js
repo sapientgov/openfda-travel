@@ -20,12 +20,16 @@ var AppRouter = Backbone.Router.extend({
         '': 'intro',
         'label': 'label',
         'recall': 'recall',
-        'approved': 'approved',
-        'foreign': 'foreign',
-        'recall/:brand': 'drugRecall'
+        'approved': 'approved'
     },
     
     intro: function() {
+        
+        //setup location
+        if(!this.mapView) {
+            this.initMapView();
+        }
+        
         //add intro content
         this.introView = new IntroductionContentView();
         this.introView.render();
@@ -39,6 +43,11 @@ var AppRouter = Backbone.Router.extend({
         //get rid of intro content
         this.clearIntroContent();
         
+        //setup location if needed
+        if(!this.mapView) {
+            this.initMapView();
+        }
+        
         //init drug label view
         this.currentView = new DrugLabelPageView();
         this.currentView.render();
@@ -47,6 +56,11 @@ var AppRouter = Backbone.Router.extend({
     recall: function() {
         //get rid of intro content
         this.clearIntroContent();
+        
+        //setup location if needed
+        if(!this.mapView) {
+            this.initMapView();
+        }
         
         //init drug recall view
         this.currentView = new DrugRecallPageView();
@@ -57,16 +71,34 @@ var AppRouter = Backbone.Router.extend({
          //get rid of intro content
         this.clearIntroContent();
         
+        //setup location if needed
+        if(!this.mapView) {
+            this.initMapView();
+        }
+        
         //init drug approved view
         this.currentView = new DrugApprovedPageView();
         this.currentView.render();
     },
+    
+    ///////////////////////////
+    //NON-ROUTING FUNCTIONS//
+    ///////////////////////////
     
     clearIntroContent: function() {
         //make sure intro content is gone
         if(this.introView) {
             this.introView.remove();
             this.introView = undefined;
+        }
+    },
+    
+    initMapView: function() {
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                console.log('position lat: ', position.coords.latitude);
+                console.log('position lng: ', position.coords.longitude); 
+            });
         }
     }
 
