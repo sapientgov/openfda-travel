@@ -54,14 +54,19 @@ var MapModuleView = Backbone.View.extend({
             zoom : 14,
             center : center,
             mapTypeId : google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI : true
+            disableDefaultUI : true,
+            draggable: false
         };
-        
-        // Enable the visual refresh
-        google.maps.visualRefresh = true;
         
         //create map object
 		this.map = new google.maps.Map(this.$('.map-ph').get(0), mapOptions);
+        
+        //add center marker
+        var marker = new google.maps.Marker({
+            position: center,
+            animation: google.maps.Animation.DROP,
+            map: this.map
+        });
     }
                                          
 });
