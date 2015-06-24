@@ -10,7 +10,7 @@
 
 <body>
     <header role="banner">
-        <nav class="navbar navbar-default navbar-fixed-top">
+        <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
                     <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -30,8 +30,92 @@
     <main id="content" role="main">
         <section id="drug-search">
             <div class="container">
-                    <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
+                    
+                    <!-- landing page -->
+                    <div class="landing-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-8">
+                        <h1>Welcome to FDAanywhere</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+                        <div class="landing-actions">
+                            <a href="#">Sign In</a>
+                            <a href="#">Continue as guest</a>
+                        </div>
+                    </div>
 
+
+                    <!-- profile page -->
+                    <div class="profile-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-7">
+                        <h1>Manage Medication Profile</h1>
+                        <div class="display-module">
+                            <div class="module-title">Click 'edit' to change your settings</div>
+                            <div class="module-content">
+                                <dl class="profile-list">
+                                    <dd class="profile" data-profileId="profileId1">Jane Doe</dd>
+                                    <dt id="profileId1">
+                                        <fieldset>
+                                            <label>Your age range:</label>
+                                            <div>Adult (20-69)</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Gender:</label>
+                                            <div>Female</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medications you take:</label>
+                                            <div>Medication 1, Medication 2, Medication 3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medical conditions you may have:</label>
+                                            <div>Condition1, Condition2, Condition3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Allergies you may have:</label>
+                                            <div>Allergy1, Allergy2</div>
+                                        </fieldset>
+                                        <div class="profile-actions">
+                                    <a href="#" class="" title="Delete Profile">Delete Profile</a>
+                                    <a href="#" class="" title="Edit Profile">Edit Profile</a></div>
+                                    </dt>
+                                    <dd class="profile" data-profile="profileId2">John Doe</dd>
+                                    <dt id="profileId2" class="collapsed">
+                                        <fieldset>
+                                            <label>Your age range:</label>
+                                            <div>Child (0-12)</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Gender:</label>
+                                            <div>Male</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medications you take:</label>
+                                            <div>Medication 1, Medication 2, Medication 3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medical conditions you may have:</label>
+                                            <div>Condition1, Condition2, Condition3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Allergies you may have:</label>
+                                            <div>Allergy1, Allergy2</div>
+                                        </fieldset>
+                                        <div class="profile-actions">
+                                    <a href="#" class="" title="Delete Profile">Delete Profile</a>
+                                    <a href="#" class="" title="Edit Profile">Edit Profile</a></div>
+                                    </dt>
+                                </dl>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn-wire">Create New Profile</button>
+                        <button></button>
+                        <button></button>
+                    </div>
+
+
+
+
+                    <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
                         <!-- home -->
                         <div class="home">
                             <h1 class="welcome">Welcome to FDA<strong>Anywhere</strong></h1>
