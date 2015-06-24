@@ -120,6 +120,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
     grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'connect:server', 'watch']);
-    grunt.registerTask('jenkins',['build-prod', 'jshint', 'karma:ci']);
+    grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci']);
 
 }
