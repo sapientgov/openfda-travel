@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="google-signin-client_id" content="911719545649-998dntke34uvnet6khmtivk5i58g0c2d.apps.googleusercontent.com">
     <title>1515 App</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css">
     <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
@@ -36,18 +35,6 @@
     
     <script type="text/javascript">
         
-        function logout() {
-            console.log('logout called');
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
-        }
-        
-        function renderButton() {
-            console.log('button loaded!');
-        }
-        
         function twitLogin() {
             console.log('twitter!');
             Digits.logIn().done(function(loginResponse) {
@@ -62,8 +49,6 @@
             Digits.init({ consumerKey: '3fRmH8jiHfBH2CPu8ekjxsDXv' });
         }
     </script>
-    
-    <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
     
 </body>
 
