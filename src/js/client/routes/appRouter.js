@@ -26,11 +26,6 @@ var AppRouter = Backbone.Router.extend({
     
     intro: function() {
         
-        //setup location
-        if(!this.mapView) {
-            this.initMapView();
-        }
-        
         //add intro content
         this.introView = new IntroductionContentView();
         this.introView.render();
@@ -44,11 +39,6 @@ var AppRouter = Backbone.Router.extend({
         //get rid of intro content
         this.clearIntroContent();
         
-        //setup location if needed
-        if(!this.mapView) {
-            this.initMapView();
-        }
-        
         //init drug label view
         this.currentView = new DrugLabelPageView();
         this.currentView.render();
@@ -58,11 +48,6 @@ var AppRouter = Backbone.Router.extend({
         //get rid of intro content
         this.clearIntroContent();
         
-        //setup location if needed
-        if(!this.mapView) {
-            this.initMapView();
-        }
-        
         //init drug recall view
         this.currentView = new DrugRecallPageView();
         this.currentView.render();
@@ -71,11 +56,6 @@ var AppRouter = Backbone.Router.extend({
     approved: function() {
          //get rid of intro content
         this.clearIntroContent();
-        
-        //setup location if needed
-        if(!this.mapView) {
-            this.initMapView();
-        }
         
         //init drug approved view
         this.currentView = new DrugApprovedPageView();
@@ -91,16 +71,6 @@ var AppRouter = Backbone.Router.extend({
         if(this.introView) {
             this.introView.remove();
             this.introView = undefined;
-        }
-    },
-    
-    initMapView: function() {
-        if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                //init map module
-                this.mapView = new MapModuleView({location: position});
-                this.mapView.render();
-            });
         }
     }
 

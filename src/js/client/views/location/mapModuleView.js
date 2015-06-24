@@ -8,11 +8,12 @@ var _ = require('underscore');
 var MAPS_API_URL = 'https://maps.googleapis.com/maps/api/js';
 var API_KEY = 'AIzaSyDBieoAwKA8Tz-GczAf8vzcGfUgRrXTtzw';
 
+var _instance;
+
 var MapModuleView = Backbone.View.extend({
     el: '#map-module',
     
     initialize: function(options) {
-        console.log('initing map');
         if(!options.location) {
             throw new Error('Must supply user location');
         }
@@ -35,7 +36,6 @@ var MapModuleView = Backbone.View.extend({
     },
     
     loadScript: function() {
-        console.log('load script');
         //add listener for custom load event
         $(document).off('map-api-load').one('map-api-load', _.bind(this.initializeMap, this));
         
@@ -47,9 +47,8 @@ var MapModuleView = Backbone.View.extend({
     },
     
     initializeMap: function() {
-        console.log('initialize map');
         //set map cetner
-        var center = new google.maps.LatLng(this.location.coords.latitude,this.location.coords.longitude); // approximate DC location;
+        var center = new google.maps.LatLng(this.location.coords.latitude, this.location.coords.longitude);
         var mapOptions = {
             zoom : 14,
             center : center,
@@ -71,4 +70,15 @@ var MapModuleView = Backbone.View.extend({
                                          
 });
 
-module.exports = MapModuleView;
+var SingletonWrapper = {
+    createInstance: function(location) {
+        _instance = new MapModuleView({location: location});
+        return _instance;
+    },
+    
+    getInstance: function() {
+        return _instance;
+    }
+};
+
+module.exports = SingletonWrapper;
