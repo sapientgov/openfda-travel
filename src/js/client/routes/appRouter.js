@@ -13,6 +13,7 @@ var DrugApprovedPageView = require('../views/approved/drugApprovedPageView');
 var DrugLabelPageView = require('../views/labeling/drugLabelPageView');
 var IntroductionContentView = require('../views/landing/introductionContentView');
 var InitialQuestionsView = require('../views/landing/initialQuestionsView');
+var MapModuleView = require('../views/location/mapModuleView');
 
 var AppRouter = Backbone.Router.extend({
     
@@ -96,8 +97,9 @@ var AppRouter = Backbone.Router.extend({
     initMapView: function() {
         if(navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
-                console.log('position lat: ', position.coords.latitude);
-                console.log('position lng: ', position.coords.longitude); 
+                //init map module
+                this.mapView = new MapModuleView({location: position});
+                this.mapView.render();
             });
         }
     }
