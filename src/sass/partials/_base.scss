@@ -110,6 +110,7 @@ header {
     }
     .navbar-brand{
         height: auto;
+        max-height: 80px;
         *{
             font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
             color: #333 !important
@@ -240,7 +241,7 @@ aside{
 
 .display-module{
     background: #fff;
-
+    color: $text-black;
     .module-title{
         background: $fda-yellow;
         min-height: 44px;
