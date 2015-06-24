@@ -5,25 +5,28 @@
     <meta charset="UTF-8">
     <title>1515 App</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css">
-    <script src="./js/client/app.js"></script>
+    
 </head>
 
 <body>
-    <header role="banner">
+<header role="banner">
         <nav class="navbar navbar-default">
-            <div class="container">
+            <div class="container col-md-offset-1 col-md-10 ">
                 <div class="navbar-header">
-                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a href="#" class="navbar-brand">FDA<strong>Anywhere</strong></a>
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
+                        <span class="sr-only">Toggle navigation</span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                    </button>
+                    
+                    <a href="#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.svg" alt"FDA | anywhere" width="250px" height="auto"></a> 
+                                  
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
-                    <!--
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#"><i class="fa fa-user-plus fa-2x"></i></a></li>
-                    </ul>
-                    -->
+                    
                 </div>
+                <!--/.navbar-collapse -->
             </div>
         </nav>
     </header>
@@ -117,13 +120,42 @@
 
 <div style="margin: 100px 0;text-align: center" class="clearfix">----</div>
 
+
+
+<div class="row">
+    <div class="container">
+                        <div id="search-area" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
+                            <form>
+                                <h1>Can I take this medication?</h1>
+                                <!-- segmented buttons -->
+                                <h3>Enter medication by: </h3>
+                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                                    <div class="btn-group active" role="group">
+                                        <button type="button" class="btn">All</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn">Brand</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn">Generic</button>
+                                    </div>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn">Ingredient</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ndc" class="sr-only">medication entry</label>
+                                    <input type="text" id="openfda.product_ndc" class="form-control" placeholder="Enter text here" />
+                                </div>
+                            </form>
+                        </div>
+                        </div>
+</div>
                     <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
-
-
-
+                        
                         <div class="recall-result">
                             <div class="display-module">
-                                <div class="module-title">Is XXXX Approved?</div>
+                                <div class="module-title">Is XXXX FDA-Approved?</div>
                                 <div class="module-content">
                                     <h3 class="hasRecall">Yes</h3>
                                     <fieldset>
@@ -151,57 +183,8 @@
                             </div>
                         </div>
 
-<div style="margin: 100px 0;text-align: center" class="clearfix">----</div>
-
-                        <!-- home -->
-                        <div class="home">
-                            <h1 class="welcome">Welcome to FDA<strong>Anywhere</strong></h1>
-                            <div class="intro">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu ornare purus. In vulputate leo elit, non suscipit turpis condimentum aliquet. Donec interdum consectetur risus faucibus sagittis. Suspendisse facilisis at sapien vel consequat. In consequat lacus a arcu fermentum, id egestas nulla tristique.
-                            </div>
-                            <div class="row clearfix">
-                                <div class="question-nav list-group col-md-8">
-                                    <button type="button" class="list-group-item">Can I take this medication?</button>
-                                    <button type="button" class="list-group-item">Is this medication FDA approved?</button>
-                                    <button type="button" class="list-group-item">Has this medication been recalled?</button>
-                                    <button type="button" class="list-group-item">Is this medication available abroad?</button>
-                                </div>
-                            </div>
-                        </div>
 
 
-
-<div style="margin: 100px 0;text-align: center" class="clearfix">----</div>
-                        <!-- Search area -->
-
-                        <div id="search-area">
-                            <form>
-                                <h1>Can I take this medication?</h1>
-                                <!-- segmented buttons -->
-                                <h3>Enter medication by: </h3>
-                                <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                    <div class="btn-group active" role="group">
-                                        <button type="button" class="btn">All</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn">Brand</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn">Generic</button>
-                                    </div>
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn">Ingredient</button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="ndc" class="sr-only">medication entry</label>
-                                    <input type="text" id="openfda.product_ndc" class="form-control" placeholder="Enter text here" />
-                                </div>
-                            </form>
-                            <div id="info-list-panel">
-                                Information you can access
-                            </div>
-                        </div>
 
 
 <div style="margin: 100px 0;text-align: center" class="clearfix">----</div>
@@ -227,19 +210,27 @@
                         </div>
                     </div><!-- end primary content -->
 
-                    <aside class=" col-xs-12 col-md-4 col-md-4">
-                                <button class="btn btn-primary full-width add-margin-bottom">Check more medications ></button>
-                                <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
-                                <button class="btn btn-primary full-width add-margin-bottom">Share results ></button>
-                                <div class="map-module">
-                                    <div class="map-ph">Map Placeholder</div>
-                                    <div class="list-group">
-                                        <button type="button" class="list-group-item">Pharmacies near you</button>
-                                        <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
-                                        <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
+                    <aside class="col-xs-12 col-sm-4 col-md-4">
+                            <button class="btn-cta full-width add-margin-bottom">Click here to enter your profile information</button>
+
+                            <div id="map-module">
+                                <div class="module-title">Local Information</div>
+                                <div class="module-item">
+                                    <div class="module-content">
+                                        <div class="map-ph"></div>
                                     </div>
                                 </div>
-                            </aside>
+
+                                <dl class="require-gps">
+                                    <dt>Pharmacies near you</dt>
+                                    <dd></dd>
+                                    <dt>Hospitals / Clinics near you</dt>
+                                    <dd></dd>
+                                    <dt>U.S. Embassy / Consulates near you</dt>
+                                    <dd></dd>
+                                </dl>
+                            </div>
+                    </aside>
 
 
 

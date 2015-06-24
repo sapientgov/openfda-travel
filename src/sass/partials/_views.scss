@@ -9,12 +9,13 @@
     }
     p{
         font-size: 24px;
+        font-weight: 400;
         margin-bottom: 30px;
     }
     .landing-actions{
         a{
             display: inline-block;
-            margin-right: 45px;
+            margin: 0 45px 30px 0;
             color: #fff;
             font-weight: 700;
             font-size: 24px;
@@ -57,8 +58,8 @@
             right: 15px;
             top: 0;
         }
-        .collapsed{
-            + dd{
+        &.collapsed{
+            &+ dd{
                     display: none;
             }
         }
@@ -80,30 +81,19 @@
 *  recall page
 ****************/
 
-.approvedToggle{
-    display:inline-block;
-    width: 30%;
-    margin-right: 2%;
-    text-align: center;
-    line-height: 60px;
-
-    .hasRecall{
-        background: #666;
-        color: #aaa;
-        &.active{
-            background: #00cc00;
-            color: #fff;
-            font-weight:bold;
+.recall-result{
+    h3{
+        color: $fda-red;
+        font-size: 24px;
+        font-weight: 700;
+        margin:0 0 10px 0;
+        &.hasRecall{
+            color: $fda-green !important;
         }
     }
-    .noRecall{
-        background: #666;
-        color: #aaa;
-        &.active{
-            background: #cc0000;
-            color: #fff;
-            font-weight:bold;
-        }
+    fieldset{
+        display:block;
+        margin-bottom: 5px;
     }
 }
 
