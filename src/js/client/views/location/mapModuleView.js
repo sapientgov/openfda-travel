@@ -23,8 +23,8 @@ var MapModuleView = Backbone.View.extend({
     
     render: function() {
         
-        //show the map module
-        this.$el.show();
+        //show the map module elements
+        this.$('.require-gps').slideDown();
         
         //load script if needed
         if (typeof google === 'undefined') {
