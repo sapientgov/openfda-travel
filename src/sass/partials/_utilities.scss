@@ -1,0 +1,62 @@
+.capitalize {
+    text-transform: capitalize;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.add-margin {
+    margin: $global-margin;
+}
+
+.add-margin-horiz {
+    margin-right: $global-margin;
+    margin-left: $global-margin;
+}
+
+.add-margin-vertical {
+    margin-top: $global-margin;
+    margin-bottom: $global-margin;
+}
+
+.add-margin-top {
+    margin-top: $global-margin;
+}
+
+.add-margin-bottom {
+    margin-bottom: $global-margin;
+}
+
+.add-margin-right {
+    margin-right: $global-margin;
+}
+
+.add-margin-left {
+    margin-left: $global-margin;
+}
+
+input.form-control::-webkit-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input.form-control::-moz-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input.form-control:-moz-placeholder {
+    /* Older versions of Firefox */
+    color: rgba(255, 255, 255, 0.5);
+}
+
+input.form-control:-ms-input-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+$class-slug: col !default;
+
+@for $i from 1 through 100{
+  .#{$class-slug}#{$i*1}{
+    width: 1% * $i;
+    }
+}
