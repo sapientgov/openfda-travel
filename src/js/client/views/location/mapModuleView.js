@@ -72,8 +72,16 @@ var MapModuleView = Backbone.View.extend({
 
 var SingletonWrapper = {
     createInstance: function(location) {
-        _instance = new MapModuleView({location: location});
-        return _instance;
+        
+        //setup map view
+        if(!_instance && navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                //init map module
+                console.log('initing map');
+                _instance = new MapModuleView({location: position});
+                _instance.render();
+            });
+        }
     },
     
     getInstance: function() {
