@@ -62,35 +62,6 @@ var AppRouter = Backbone.Router.extend({
         this.currentView.render();
     },
     
-    foreign: function() {
-        //TODO: IMPLEMENT ME
-    },
-
-    drugRecall: function(brand) {
-        //find the drug we want based on ndc
-        console.log('getting drug recall info for %s.', brand);
-        FdaService.findRecallInfoByBrandName(brand).done(function(data) {
-            //setup view
-            if(data.results && data.results.length > 0) {
-                
-                //make sure we only include exact matches
-                var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-                if(exacts.length > 0) {
-                    
-                    //for now just take the first result - may need to have the user choose?
-                    this.currentView = new DrugRecallPageView({drug: exacts[0]});
-                    this.currentView.render();
-                    return;
-                }
-            }
-            
-            //if we get here there were no results we could use
-            console.log('no results returned');
-        }).fail(function() {
-            console.error('failed to find drug recall info by brand name');
-        });
-    },
-    
     clearIntroContent: function() {
         //make sure intro content is gone
         if(this.introView) {
