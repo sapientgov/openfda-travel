@@ -26,9 +26,6 @@ var DrugLabelInfoView = Backbone.View.extend({
         this.toggleSectionDisplays();
         return this;
 
-
-        
-
     },
     
 	/**

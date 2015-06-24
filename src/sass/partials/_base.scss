@@ -133,15 +133,23 @@ span {
     margin-top: 15px;
 }
 
+
+
 header {
-    background: #fff;
     .navbar {
         margin: 0;
     }
-    .navbar-brand *{
-
-        font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
-        color: #333 !important
+    .navbar-default{
+        background: rgba(255,255,255, 0.20);
+        border: 0 none;
+        @include border-radius(0);
+    }
+    .navbar-brand{
+        height: auto;
+        *{
+            font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
+            color: #333 !important
+        }
     }
 }
 
@@ -262,6 +270,40 @@ aside{
             color: #333;
             padding: 15px;
             display:none;
+        }
+    }
+}
+
+/*****Landing Page****/
+.landing-page{
+    margin-bottom: 120px;
+    h1{
+        font-size: 32px;  
+        font-weight: 700;  
+    }
+    p{
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    .landing-actions{
+        a{
+            display: inline-block;
+            margin-right: 45px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 24px;
+            &:after{
+                content: '\f0a9';
+               font-family: 'FontAwesome';
+               font-weight: normal;
+               font-style: normal;
+               margin:0px 0px 0px 10px;
+               text-decoration:none;
+            }
+            &:hover{
+                color: $fda-teal;
+                text-decoration: none;
+            }
         }
     }
 }
