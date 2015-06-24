@@ -31,5 +31,6 @@
   }
   "scripts": {
     "test": "grunt ci"
+  }
 },
 }
