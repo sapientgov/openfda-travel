@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var AppRouter = require('./routes/appRouter');
 var MapModuleView = require('./views/location/mapModuleView');
+var User = require('./models/user');
 
 //setup map view
 if(navigator.geolocation) {
@@ -15,6 +16,10 @@ if(navigator.geolocation) {
         mapView.render();
     });
 }
+
+//setup user object
+//var user = User.createInstance();
+
 
 //setup router
 $(function() {

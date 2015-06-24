@@ -53,7 +53,8 @@ module.exports = function(grunt) {
                     devel: true,
                     strict: true,
                     globals: {
-                        google: false
+                        google: false,
+                        gapi: false
                     }
                 }
             }
