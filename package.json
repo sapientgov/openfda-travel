@@ -30,6 +30,6 @@
     "node-handlebars": "^0.9.7"
   }
   "scripts": {
-  "test": "grunt ci"
+    "test": "grunt ci"
 },
 }
