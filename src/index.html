@@ -124,7 +124,12 @@
 				<%if (typeof(openfda) == "undefined") {%>
 				<input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
 				<% } %>
+				
+				<% if(title.indexOf("approved") > 0) { %>
+				<button type="button" class="btn approved-search search-all">Search</button>
+				<% } %>
             </div>
+			
             <div id="drug-search-results">
                 <ul id="count-results-list">
                 </ul>
@@ -142,6 +147,38 @@
         <label>Generic:</label> <%- openfda.generic_name %><br />
         <label>Ingredients:</label> <%- openfda.substance_name %>
     </script>
+	
+	<script type="text/template" id="drug-approved-info">
+<div id="approved-results" class="display-module">
+			
+			<%if (typeof(openfda) !== "undefined") {%>
+				<div class="module-title"></div>
+			<% } %>
+			
+            <div class="label-section" id="open-fda-fields">
+            <dl>
+				<%if (typeof(openfda) !== "undefined") { %>
+				<h3 class="hasRecall">Yes</h3>
+                <% } %>
+				<%if (typeof(openfda) == "undefined") { %>
+				<h3 class="hasRecall">No</h3>
+                <% } %>
+                <dd  class="label-section"  id="open-fda-fields-data">
+                    <%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
+                        <p><label>Brand Name:</label> <%- openfda.brand_name %> </p>
+                    <%}%>
+                    <%if (typeof(openfda) !== "undefined" && typeof(openfda.generic_name) !== "undefined") {%>
+                        <p><label>Generic Name:</label> <%- openfda.generic_name %> </p>
+                    <%}%>
+                    <%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_epc) !== "undefined") {%>
+                        <p><label>Class:</label> <%- openfda.pharm_class_epc %> </p>
+                    <%}%>
+                </dd>
+            </dl>
+            </div>
+   
+   </div> 
+   </script>
     
    <script type="text/template" id="drug-label-info">
 <div class="display-module">
