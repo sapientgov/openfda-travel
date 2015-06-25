@@ -221,6 +221,9 @@ aside{
         font-size: 12px;
         font-weight: 400;
         cursor: pointer;
+        &:hover{
+            background: #ccc;
+        }
     }
     dd{
         display:none;
@@ -228,7 +231,7 @@ aside{
         background: #fff;
     }
 }
-.btn-wire{
+.btn-wire, .btn-cta{
     @extend .btn;
     background: none;
     font-size: 16px;
@@ -239,22 +242,10 @@ aside{
     height: 48px;
     margin: 10px 0;
     &:hover{
-        background: rgba(255, 255, 255, 0.25);
+        background: $fda-teal;
         color: #fff;
     }
 
-}
-.btn-cta{
-    display: block;
-    border: 0 none;
-    text-align: left;
-    background: $fda-teal;
-    @include border-radius(0);
-    color: #fff;
-    padding: 5px 45px 5px 15px;
-    font-family: 'RobotoCondensed', Arial, Helvetica, sans-serif;
-    min-height: 32px;
-    font-weight: 500;
 }
 
 
@@ -283,6 +274,9 @@ aside{
                     font-size: 14px;
                     font-weight: 400;
                     margin-bottom: $global-margin;
+                    &:hover{
+                        background: #ccc;
+                    }
                 }
             }
         }
