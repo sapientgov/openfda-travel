@@ -512,12 +512,12 @@
         
 		<div class="toggle">
 
-			<%if (typeof(recall_initiation_date) !== "undefined" && recall_initiation_date == true) {%>
+			<%if (typeof(isRecalled) !== "undefined" && isRecalled == true) {%>
 
 			<div class="approved active" style="display:inline-box;border: 1px solid #fff; line-height: 48px;height: 48px;background: #00ff00">Yes</div>
 			<% } %>
 			
-			<%if (typeof(recall_initiation_date) == "undefined") {%>
+			<%if (typeof(isRecalled) !== "undefined" && isRecalled == false) {%>
 			<div class="negatory" style="display:inline-box;border: 1px solid #fff; margin-left: 5px;line-height: 48px;height: 48px; background: #cc0000;">No</div>
 			<% } %>
 		</div>
