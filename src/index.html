@@ -6,7 +6,6 @@
     <title>1515 App</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
-    <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
 </head>
 
 <body>
@@ -75,7 +74,7 @@
             <h1>Welcome to FDAanywhere</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
             <div class="landing-actions">
-                <a href="#" onclick="twitLogin();">Sign In</a>
+                <a href="#" class="diglogin">Sign In</a>
                 <a href="#q">Continue as guest</a>
             </div>
             <p id="login-success-msg" style="display:none; color: #19B8A6; margin: 10px 0; font-size:24px;">Login Success!</p>
@@ -593,23 +592,15 @@
 	  </div>		
     </script>
     
+    <!-- Main JS File -->
+    <script src="./js/client/app.js"></script>
+    <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
+    
     <!-- event trigger for google map api loading -->
     <script type="text/javascript">
         function mapApiLoaded() {
             var event = new Event('map-api-load');
             document.dispatchEvent(event);
-        }
-    </script>
-    
-    <script type="text/javascript">
-        function twitLogin() {
-            console.log('twitter!');
-            Digits.logIn().done(function(loginResponse) {
-                console.log('login success!', loginResponse);
-                document.getElementById('login-success-msg').style.display = 'block';
-            }).fail(function(reason) {
-                console.log('login error', reason);
-            });
         }
         
         //setup digits
@@ -617,9 +608,6 @@
             Digits.init({ consumerKey: '3fRmH8jiHfBH2CPu8ekjxsDXv' });
         }
     </script>
-
-    <!-- Main JS File -->
-    <script src="./js/client/app.js"></script>
 </body>
 
 </html>
