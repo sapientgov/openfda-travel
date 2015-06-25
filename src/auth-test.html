@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>1515 App</title>
+    <link href="css/appstyles.css" rel="stylesheet" type="text/css">
+    <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
+</head>
+
+<body>
+    <header role="banner">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+
+                    <a href="#" class="navbar-brand">FDA<strong>Anywhere</strong></a> 
+                </div>
+                <div class="navbar-collapse collapse" id="navbar"></div>
+                <!--/.navbar-collapse -->
+            </div>
+        </nav>
+    </header>
+
+    <!-- main content -->
+    <main id="content" role="main">
+        <section>
+            <div class="container">
+                <button class="btn btn-default" id="btn-twitter" onclick="twitLogin()" type="submit">Login with Digits</button>
+                <button class="btn btn-default" id="btn-logout" onclick="logout();" type="submit">Logout</button>
+            </div>
+        </section>
+    </main> <!-- /main-content -->
+    
+    <script type="text/javascript">
+        
+        function twitLogin() {
+            console.log('twitter!');
+            Digits.logIn().done(function(loginResponse) {
+                console.log('login success!', loginResponse);
+            }).fail(function(reason) {
+                console.log('login error', reason);
+            });
+        }
+        
+        //setup digits
+        document.getElementById('digits-sdk').onload = function() {
+            Digits.init({ consumerKey: '3fRmH8jiHfBH2CPu8ekjxsDXv' });
+        }
+    </script>
+    
+</body>
+
+</html>

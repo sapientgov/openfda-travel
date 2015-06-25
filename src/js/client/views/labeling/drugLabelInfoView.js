@@ -24,12 +24,23 @@ var DrugLabelInfoView = Backbone.View.extend({
 
         //toggle the sections
         this.toggleSectionDisplays();
+		this.deleteLastResults();
         return this;
 
-
-        
-
     },
+	
+	deleteLastResults: function() {
+		
+		var self = this;
+		
+		var numChildren = document.getElementById("primary-content").childNodes.length;
+				
+		if(numChildren > 1)
+		{
+			document.getElementById("primary-content").lastChild.remove();
+		}
+		
+	},
     
 	/**
      * Hides sections that have no data to display

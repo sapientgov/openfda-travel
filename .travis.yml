@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- '0.10'
+before_install:
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- "gem install sass"
+- "gem install compass"
+- "npm install grunt-cli"
+services:
+- mongodb
+deploy:
+  provider: openshift
+  user: smagee@sapient.com
+  password:
+    secure: u2wwz6g88VTtdOlb1mQfofv4g22+mg3w/FLwSsVatqAkY7mXxC9m44XYauUPMdMHGj8aRFCyo3IvupNVGkp9FcFGRrWRjZAbgPo8VK+uRqos1ImQ09W237WJ+78CmRXK6wT8Mo/BMP+kp1NtfDNHIRLZg7oj7z8wl6qMHukUZ2fO/Y7KlLVO/fTsZWvlSEhNMq7vEhhViwiD9f28f0kZbEvJoEPUj9ErTLoVUW8Qya9AnqQplN3UrquB4NzrNbELbs72x/F5Xw49zntmC/nn8B5Ukp5Bz7OG117baP5ObeWiQrcumDbOm+K0ayVjWAxX8KtNWP4F5GfJify/ucoD4wRHT3u9mvuuxOzXCDumlb7lK79cpiRBbYsuTbShvAfEX2+FjZSlNhb33rjXiUb9/g8majJyrzS83/OxdUk3MzuuV5TRNywMXrzVU8Q1Vk8UC4Cm2Uvhwr/GLE0595K/CWI0iT1ID3oY6gsCLYil92hr2xz5SxRd0IOJtSji9TlhJMWlu2sGqv8IL0EMXMFLIqAZ+VPcK8sUwnMQmQNhCxpdnZJiBjtvVykZdI0MV8LQKvQLRV9Y1JC6Mb6yYFGHj4r2jVVteGTT8HSj1fliAO1diFWiVEW4+4iLimB/JbKRE33v/wz950aXs9JaarpgNHKxN5C/TnBzI0OLFPgzcaY=
+  app: fdaanywhere
+  domain: fifteenfifteen
+  on:
+    repo: sapientgov/openfda-travel
+  skip_cleanup: true
+
+# whitelist
+branches:
+  only:
+    - master

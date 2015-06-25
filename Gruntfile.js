@@ -14,7 +14,7 @@ module.exports = function(grunt) {
         copy : {
             html : {
                 cwd: 'src/',
-                src : ['*.html', 'fonts/**/*', 'img/**/*'],
+                src : ['*.html','*.ico', 'fonts/**/*', 'img/**/*'],
                 dest : 'dist/',
                 expand: true
             },
@@ -53,7 +53,8 @@ module.exports = function(grunt) {
                     devel: true,
                     strict: true,
                     globals: {
-                        google: false
+                        google: false,
+                        Digits: false
                     }
                 }
             }
@@ -135,6 +136,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
     grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'connect:server', 'express:dev', 'watch']);
-    grunt.registerTask('jenkins',['build-prod', 'jshint', 'karma:ci']);
+    grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci']);
 
 }

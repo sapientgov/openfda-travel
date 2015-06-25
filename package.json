@@ -28,11 +28,13 @@
     "underscore": "^1.8.3"
   },
   "dependencies": {
-    "express": "^4.13.0",
+    "mongodb": "^2.0.35",
     "body-parser": "^1.13.1",
-    "mongodb": "^2.0.35"
+    "express": "^4.13.0",
+    "node-uuid": "^1.4.3"
   },
   "scripts": {
+    "test": "grunt ci",
     "start": "node ./dist/js/server/app.js"
   }
 }

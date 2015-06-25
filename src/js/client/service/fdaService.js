@@ -18,8 +18,8 @@ var FdaService = {
         var deferred = $.Deferred();
         $.getJSON(url).done(function(data) {
             deferred.resolve(data);
-        }).fail(function() {
-            deferred.reject();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            deferred.reject(jqXHR, textStatus, errorThrown);
         });
         
         return deferred.promise();
@@ -123,11 +123,11 @@ var FdaService = {
      * 
      * @param {String} product ndc NDC ID of the target drug
      */
-    findRecallInfoByBrandName: function(brand_name) {
+    findRecallInfoByDrugId: function(id) {
         var reqUrl = ENFORCEMENT_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand_name + '"';
+        var qs = BEGIN_QS + '&limit=100&search=openfda.spl_id:\"[\"' + id + '\"]\"';
         console.log('api call: ' + qs);
         
         //make json call

@@ -5,51 +5,111 @@
     <meta charset="UTF-8">
     <title>1515 App</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css">
-    <script src="./js/client/app.js"></script>
 </head>
 
 <body>
     <header role="banner">
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container col-md-offset-1 col-md-10 ">
                 <div class="navbar-header">
-                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a href="#" class="navbar-brand">FDA<strong>Anywhere</strong></a>
+                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.svg" alt "FDA | anywhere" width="250px" height="auto"></a>
                 </div>
                 <div class="navbar-collapse collapse" id="navbar">
-                    <!--
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#"><i class="fa fa-user-plus fa-2x"></i></a></li>
-                    </ul>
-                    -->
                 </div>
+                <!--/.navbar-collapse -->
             </div>
         </nav>
     </header>
     <main id="content" role="main">
         <section id="drug-search">
             <div class="container">
-                    <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
-
-                        <!-- home -->
-                        <div class="home">
-                            <h1 class="welcome">Welcome to FDA<strong>Anywhere</strong></h1>
-                            <div class="intro">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eu ornare purus. In vulputate leo elit, non suscipit turpis condimentum aliquet. Donec interdum consectetur risus faucibus sagittis. Suspendisse facilisis at sapien vel consequat. In consequat lacus a arcu fermentum, id egestas nulla tristique.
-                            </div>
-                            <div class="row clearfix">
-                                <div class="question-nav list-group col-md-8">
-                                    <button type="button" class="list-group-item">Can I take this medication?</button>
-                                    <button type="button" class="list-group-item">Is this medication FDA approved?</button>
-                                    <button type="button" class="list-group-item">Has this medication been recalled?</button>
-                                    <button type="button" class="list-group-item">Is this medication available abroad?</button>
-                                </div>
+                <!-- landing page -->
+                <div class="row">
+                    <div class="landing-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-8">
+                        <h1>Welcome to FDAanywhere</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
+                        <div class="landing-actions">
+                            <a href="#">Sign In</a>
+                            <a href="#">Continue as guest</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin: 100px 0;text-align: center" class="clearfix">----</div>
+                <div class="row">
+                    <!-- profile page -->
+                    <div class="profile-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-7 clearfix">
+                        <h1>Manage Medication Profile</h1>
+                        <div class="display-module">
+                            <div class="module-title">Click 'edit' to change your settings</div>
+                            <div class="module-content">
+                                <dl class="profile-list">
+                                    <dt class="profile" data-profileId="profileId1">Jane Doe</dt>
+                                    <dd id="profileId1">
+                                        <fieldset>
+                                            <label>Your age range:</label>
+                                            <div>Adult (20-69)</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Gender:</label>
+                                            <div>Female</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medications you take:</label>
+                                            <div>Medication 1, Medication 2, Medication 3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medical conditions you may have:</label>
+                                            <div>Condition1, Condition2, Condition3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Allergies you may have:</label>
+                                            <div>Allergy1, Allergy2</div>
+                                        </fieldset>
+                                        <div class="profile-actions">
+                                            <a href="#" class="" title="Delete Profile">Delete Profile</a>
+                                            <a href="#" class="" title="Edit Profile">Edit Profile</a></div>
+                                    </dd>
+                                    <dt class="profile collapsed" data-profile="profileId2">John Doe</dt>
+                                    <dd id="profileId2">
+                                        <fieldset>
+                                            <label>Your age range:</label>
+                                            <div>Child (0-12)</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Gender:</label>
+                                            <div>Male</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medications you take:</label>
+                                            <div>Medication 1, Medication 2, Medication 3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Medical conditions you may have:</label>
+                                            <div>Condition1, Condition2, Condition3</div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label>Allergies you may have:</label>
+                                            <div>Allergy1, Allergy2</div>
+                                        </fieldset>
+                                        <div class="profile-actions">
+                                            <a href="#" class="" title="Delete Profile">Delete Profile</a>
+                                            <a href="#" class="" title="Edit Profile">Edit Profile</a></div>
+                                    </dd>
+                                </dl>
                             </div>
                         </div>
-
-                        <!-- Search area -->
-                        <div id="search-area">
+                    </div>
+                </div>
+                <div style="margin: 100px 0;text-align: center" class="clearfix">----</div>
+                <div class="row">
+                    <div class="container">
+                        <div id="search-area" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
                             <form>
                                 <h1>Can I take this medication?</h1>
                                 <!-- segmented buttons -->
@@ -73,52 +133,178 @@
                                     <input type="text" id="openfda.product_ndc" class="form-control" placeholder="Enter text here" />
                                 </div>
                             </form>
-                            <div id="info-list-panel">
-                                Information you can access
-                            </div>
                         </div>
-                        
-                        <!-- Result List template-->
-                        <div id="result" class="row clearfix add-margin-top">
-                            <h1>Can I take this medication?</h1>
-                            <div id="search-area" class="col-xs-12 col-sm-8 col-md-8">
-                                <ul id="drug-overview">
-                                    <li class="overview">Drug overview card</li>
-                                    <!-- part of loop -->
-                                    <li>Warnings &amp; Precautions</li>
-                                    <li>Indications, Usage &amp; Dosage</li>
-                                    <li>Abuse &amp; Overdosage</li>
-                                    <li>Adverse Effects &amp; Interactions</li>
-                                    <li>Special Populations</li>
-                                    <li>Other Fields</li>
-                                </ul>
-                                <div id="showMore" class="showMore">
-                                    <button class="btn-wire full-width">View More</button>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div><!-- end primary content -->
-
-                    <aside class=" col-xs-12 col-md-4 col-md-4">
-                                <button class="btn btn-primary full-width add-margin-bottom">Check more medications ></button>
-                                <button class="btn btn-primary full-width add-margin-bottom">Create your medication profile ></button>
-                                <button class="btn btn-primary full-width add-margin-bottom">Share results ></button>
-                                <div class="map-module">
-                                    <div class="map-ph">Map Placeholder</div>
-                                    <div class="list-group">
-                                        <button type="button" class="list-group-item">Pharmacies near you</button>
-                                        <button type="button" class="list-group-item">Hospitals / Clinics near you</button>
-                                        <button type="button" class="list-group-item">U.S. Embassy / Consulates near you</button>
-                                    </div>
-                                </div>
-                            </aside>
-
-
-
-
+                    </div>
                 </div>
-                <!-- End row-->
+                <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6">
+                    <div class="approval-default">
+                        <div class="display-module">
+                            <div class="module-title">What FDA approval means for customers</div>
+                            <div class="module-content">
+                                <dl class="faq">
+                                    <dt>Subheader 1</dt>
+                                    <dd>Curabitur auctor, mi tincidunt volutpat pulvinar, arcu odio posuere ante, in rutrum justo mauris at lorem. Aenean a dolor tincidunt, convallis erat vitae, tristique leo. Etiam posuere lorem in mi tincidunt, et fringilla purus volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</dd>
+                                    <dt>Subheader 2</dt>
+                                    <dd>Suspendisse vel ullamcorper turpis. Pellentesque accumsan urna vel ante malesuada, et porta lectus accumsan. Maecenas lacinia ligula id metus pharetra, non blandit justo ornare. Integer consequat sem non elit mollis, scelerisque porta ipsum interdum.</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="recall-result">
+                        <div class="display-module">
+                            <div class="module-title">Is XXXX FDA-Approved?</div>
+                            <div class="module-content">
+                                <h3 class="hasRecall">Yes</h3>
+                                <fieldset>
+                                    <label>Brand name:</label> "Name here"
+                                </fieldset>
+                                <fieldset>
+                                    <label>Generic name:</label> "Name here"
+                                </fieldset>
+                                <fieldset>
+                                    <label>Class:</label> "Name here"
+                                </fieldset>
+                                <fieldset>
+                                    <label>Quantity:</label> "Name here"
+                                </fieldset>
+                                <fieldset>
+                                    <label>Status:</label> "Name here"
+                                </fieldset>
+                                <fieldset>
+                                    <label>Date:</label> "Name here"
+                                </fieldset>
+                                <fieldset>
+                                    <label>Reason:</label> "Name here"
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin: 100px 0;text-align: center" class="clearfix">----</div>
+                    <div class="display-module">
+                        <div class="module-title">Drug Label Info For 'ADVIL PM'</div>
+                        <div class="label-results">
+                            <div class="label-section" id="id-and-versions">
+                                <dl>
+                                    <dt>ID &amp; Versions</dt>
+                                    <dd id="id-and-versions-data">
+                                        <i>Set ID:</i> 405afdb4-c157-1d88-f232-848063ba4714
+                                        <br>
+                                        <i>ID:</i> 0e4630c8-be3d-4e7a-bdce-29379fb47496
+                                        <br>
+                                        <i>Version:</i> 10
+                                        <br>
+                                        <i>Effective Time:</i> 20150127
+                                        <br>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="label-section" id="indications">
+                                <dl>
+                                    <dt>Indications, Usage &amp; Dose</dt>
+                                    <dd id="indications-data">
+                                        <p><i>Indications &amp; Usage:</i> USES for relief of occasional sleeplessness when associated with minor aches and pains helps you fall asleep and stay asleep </p>
+                                        <p><i>Dosage &amp; Administration:</i> DIRECTIONS do not take more than directed adults and children 12 years and over: take 2 capsules at bedtime do not take more than 2 capsules in 24 hours </p>
+                                        <p><i>Purpose:</i> PURPOSES Nighttime sleep-aid Pain reliever </p>
+                                        <p><i>Active Ingredient:</i> ACTIVE INGREDIENTS (IN EACH CAPSULE) Diphenhydramine hydrochloride 25 mg Solubilized ibuprofen equal to 200 mg ibuprofen (NSAID)* (present as the free acid and potassium salt) *nonsteroidal anti-inflammatory drug </p>
+                                        <p><i>Inactive Ingredient:</i> INACTIVE INGREDIENTS D&amp;C red no. 33, FD&amp;C blue no. 1, fractionated coconut oil, gelatin, pharmaceutical ink, polyethylene glycol, potassium hydroxide, purified water, sorbitan, sorbitol </p>
+                                        <p><i>SPL Product Data Elements:</i> ADVIL PM diphenhydramine HCl, ibuprofen DIPHENHYDRAMINE HYDROCHLORIDE DIPHENHYDRAMINE IBUPROFEN IBUPROFEN D&amp;C RED NO. 33 FD&amp;C BLUE NO. 1 MEDIUM-CHAIN TRIGLYCERIDES GELATIN POLYETHYLENE GLYCOLS POTASSIUM HYDROXIDE WATER SORBITAN SORBITOL Clear blue Oval liqui-gel Advil;PM </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="label-section" id="patient-info">
+                                <dl>
+                                    <dt>Patient Information</dt>
+                                    <dd id="patient-info-data">
+                                        <p><i>Ask A Doctor:</i> Ask a doctor before use if stomach bleeding warning applies to you you have problems or serious side effects from taking pain relievers or fever reducers you have a history of stomach problems, such as heartburn you have high blood pressure, heart disease, liver cirrhosis, kidney disease, or asthma you are taking a diuretic you have a breathing problem such as emphysema or chronic bronchitis you have glaucoma you have trouble urinating due to an enlarged prostate gland </p>
+                                        <p><i>Ask Doctor or Pharmacist:</i> Ask a doctor or pharmacist before use if you are taking sedatives or tranquilizers, or any other sleep-aid under a doctor's care for any continuing medical illness taking any other antihistamines taking aspirin for heart attack or stroke, because ibuprofen may decrease this benefit of aspirin taking any other drug </p>
+                                        <p><i>Do Not Use If:</i> Do not use if you have ever had an allergic reaction to any other pain reliever/fever reducer unless you have time for a full night's sleep in children under 12 years of age right before or after heart surgery with any other product containing diphenhydramine, even one used on skin if you have sleeplessness without pain </p>
+                                        <p><i>Keep Out of Reach of Children:</i> Keep out of reach of children. In case of overdose, get medical help or contact a Poison Control Center right away. </p>
+                                        <p><i>Questions:</i> QUESTIONS OR COMMENTS? Call weekdays 9 AM to 5 PM EST at 1-800-88-ADVIL </p>
+                                        <p><i>Stop Use:</i> Stop use and ask a doctor if you experience any of the following signs of stomach bleeding: feel faint vomit blood have bloody or black stools have stomach pain that does not get better pain gets worse or lasts more than 10 days sleeplessness persists continuously for more than 2 weeks. Insomnia may be a symptom of a serious underlying medical illness. redness or swelling is present in the painful area any new symptoms appear </p>
+                                        <p><i>When Using:</i> When using this product drowsiness will occur avoid alcoholic drinks do not drive a motor vehicle or operate machinery take with food or milk if stomach upset occurs the risk of heart attack or stroke may increase if you use more than directed or for longer than directed </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="label-section" id="special-populations">
+                                <dl>
+                                    <dt>Special Populations</dt>
+                                    <dd id="special-populations-data">
+                                        <p><i>Pregnancy or Breast Feeding:</i> If pregnant or breast-feeding, ask a health professional before use. It is especially important not to use ibuprofen during the last 3 months of pregnancy unless definitely directed to do so by a doctor because it may cause problems in the unborn child or complications during delivery. </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="label-section" id="non-clinical-tox" style="display: none;">
+                                <dl>
+                                    <dt>Non-Clinical Toxicology</dt>
+                                    <dd id="non-clinical-tox-data">
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="label-section" id="warnings">
+                                <dl>
+                                    <dt>Warnings &amp; Precautions</dt>
+                                    <dd id="warnings-data">
+                                        <p><i>Warnings:</i> WARNINGS Allergy alert: Ibuprofen may cause a severe allergic reaction, especially in people allergic to aspirin. Symptoms may include: hives facial swelling asthma (wheezing) shock skin reddening rash blisters If an allergic reaction occurs, stop use and seek medical help right away. Stomach bleeding warning: This product contains an NSAID, which may cause severe stomach bleeding. The chance is higher if you are age 60 or older have had stomach ulcers or bleeding problems take a blood thinning (anticoagulant) or steroid drug take other drugs containing prescription or nonprescription NSAIDs [aspirin, ibuprofen, naproxen, or others] have 3 or more alcoholic drinks every day while using this product take more or for a longer time than directed Do not use if you have ever had an allergic reaction to any other pain reliever/fever reducer unless you have time for a full night's sleep in children under 12 years of age right before or after heart surgery with any other product containing diphenhydramine, even one used on skin if you have sleeplessness without pain Ask a doctor before use if stomach bleeding warning applies to you you have problems or serious side effects from taking pain relievers or fever reducers you have a history of stomach problems, such as heartburn you have high blood pressure, heart disease, liver cirrhosis, kidney disease, or asthma you are taking a diuretic you have a breathing problem such as emphysema or chronic bronchitis you have glaucoma you have trouble urinating due to an enlarged prostate gland Ask a doctor or pharmacist before use if you are taking sedatives or tranquilizers, or any other sleep-aid under a doctor's care for any continuing medical illness taking any other antihistamines taking aspirin for heart attack or stroke, because ibuprofen may decrease this benefit of aspirin taking any other drug When using this product drowsiness will occur avoid alcoholic drinks do not drive a motor vehicle or operate machinery take with food or milk if stomach upset occurs the risk of heart attack or stroke may increase if you use more than directed or for longer than directed Stop use and ask a doctor if you experience any of the following signs of stomach bleeding: feel faint vomit blood have bloody or black stools have stomach pain that does not get better pain gets worse or lasts more than 10 days sleeplessness persists continuously for more than 2 weeks. Insomnia may be a symptom of a serious underlying medical illness. redness or swelling is present in the painful area any new symptoms appear If pregnant or breast-feeding, ask a health professional before use. It is especially important not to use ibuprofen during the last 3 months of pregnancy unless definitely directed to do so by a doctor because it may cause problems in the unborn child or complications during delivery. Keep out of reach of children. In case of overdose, get medical help or contact a Poison Control Center right away. </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="label-section" id="other-fields">
+                                <dl>
+                                    <dt>Other Fields</dt>
+                                    <dd id="other-fields-data">
+                                        <p><i>Package Label Principal Display Panel:</i> PRINCIPAL DISPLAY PANEL - 8 Capsule Blister Pack See warnings before use Advil &reg; PM LIQUI-GELS&reg; Solubilized Ibuprofen, 200 mg / Diphenhydramine HCl, 25 mg Do Not Use if foil barrier is broken. Dist. by: Pzifer, Madison, NJ 07940 USA AREA FOR EXP. &amp; LOT SEPARATE FIRST PEEL &amp; PUSH PRINCIPAL DISPLAY PANEL - 8 Capsule Blister Pack,PRINCIPAL DISPLAY PANEL - 16 Capsule Blister Pack Carton READ AND KEEP CARTON FOR COMPLETE WARNINGS AND INFORMATION Advil &reg; PM LIQUI-GELS &reg; Solubilized Ibuprofen, 200 mg/Diphenhydramine HCl, 25 mg Pain Reliever (NSAID)/Nighttime Sleep-Aid 16 Liqui-Gels&reg;* *Liquid Filled Capsules Liquid Filled Capsules PRINCIPAL DISPLAY PANEL - 16 Capsule Blister Pack Carton,PRINCIPAL DISPLAY PANEL - 80 Capsule Bottle Label Advil &reg; PM LIQUI-GELS &reg; Solubilized Ibuprofen, 200 mg/Diphenhydramine HCl, 25 mg Pain Reliever (NSAID)/Nighttime Sleep-Aid 80 Liquid Filled Capsules Liquid Filled Capsules READ AND KEEP CARTON FOR COMPLETE WARNINGS AND INFORMATION Principal Display Panel - 80 Capsule Bottle Label,PRINCIPAL DISPLAY PANEL - 80 Capsule Bottle Carton GREAT VALUE! Advil &reg; PM LIQUI-GELS &reg; Solubilized Ibuprofen, 200 mg/ Diphenhydramine HCl, 25 mg Pain Reliever (NSAID)/Nighttime Sleep-Aid 80 Liqui-Gels&reg;* *Liquid Filled Capsules Liquid Filled Capsules Principal Display Panel - 80 Capsule Bottle Carton </p>
+                                        <p><i>SPL Unclassified Section:</i> DRUG FACTS,OTHER INFORMATION each capsule contains: potassium 20 mg read all warnings and directions before use. Keep carton. store at 20-25°C (68-77°F) avoid excessive heat above 40°C (104°F) protect from light </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="label-section" id="open-fda-fields">
+                                <dl>
+                                    <dt>Open FDA fields</dt>
+                                    <dd id="open-fda-fields-data">
+                                        <p><i>Application Number:</i> NDA021393 </p>
+                                        <p><i>Brand Name:</i> ADVIL PM </p>
+                                        <p><i>Generic Name:</i> DIPHENHYDRAMINE HCL, IBUPROFEN </p>
+                                        <p><i>Manufacturer Name:</i> Pfizer Consumer Healthcare </p>
+                                        <p><i>Is Original Packager:</i> true </p>
+                                        <p><i>Product NDC:</i> 0573-0167 </p>
+                                        <p><i>Product Type:</i> HUMAN OTC DRUG </p>
+                                        <p><i>Route:</i> ORAL </p>
+                                        <p><i>Substance Name:</i> DIPHENHYDRAMINE HYDROCHLORIDE,IBUPROFEN </p>
+                                        <p><i>SPL ID:</i> ba428391-b323-4c6a-954b-9924e3fdb9ef </p>
+                                        <p><i>SPL Set ID:</i> 405afdb4-c157-1d88-f232-848063ba4714 </p>
+                                        <p><i>Mechanism of Action:</i> Histamine H1 Receptor Antagonists [MoA] </p>
+                                        <p><i>Established Pharmacologic Class:</i> Histamine-1 Receptor Antagonist [EPC] </p>
+                                        <p><i>UPC:</i> 0305730167109 </p>
+                                        <p><i>unii:</i> 8GTS82S83M </p>
+                                        <p><i>rxcui:</i> 901814,902633 </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end primary content -->
+                <aside class="col-xs-12 col-sm-4 col-md-4">
+                    <button class="btn-cta full-width add-margin-bottom">Click here to enter your profile information</button>
+                    <div id="map-module">
+                        <div class="module-title">Local Information</div>
+                        <div class="module-item">
+                            <div class="module-content">
+                                <div class="map-ph"></div>
+                            </div>
+                        </div>
+                        <dl class="require-gps">
+                            <dt>Pharmacies near you</dt>
+                            <dd></dd>
+                            <dt>Hospitals / Clinics near you</dt>
+                            <dd></dd>
+                            <dt>U.S. Embassy / Consulates near you</dt>
+                            <dd></dd>
+                        </dl>
+                    </div>
+                </aside>
+            </div>
+            <!-- End row-->
             </div>
         </section>
     </main>

@@ -2,9 +2,15 @@
 * Variables
 ****************/
 $global-margin: 15px;
+$global-padding: 15px;
 $fda-yellow: #fdcc4c;
 $fda-blue: #0b1b4f;
+$fda-green: #3a913f;
 $fda-teal: #19b8a6;
+$fda-red: #c20430;
+$text-black: #333;
+$text-grey: #666;
+
 /***************
 * Fonts
 ****************/
@@ -41,18 +47,7 @@ $fda-teal: #19b8a6;
 
 
 
-input.form-control::-webkit-input-placeholder {
-    color: rgba(255,255,255,.5);
-}
-input.form-control::-moz-placeholder {
-    color: rgba(255,255,255,.5);
-}
-input.form-control:-moz-placeholder {   /* Older versions of Firefox */
-    color: rgba(255,255,255,.5);
-}
-input.form-control:-ms-input-placeholder { 
-    color: rgba(255,255,255,.5);
-}
+
 
 body {
     font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
@@ -90,7 +85,6 @@ h4 {
 }
 
 span {
-    font-size: 11px;
     &.fancy {
         font-style: italic;
     }
@@ -98,32 +92,7 @@ span {
 .debug{
     border: 1px solid #fff !important;
 }
-.full-width{
-    width: 100%;
-}
-.add-margin{
-    margin: $global-margin;
-}
-.add-margin-horiz{
-    margin-right: $global-margin;
-    margin-left: $global-margin;
-}
-.add-margin-vertical{
-    margin-top: $global-margin;
-    margin-bottom: $global-margin;
-}
-.add-margin-top{
-    margin-top: $global-margin;
-}
-.add-margin-bottom{
-    margin-bottom: $global-margin;
-}
-.add-margin-right{
-    margin-right: $global-margin;
-}
-.add-margin-left{
-    margin-left: $global-margin;
-}
+
 
 #results {
     background: #f2f2f2;
@@ -131,15 +100,24 @@ span {
     margin-top: 15px;
 }
 
+
+
 header {
-    background: #fff;
     .navbar {
         margin: 0;
     }
-    .navbar-brand *{
-
-        font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
-        color: #333 !important
+    .navbar-default{
+        background: rgba(255,255,255, 0.20);
+        border: 0 none;
+        @include border-radius(0);
+    }
+    .navbar-brand{
+        height: auto;
+        max-height: 80px;
+        *{
+            font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
+            color: #333 !important
+        }
     }
 }
 
@@ -190,7 +168,7 @@ aside{
         height: 180px; 
         background: #fff;
         border: 1px dashed #333;
-        margin-bottom: 15px;
+        margin-bottom: $global-margin;
     }
     .list-group{
             padding: 0;
@@ -201,7 +179,7 @@ aside{
     dt{
         font-family: 'RobotoCondensed', Arial, Helvetica, sans-serif;
         border-top: 1px solid #999;
-        padding: 0 15px;
+        padding: 0 $global-padding;
         line-height: 44px;
         background: #fff;
         font-size: 12px;
@@ -210,7 +188,7 @@ aside{
     }
     dd{
         display:none;
-        padding: 15px;
+        padding: $global-padding;
         background: #fff;
     }
 }
@@ -242,24 +220,35 @@ aside{
     min-height: 32px;
     font-weight: 500;
 }
-.label-results{
-    dl{
-        background: #fff;
-        border-style:solid;
-        border-color: #333;
-        border-width: 1px 1px 0 1px;
-        margin: 0;
-        color: #333;
-        dt{
-            font-size: 24px;
-            font-weight: 400;
-            color: #333;
-            padding: 15px;
-        }
-        dd{
-            color: #333;
-            padding: 15px;
-            display:none;
+
+
+.display-module{
+    background: #fff;
+    color: $text-black;
+    .module-title{
+        background: $fda-yellow;
+        min-height: 44px;
+        color: $text-black;
+        font-size: 14px;
+        line-height: 44px;
+        padding: 0 $global-padding;
+    }
+    .module-content{
+        padding: $global-padding;
+        dl{
+            color: $text-black;
+            &.faq{
+                dt{
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+                dd{
+                    color: $text-grey;
+                    font-size: 14px;
+                    font-weight: 400;
+                    margin-bottom: $global-margin;
+                }
+            }
         }
     }
 }

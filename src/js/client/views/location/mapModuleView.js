@@ -6,7 +6,7 @@ Backbone.$ = $;
 var _ = require('underscore');
 
 var MAPS_API_URL = 'https://maps.googleapis.com/maps/api/js';
-var API_KEY = 'AIzaSyDBieoAwKA8Tz-GczAf8vzcGfUgRrXTtzw';
+var API_KEY = 'AIzaSyC0l32fdHosB1b5YmlUtlWBfmnUIaI2BMU';
 
 var _instance;
 
@@ -72,8 +72,16 @@ var MapModuleView = Backbone.View.extend({
 
 var SingletonWrapper = {
     createInstance: function(location) {
-        _instance = new MapModuleView({location: location});
-        return _instance;
+        
+        //setup map view
+        if(!_instance && navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                //init map module
+                console.log('initing map');
+                _instance = new MapModuleView({location: position});
+                _instance.render();
+            });
+        }
     },
     
     getInstance: function() {
