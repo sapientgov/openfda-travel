@@ -36,7 +36,7 @@ var DrugApprovedInfoView = Backbone.View.extend({
 		
 		var approvedRes = document.getElementById("approved-results");
 		
-		if(approvedRes != null)
+		if(approvedRes !== null)
 		{
 			approvedRes.remove();
 		}
