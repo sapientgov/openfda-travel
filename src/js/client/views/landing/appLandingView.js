@@ -28,6 +28,7 @@ var IntroContentView = Backbone.View.extend({
     },
     
     onLoginSuccess: function() {
+        console.log('login complete! Forwarding onward.');
         Backbone.history.navigate('q', {trigger: true});
     }
 });

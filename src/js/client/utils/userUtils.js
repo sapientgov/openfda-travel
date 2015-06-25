@@ -37,13 +37,16 @@ var UserUtils = {
         
         var deferred = $.Deferred();
         
+        console.log('launching digits login process...');
         Digits.logIn().done(function(loginResponse) {
-            console.log('login success!', loginResponse);
+            console.log('received Digits authentication - logging in to FDAanywhere...');
             
             //TODO: send this to server
             verifyLogin(loginResponse).done(function(response) {
+                console.log('successful login received: ', response);
                 deferred.resolve(response);
-            }).fail(function() {
+            }).fail(function(e) {
+                console.error('login unsuccessful!', e);
                 deferred.reject({
                     type: 'verify',
                     message: 'login could not be verified'
@@ -51,6 +54,7 @@ var UserUtils = {
             });
             
         }).fail(function(reason) {
+            console.log('Digits login failed.', reason);
             deferred.reject(reason);
         });
         

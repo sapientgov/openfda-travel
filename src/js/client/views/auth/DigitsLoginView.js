@@ -19,9 +19,7 @@ var DigitsLoginView = Backbone.View.extend({
             throw new Error('Digits is not yet initialized');
         }
         
-        var self = this;
-        
-        UserUtils.login().done(self.successCallback);
+        UserUtils.login().done(this.successCallback);
     }
 });
 

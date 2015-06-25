@@ -1,12 +1,10 @@
 'use strict';
 
-var $ = require('jquery');
 var express = require('express');
 var app = express();
+var AuthProvider = require('./authProvider');
 
-var https = require('https');
-
-module.exports = function(app){
+module.exports = function(app) {
     
     //login route
     app.post('/login', function (req, res) {
@@ -14,13 +12,24 @@ module.exports = function(app){
         console.log('provider: %s', req.body.serviceProvider);
         console.log('credentials: %s', req.body.credentials);
         
-        //verify consumer ID is what we expect
-        
-        //verify provider is either api.twitter.com or www.digits.com
-        
         //send verification request to provider to ensure they validated successfully
-        
-        
-        res.send('login response');
+        try {
+            AuthProvider.verifyLoginWithDigits({
+                providerUrl: req.body.serviceProvider, 
+                authHeader: req.body.credentials,
+                success: function(data) {
+
+                    //send the JSON data back with successful result
+                    res.json(data);
+                },
+                error: function(error) {
+                    console.error('Unable to verify OAuth cerdentials: ', error);
+                    res.sendStatus(400);
+                }
+            });
+        } catch(e) {
+            console.error('Error during OAuth verification: ', e);
+            res.sendStatus(400);
+        }
     });
 };
