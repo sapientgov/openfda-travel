@@ -108,14 +108,52 @@ header {
         background: rgba(255,255,255, 0.20);
         border: 0 none;
         @include border-radius(0);
+        .navbar-nav{
+        a, a:active, a:visited{
+            color: #fff;
+            font-size: 32px;
+        }
+        .open .dropdown-menu{
+            background: #fff;
+            li{
+                a, a:active, a:visited{
+                    color: $text-grey;
+                    font-size: 14px;
+                    &:hover{
+                        background: $fda-yellow;
+                    }
+                }
+            }
+        }
+        }
     }
     .navbar-brand{
-        height: auto;
-        max-height: 80px;
-        *{
-            font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
-            color: #333 !important
+        width: 100%;
+        max-width: 250px;
+        padding: 0 15px;
+        img{
+            padding-top: 7px;
         }
+    }
+    .navbar-header{
+        margin: 5px 10px;
+    }
+    
+    .dropdown-menu{
+        background: #fff;
+        li{
+            a, a:active, a:visited{
+                color: $text-grey;
+                font-size: 14px;
+                &:hover{
+                    background: $fda-yellow;
+                }
+            }
+        }
+    }
+
+    .nav > li{
+        display: inline-block;
     }
 }
 
