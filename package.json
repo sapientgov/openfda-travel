@@ -25,11 +25,11 @@
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-spec-reporter": "0.0.19",
     "phantomjs": "^1.9.17",
-    "underscore": "^1.8.3",
-    "jquery": "^2.1.4"  
+    "underscore": "^1.8.3"
   },
   "dependencies": {
-      "express": "^4.13.0"
+    "body-parser": "^1.13.1",
+    "express": "^4.13.0"
   },
   "scripts": {
     "test": "grunt ci",
