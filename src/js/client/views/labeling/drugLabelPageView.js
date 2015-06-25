@@ -50,10 +50,11 @@ var DrugLabelPageView = Backbone.View.extend({
 	
     /* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
 	*/
-    brandSearch: function(brand) {
+	brandSearch: function(brand) {
         //find the drug we want
         console.log('getting drug label info for %s.', brand);
 		var self = this; 
+		
 		
         FdaService.findLabelInfoByBrand(brand).done(function(data) {
             if(data.results && data.results.length > 0) {
@@ -63,6 +64,8 @@ var DrugLabelPageView = Backbone.View.extend({
                 if (exacts.length > 0) {
                     //for now just take the first result - may need to have the user choose?
                     self.labelInfoView = new DrugLabelInfoView({drug: exacts[0]});
+					var viewTest = self.labelInfoView;
+					self.labelInfoView.deleteLastResults();
 					self.$el.append(self.labelInfoView.render().el);
                 }
             }

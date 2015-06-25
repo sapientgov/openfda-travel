@@ -5,8 +5,11 @@ $global-margin: 15px;
 $global-padding: 15px;
 $fda-yellow: #fdcc4c;
 $fda-blue: #0b1b4f;
+$fda-green: #3a913f;
 $fda-teal: #19b8a6;
+$fda-red: #c20430;
 $text-black: #333;
+$text-grey: #666;
 
 /***************
 * Fonts
@@ -110,6 +113,7 @@ header {
     }
     .navbar-brand{
         height: auto;
+        max-height: 80px;
         *{
             font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
             color: #333 !important
@@ -216,31 +220,11 @@ aside{
     min-height: 32px;
     font-weight: 500;
 }
-.label-results{
-    dl{
-        background: #fff;
-        border-style:solid;
-        border-color: #333;
-        border-width: 1px 1px 0 1px;
-        margin: 0;
-        color: #333;
-        dt{
-            font-size: 24px;
-            font-weight: 400;
-            color: #333;
-            padding: $global-padding;
-        }
-        dd{
-            color: #333;
-            padding: $global-padding;
-            display:none;
-        }
-    }
-}
+
 
 .display-module{
     background: #fff;
-
+    color: $text-black;
     .module-title{
         background: $fda-yellow;
         min-height: 44px;
@@ -251,5 +235,20 @@ aside{
     }
     .module-content{
         padding: $global-padding;
+        dl{
+            color: $text-black;
+            &.faq{
+                dt{
+                    font-size: 16px;
+                    font-weight: 700;
+                }
+                dd{
+                    color: $text-grey;
+                    font-size: 14px;
+                    font-weight: 400;
+                    margin-bottom: $global-margin;
+                }
+            }
+        }
     }
 }
