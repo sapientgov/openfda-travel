@@ -3,8 +3,17 @@
 var express = require('express');
 var app = express();
 
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
+
 //external routes
 require('./profile/profileService')(app);
+require('./profile/profileManager').ProfileManager(app);
 
 //set ip & port from OpenShift environment if available
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
