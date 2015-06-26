@@ -3,15 +3,17 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 
 //serve static files
 app.use(express.static(__dirname + '/../public'));
 
-//add body parser support
+//add support for parsers
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
-})); 
+}));
+app.use(cookieParser());
 
 //set ip & port from OpenShift environment if available
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";

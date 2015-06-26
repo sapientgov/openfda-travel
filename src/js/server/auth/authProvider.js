@@ -103,6 +103,11 @@ var AuthProvider = {
                 options.error(e);
             }
         });
+    },
+    
+    logout: function(uuid) {
+        console.log('digits id to logout: %s', _active[uuid]);
+        delete _active[uuid];
     }
 };
 

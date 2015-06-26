@@ -38,4 +38,13 @@ module.exports = function(app) {
             res.sendStatus(400);
         }
     });
+    
+    app.post('/logout', function(req, res) {
+        console.log('received logout request.');
+        
+        //read cookie
+        var loginToken = req.cookies['fdaaw-token'];
+        console.log('logout for token %s', loginToken);
+        AuthProvider.logout(loginToken);
+    });
 };

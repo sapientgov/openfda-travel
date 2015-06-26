@@ -65,6 +65,11 @@ var UserUtils = {
     
     logout: function() {
         _active = false;
+        
+        //let the server know
+        return $.ajax('/logout', {
+            type: 'POST'
+        });
     }
 };
 
