@@ -8,6 +8,7 @@ var FdaService = require('../../service/fdaService');
 var DataUtils = require('../../utils/dataUtils');
 var DrugSearchResultsView = require('./drugSearchResultsView');
 var DrugProductResultsView = require('./drugProductResultsView');
+var DrugApprovedInfoView = require('../approved/drugApprovedInfoView');
 
 var DrugSearchPageView = Backbone.View.extend({
     initialize: function(options) {
@@ -23,7 +24,8 @@ var DrugSearchPageView = Backbone.View.extend({
     
     events: {
         'click .query-labelIndex': 'searchSubmit',
-        'keyup input[name="brand-name"]': 'updateAutocomplete',
+		'keyup input[name="brand-name"]': 'updateAutocomplete',
+		'click button.approved-search': 'searchIfApproved',
         'keydown input[name="brand-name"]': 'checkEnter',
         'blur input[name="brand-name"]': 'clearResultsOnDelay',
         'focus input[name="brand-name"]': 'updateAutocomplete',
@@ -46,7 +48,9 @@ var DrugSearchPageView = Backbone.View.extend({
             default:
                 title = 'TITLE NOT CONFIGURED';
         }
-        
+        var searchType = this.searchTarget;
+		console.log("searchType: ", searchType);
+		
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
         this.$el.html(inputTemplate({
@@ -61,6 +65,8 @@ var DrugSearchPageView = Backbone.View.extend({
         //split the query into parts
         var apiQ = DataUtils.combineMultipartQuery(q, '+AND+');
         console.log('count results for query %s', apiQ);
+		
+		console.log("this.searchType: ",this.searchType);
         
         //check the search type and react accordingly
         switch(this.searchType) {
@@ -144,6 +150,7 @@ var DrugSearchPageView = Backbone.View.extend({
             
             //display products
             self.displayProductOptions(data.results);
+			console.log("get data.results: ", data.results);
         });
     },
     
@@ -155,6 +162,81 @@ var DrugSearchPageView = Backbone.View.extend({
             self.displayProductOptions(data.results);
         });
     },
+	
+	searchIfApproved: function(e) {
+		var $clicked = $(e.target);
+		
+		var val = this.$('input[name="brand-name"]').val();
+        if(val && val.length > 2 && this.searchTarget != "APPROVED") {
+            this.updateAutocompleteResults(val);
+        }
+		
+		//split the query into parts
+        var apiQ = DataUtils.combineMultipartQuery(val, '+AND+');
+        console.log('count results for query %s', apiQ);
+		
+		console.log("this.searchType: ",this.searchType);
+        var apiPromise = FdaService.findDrugsByBrand(apiQ);
+        //check the search type and react accordingly
+        switch(this.searchType) {
+            case 'BRAND':
+                //this.countByBrand(val, apiQ);
+                apiPromise = FdaService.findDrugsByBrand(apiQ);
+				break;
+            case 'ALL':
+                alert('Cannot search by this yet');
+                break;
+            case 'GENERIC':
+                apiPromise = FdaService.findDrugsByGeneric(apiQ);
+                break;
+            case 'INGREDIENT':
+                apiPromise = FdaService.findDrugsByActive(apiQ);
+                break;
+            default:
+                throw new Error('Unexpected search type!');
+        }
+		
+		var self = this;
+		
+		apiPromise.done(function(data) {
+		
+			FdaService.findLabelInfoByBrand(val).done(function(data) {
+            
+            //trim brand data and display
+            var exacts = DataUtils.findExactBrandMatches(data.results, val);
+				self.displayProductOptions(exacts);
+			});
+            
+            //only update results if the field value is the same as what was requested
+            if(self.$('input[name="brand-name"]').val() === val) {
+                self.$('#count-results-list').empty();
+                _.each(data.results, function(item) {
+					console.log("214");
+					console.log("item: ", item);
+					var view = new DrugProductResultsView({
+					result: item, isApproved: true,
+					callback: _.bind(self.chooseResult, self)
+					});
+					self.$('#product-result-list').append(view.render().el);
+                });
+            }
+            
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            //if the input value is the same as what we're looking for, clear the results
+            if(self.$('input[name="brand-name"]').val() === val) {
+                self.$('#count-results-list').empty();
+            }
+			
+			if(jqXHR.status == 404)
+			{
+				console.log("231");
+				
+				var curView = self.currentView = new DrugApprovedInfoView({drug: val, isApproved: false});
+				self.$el.append(self.currentView.render().el);
+			}
+        });
+        
+	},
     
     displayProductOptions: function(prodList) {
         var self = this;
@@ -239,7 +321,7 @@ var DrugSearchPageView = Backbone.View.extend({
     
     updateAutocomplete: _.debounce(function(event) {
         var val = this.$('input[name="brand-name"]').val();
-        if(val && val.length > 2) {
+        if(val && val.length > 2 && this.searchTarget != "APPROVED") {
             this.updateAutocompleteResults(val);
         }
     }, 200),

@@ -5,37 +5,52 @@
     <meta charset="UTF-8">
     <title>1515 App</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <link rel="shortcut" type="image/x-icon" href="./favicon.ico?" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?" />
 </head>
 
 <body>
     <header role="banner">
-        <nav class="navbar navbar-default">
-            <div class="container col-md-offset-1 col-md-10 ">
-                <div class="navbar-header">
-                    <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
-                        <span class="sr-only">Toggle navigation</span> 
-                        <span class="icon-bar"></span> 
-                        <span class="icon-bar"></span> 
-                        <span class="icon-bar"></span> 
-                    </button>
-                    
-                    <a href="#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.svg" alt="FDA | anywhere" width="250px" height="auto"></a> 
-                                  
-                </div>
-                <div class="navbar-collapse collapse" id="navbar">
-                    
-                </div>
-                <!--/.navbar-collapse -->
-            </div>
-        </nav>
-    </header>
+<nav class="navbar navbar-default">
+    <div class="container col-md-offset-1 col-md-10 ">
+        <div class="navbar-header ">
+          <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <a href="./#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.png" alt="FDA | anywhere" width="250px" height="auto"></a> 
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="#">Create a Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Profile 1</a></li>
+                    <li><a href="#">Profile 2</a></li>
+                    <li><a href="#">Profile 3</a></li>
+                </ul>
+              </li>
+              <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+                <ul class="dropdown-menu pull-right">
+                     <li><a href="#">Can I take this medication?</a></li>
+                     <li><a href="#">Is this medication FDA approved?</a></li>
+                     <li><a href="#">Has this medication been recalled?</a></li>
+                     <li class="divider"></li>
+                     <li><a href="#">International Labeling</a></li>
+                     <li><a href="#">International Codes</a></li>
+                     <li><a href="#">Medication Abroad</a></li>
+                     <li><a href="#">Medication Dictionary</a></li>
+                  </ul>
+              </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</header>
 
     <!-- main content -->
     <main id="content" role="main">
         <section>
             <div id="container-main" class="container">
-                <div  id="intro" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-10"></div>
+                <div  id="intro" class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10"></div>
                 <div class="row clearfix">
                     <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6"></div>
                     <aside class="col-xs-12 col-sm-4 col-md-4">
@@ -124,7 +139,12 @@
 				<%if (typeof(openfda) == "undefined") {%>
 				<input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
 				<% } %>
+				
+				<% if(title.indexOf("approved") > 0) { %>
+				<button type="button" class="btn approved-search search-all">Search</button>
+				<% } %>
             </div>
+			
             <div id="drug-search-results">
                 <ul id="count-results-list">
                 </ul>
@@ -140,457 +160,486 @@
     <script type="text/template" id="search-product-result">
         <label>Brand:</label> <%- openfda.brand_name %><br />
         <label>Generic:</label> <%- openfda.generic_name %><br />
-        <label>Ingredients:</label> <%- openfda.substance_name %><br />
+        <label>Ingredients:</label> <%- openfda.substance_name %>
     </script>
+	
+	<script type="text/template" id="drug-approved-info">
+<div id="approved-results" class="display-module">
+			
+			<%if (typeof(openfda) !== "undefined") {%>
+				<div class="module-title"></div>
+			<% } %>
+			
+            <div class="label-section" id="open-fda-fields">
+            <dl>
+				<%if (typeof(openfda) !== "undefined") { %>
+				<h3 class="hasRecall">Yes</h3>
+                <% } %>
+				<%if (typeof(openfda) == "undefined") { %>
+				<h3 class="hasRecall">No</h3>
+                <% } %>
+                <dd  class="label-section"  id="open-fda-fields-data">
+                    <%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
+                        <p><label>Brand Name:</label> <%- openfda.brand_name %> </p>
+                    <%}%>
+                    <%if (typeof(openfda) !== "undefined" && typeof(openfda.generic_name) !== "undefined") {%>
+                        <p><label>Generic Name:</label> <%- openfda.generic_name %> </p>
+                    <%}%>
+                    <%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_epc) !== "undefined") {%>
+                        <p><label>Class:</label> <%- openfda.pharm_class_epc %> </p>
+                    <%}%>
+                </dd>
+            </dl>
+            </div>
+   
+   </div> 
+   </script>
     
    <script type="text/template" id="drug-label-info">
-        <h1>Drug Label Info For <%- openfda.brand_name %></h1>
+<div class="display-module">
+
+        <div class="module-title">Drug Label Info For <%- openfda.brand_name %></div>
 		<div class="label-results">
-            <div id="id-and-versions">
+            <div class="label-section"  id="id-and-versions">
                 <dl>
                 <dt>ID & Versions</dt>
                 <dd id="id-and-versions-data">
                     <%if (typeof(set_id) !== "undefined") {%>
-                        <i>Set ID:</i> <%- set_id%> <br/>
+                        <label>Set ID:</label> <%- set_id%> <br/>
                     <%}%>
                     <%if (typeof(id) !== "undefined") {%>
-                        <i>ID:</i> <%- id%> <br/>
+                        <label>ID:</label> <%- id%> <br/>
                     <%}%>
                     <%if (typeof(version) !== "undefined") {%>
-                        <i>Version:</i> <%- version%> <br/>
+                        <label>Version:</label> <%- version%> <br/>
                     <%}%>
                     <%if (typeof(effective_time) !== "undefined") {%>
-                        <i>Effective Time:</i> <%- effective_time%> <br/>
+                        <label>Effective Time:</label> <%- effective_time%> <br/>
                     <%}%>
                 </dd>
                 </dl>		
             </div>
 
-            <div id="abuse-and-overdosage">
+            <div class="label-section"  id="abuse-and-overdosage">
                 <dl>
                 <dt>Abuse & Overdosage</dt>
                 <dd id="abuse-and-overdosage-data">
                     <%if (typeof(drug_abuse_and_dependence) !== "undefined") {%>
-                        <p><i>Drug Abuse and Dependence:</i> <%- drug_abuse_and_dependence%> </p>
+                        <p><label>Drug Abuse and Dependence:</label> <%- drug_abuse_and_dependence%> </p>
                     <%}%>
                     <%if (typeof(controlled_substance) !== "undefined") {%>
-                        <p><i>Controlled Substance:</i> <%- controlled_substance%> </p>
+                        <p><label>Controlled Substance:</label> <%- controlled_substance%> </p>
                     <%}%>
                     <%if (typeof(abuse) !== "undefined") {%>
-                        <p><i>Abuse:</i> <%- abuse%> </p>
+                        <p><label>Abuse:</label> <%- abuse%> </p>
                     <%}%>
                     <%if (typeof(dependence) !== "undefined") {%>
-                        <p><i>Dependence:</i> <%- dependence%> </p>
+                        <p><label>Dependence:</label> <%- dependence%> </p>
                     <%}%>
                     <%if (typeof(overdosage) !== "undefined") {%>
-                        <p><i>Overdosage:</i> <%- overdosage%> </p>
+                        <p><label>Overdosage:</label> <%- overdosage%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="adverse-effects">
+            <div class="label-section"  id="adverse-effects">
                 <dl>
                 <dt>Adverse Effects & Interactions</dt>
                 <dd id="adverse-effects-data">
                     <%if (typeof(adverse_reactions) !== "undefined") {%>
-                        <p><i>Adverse Reactions:</i> <%- adverse_reactions%> </p>
+                        <p><label>Adverse Reactions:</label> <%- adverse_reactions%> </p>
                     <%}%>
                     <%if (typeof(drug_interactions) !== "undefined") {%>
-                        <p><i>Drug Interactions:</i> <%- drug_interactions%> </p>
+                        <p><label>Drug Interactions:</label> <%- drug_interactions%> </p>
                     <%}%>
                     <%if (typeof(drug_and_or_laboratory_test_interactions) !== "undefined") {%>
-                        <p><i>Drug/Laboratory Test Interactions:</i> <%- drug_and_or_laboratory_test_interactions%> </p>
+                        <p><label>Drug/Laboratory Test Interactions:</label> <%- drug_and_or_laboratory_test_interactions%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="clinical-pharmacology">
+            <div class="label-section"  id="clinical-pharmacology">
                 <dl>
                 <dt>Clinical Pharmacology</dt>
                 <dd id="clinical-pharmacology-data">
                     <%if (typeof(clinical_pharmacology) !== "undefined") {%>
-                        <p><i>Clinical Pharmacology:</i> <%- clinical_pharmacology%> </p>
+                        <p><label>Clinical Pharmacology:</label> <%- clinical_pharmacology%> </p>
                     <%}%>
                     <%if (typeof(mechanism_of_action) !== "undefined") {%>
-                        <p><i>Mechanism of Action:</i> <%- mechanism_of_action%> </p>
+                        <p><label>Mechanism of Action:</label> <%- mechanism_of_action%> </p>
                     <%}%>
                     <%if (typeof(pharmacodynamics) !== "undefined") {%>
-                        <p><i>Pharmacodynamics:</i> <%- pharmacodynamics%> </p>
+                        <p><label>Pharmacodynamics:</label> <%- pharmacodynamics%> </p>
                     <%}%>
                     <%if (typeof(pharmacokinetics) !== "undefined") {%>
-                        <p><i>Pharmacokinetics:</i> <%- pharmacokinetics%> </p>
+                        <p><label>Pharmacokinetics:</label> <%- pharmacokinetics%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="indications">
+            <div class="label-section"  id="indications">
                 <dl>
                 <dt>Indications, Usage & Dose</dt>
                 <dd id="indications-data">
                     <%if (typeof(indications_and_usage) !== "undefined") {%>
-                        <p><i>Indications & Usage:</i> <%- indications_and_usage%> </p>
+                        <p><label>Indications & Usage:</label> <%- indications_and_usage%> </p>
                     <%}%>
                     <%if (typeof(contraindications) !== "undefined") {%>
-                        <p><i>Contraindications:</i> <%- contraindications%> </p>
+                        <p><label>Contraindications:</label> <%- contraindications%> </p>
                     <%}%>
                     <%if (typeof(dosage_and_administration) !== "undefined") {%>
-                        <p><i>Dosage & Administration:</i> <%- dosage_and_administration%> </p>
+                        <p><label>Dosage & Administration:</label> <%- dosage_and_administration%> </p>
                     <%}%>
                     <%if (typeof(dosage_forms_and_strengths) !== "undefined") {%>
-                        <p><i>Dosage Forms & Strengths:</i> <%- dosage_forms_and_strengths%> </p>
+                        <p><label>Dosage Forms & Strengths:</label> <%- dosage_forms_and_strengths%> </p>
                     <%}%>
                     <%if (typeof(purpose) !== "undefined") {%>
-                        <p><i>Purpose:</i> <%- purpose%> </p>
+                        <p><label>Purpose:</label> <%- purpose%> </p>
                     <%}%>
                     <%if (typeof(description) !== "undefined") {%>
-                        <p><i>Description:</i> <%- description%> </p>
+                        <p><label>Description:</label> <%- description%> </p>
                     <%}%>
                     <%if (typeof(active_ingredient) !== "undefined") {%>
-                        <p><i>Active Ingredient:</i> <%- active_ingredient%> </p>
+                        <p><label>Active Ingredient:</label> <%- active_ingredient%> </p>
                     <%}%>
                     <%if (typeof(inactive_ingredient) !== "undefined") {%>
-                        <p><i>Inactive Ingredient:</i> <%- inactive_ingredient%> </p>
+                        <p><label>Inactive Ingredient:</label> <%- inactive_ingredient%> </p>
                     <%}%>
                     <%if (typeof(spl_product_data_elements) !== "undefined") {%>
-                        <p><i>SPL Product Data Elements:</i> <%- spl_product_data_elements%> </p>
+                        <p><label>SPL Product Data Elements:</label> <%- spl_product_data_elements%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="patient-info">
+            <div class="label-section"  id="patient-info">
                 <dl>
                 <dt>Patient Information</dt>
                 <dd id="patient-info-data">
                     <%if (typeof(spl_patient_package_insert) !== "undefined") {%>
-                        <p><i>SPL Patient Package Insert:</i> <%- spl_patient_package_insert%> </p>
+                        <p><label>SPL Patient Package Insert:</label> <%- spl_patient_package_insert%> </p>
                     <%}%>
                     <%if (typeof(information_for_patients) !== "undefined") {%>
-                        <p><i>Information For Patients:</i> <%- information_for_patients%> </p>
+                        <p><label>Information For Patients:</label> <%- information_for_patients%> </p>
                     <%}%>
                     <%if (typeof(information_for_owners_or_caregivers) !== "undefined") {%>
-                        <p><i>Information for Owners or Caregivers:</i> <%- information_for_owners_or_caregivers%> </p>
+                        <p><label>Information for Owners or Caregivers:</label> <%- information_for_owners_or_caregivers%> </p>
                     <%}%>
                     <%if (typeof(instructions_for_use) !== "undefined") {%>
-                        <p><i>Instructions For Use:</i> <%- instructions_for_use%> </p>
+                        <p><label>Instructions For Use:</label> <%- instructions_for_use%> </p>
                     <%}%>
                     <%if (typeof(ask_doctor) !== "undefined") {%>
-                        <p><i>Ask A Doctor:</i> <%- ask_doctor%> </p>
+                        <p><label>Ask A Doctor:</label> <%- ask_doctor%> </p>
                     <%}%>
                     <%if (typeof(ask_doctor_or_pharmacist) !== "undefined") {%>
-                        <p><i>Ask Doctor or Pharmacist:</i> <%- ask_doctor_or_pharmacist%> </p>
+                        <p><label>Ask Doctor or Pharmacist:</label> <%- ask_doctor_or_pharmacist%> </p>
                     <%}%>
                     <%if (typeof(do_not_use) !== "undefined") {%>
-                        <p><i>Do Not Use If:</i> <%- do_not_use%> </p>
+                        <p><label>Do Not Use If:</label> <%- do_not_use%> </p>
                     <%}%>
                     <%if (typeof(keep_out_of_reach_of_children) !== "undefined") {%>
-                        <p><i>Keep Out of Reach of Children:</i> <%- keep_out_of_reach_of_children%> </p>
+                        <p><label>Keep Out of Reach of Children:</label> <%- keep_out_of_reach_of_children%> </p>
                     <%}%>
                     <%if (typeof(other_safety_information) !== "undefined") {%>
-                        <p><i>Other Safety Information:</i> <%- other_safety_information%> </p>
+                        <p><label>Other Safety Information:</label> <%- other_safety_information%> </p>
                     <%}%>
                     <%if (typeof(questions) !== "undefined") {%>
-                        <p><i>Questions:</i> <%- questions%> </p>
+                        <p><label>Questions:</label> <%- questions%> </p>
                     <%}%>
                     <%if (typeof(stop_use) !== "undefined") {%>
-                        <p><i>Stop Use:</i> <%- stop_use%> </p>
+                        <p><label>Stop Use:</label> <%- stop_use%> </p>
                     <%}%>
                     <%if (typeof(when_using) !== "undefined") {%>
-                        <p><i>When Using:</i> <%- when_using%> </p>
+                        <p><label>When Using:</label> <%- when_using%> </p>
                     <%}%>
                     <%if (typeof(patient_medication_information) !== "undefined") {%>
-                        <p><i>Patient Medication Information:</i> <%- patient_medication_information%> </p>
+                        <p><label>Patient Medication Information:</label> <%- patient_medication_information%> </p>
                     <%}%>
                     <%if (typeof(spl_medguide) !== "undefined") {%>
-                        <p><i>SPL Medguide:</i> <%- spl_medguide%> </p>
+                        <p><label>SPL Medguide:</label> <%- spl_medguide%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="special-populations">
+            <div class="label-section"  id="special-populations">
                 <dl>
                 <dt>Special Populations</dt>
                 <dd id="special-populations-data">
                     <%if (typeof(use_in_specific_populations) !== "undefined") {%>
-                        <p><i>Use In Specific Populations:</i> <%- use_in_specific_populations%> </p>
+                        <p><label>Use In Specific Populations:</label> <%- use_in_specific_populations%> </p>
                     <%}%>
                     <%if (typeof(pregnancy) !== "undefined") {%>
-                        <p><i>Pregnancy:</i> <%- pregnancy%> </p>
+                        <p><label>Pregnancy:</label> <%- pregnancy%> </p>
                     <%}%>
                     <%if (typeof(teratogenic_effects) !== "undefined") {%>
-                        <p><i>Teratogenic Effects:</i> <%- teratogenic_effects%> </p>
+                        <p><label>Teratogenic Effects:</label> <%- teratogenic_effects%> </p>
                     <%}%>
                     <%if (typeof(nonteratogenic_effects) !== "undefined") {%>
-                        <p><i>Non-teratogenic Effects:</i> <%- nonteratogenic_effects%> </p>
+                        <p><label>Non-teratogenic Effects:</label> <%- nonteratogenic_effects%> </p>
                     <%}%>
                     <%if (typeof(labor_and_delivery) !== "undefined") {%>
-                        <p><i>Labor & Delivery:</i> <%- labor_and_delivery%> </p>
+                        <p><label>Labor & Delivery:</label> <%- labor_and_delivery%> </p>
                     <%}%>
                     <%if (typeof(nursing_mothers) !== "undefined") {%>
-                        <p><i>Nursing Mothers:</i> <%- nursing_mothers%> </p>
+                        <p><label>Nursing Mothers:</label> <%- nursing_mothers%> </p>
                     <%}%>
                     <%if (typeof(pregnancy_or_breast_feeding) !== "undefined") {%>
-                        <p><i>Pregnancy or Breast Feeding:</i> <%- pregnancy_or_breast_feeding%> </p>
+                        <p><label>Pregnancy or Breast Feeding:</label> <%- pregnancy_or_breast_feeding%> </p>
                     <%}%>
                     <%if (typeof(pediatric_use) !== "undefined") {%>
-                        <p><i>Pediatric Use:</i> <%- pediatric_use%> </p>
+                        <p><label>Pediatric Use:</label> <%- pediatric_use%> </p>
                     <%}%>
                     <%if (typeof(geriatric_use) !== "undefined") {%>
-                        <p><i>Geriatric Use:</i> <%- geriatric_use%> </p>
+                        <p><label>Geriatric Use:</label> <%- geriatric_use%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="non-clinical-tox">
+            <div class="label-section"  id="non-clinical-tox">
                 <dl>
                 <dt>Non-Clinical Toxicology</dt>
                 <dd id="non-clinical-tox-data">
                     <%if (typeof(nonclinical_toxicology) !== "undefined") {%>
-                        <p><i>Non-Clinical Toxicology:</i> <%- nonclinical_toxicology%> </p>
+                        <p><label>Non-Clinical Toxicology:</label> <%- nonclinical_toxicology%> </p>
                     <%}%>
                     <%if (typeof(carcinogenesis_and_mutagenesis_and_impairment_of_fertility) !== "undefined") {%>
-                        <p><i>Carcinogenesis & Mutagenesis & Impairment of Fertility:</i> <%- carcinogenesis_and_mutagenesis_and_impairment_of_fertility%> </p>
+                        <p><label>Carcinogenesis & Mutagenesis & Impairment of Fertility:</label> <%- carcinogenesis_and_mutagenesis_and_impairment_of_fertility%> </p>
                     <%}%>
                     <%if (typeof(animal_pharmacology_and_or_toxicology) !== "undefined") {%>
-                        <p><i>Animal Pharmacology/Toxicology:</i> <%- animal_pharmacology_and_or_toxicology%> </p>
+                        <p><label>Animal Pharmacology/Toxicology:</label> <%- animal_pharmacology_and_or_toxicology%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="references">
+            <div class="label-section"  id="references">
                 <dl>
                 <dt>References</dt>
                 <dd id="references-data">
                     <%if (typeof(clinical_studies) !== "undefined") {%>
-                        <p><i>Clinical Studies:</i> <%- clinical_studies%> </p>
+                        <p><label>Clinical Studies:</label> <%- clinical_studies%> </p>
                     <%}%>
                     <%if (typeof(references) !== "undefined") {%>
-                        <p><i>References:</i> <%- references%> </p>
+                        <p><label>References:</label> <%- references%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="supply">
+            <div class="label-section"  id="supply">
                 <dl>
                 <dt>Supply, Storage, & Handling</dt>
                 <dd id="supply-data">
                     <%if (typeof(how_supplied) !== "undefined") {%>
-                        <p><i>How Supplied:</i> <%- how_supplied%> </p>
+                        <p><label>How Supplied:</label> <%- how_supplied%> </p>
                     <%}%>
                     <%if (typeof(storage_and_handling) !== "undefined") {%>
-                        <p><i>Storage & Handling:</i> <%- storage_and_handling%> </p>
+                        <p><label>Storage & Handling:</label> <%- storage_and_handling%> </p>
                     <%}%>
                     <%if (typeof(safe_handling_warning) !== "undefined") {%>
-                        <p><i>Safe Handling Warning:</i> <%- safe_handling_warning%> </p>
+                        <p><label>Safe Handling Warning:</label> <%- safe_handling_warning%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="warnings">
+            <div class="label-section"  id="warnings">
                 <dl>
                 <dt>Warnings & Precautions</dt>
                 <dd id="warnings-data">
                     <%if (typeof(boxed_warning) !== "undefined") {%>
-                        <p><i>Boxed Warning:</i> <%- boxed_warning%> </p>
+                        <p><label>Boxed Warning:</label> <%- boxed_warning%> </p>
                     <%}%>
                     <%if (typeof(warnings_and_precautions) !== "undefined") {%>
-                        <p><i>Warnings & Precautions:</i> <%- warnings_and_precautions%> </p>
+                        <p><label>Warnings & Precautions:</label> <%- warnings_and_precautions%> </p>
                     <%}%>
                     <%if (typeof(user_safety_warnings) !== "undefined") {%>
-                        <p><i>User Safety Warnings:</i> <%- user_safety_warnings%> </p>
+                        <p><label>User Safety Warnings:</label> <%- user_safety_warnings%> </p>
                     <%}%>
                     <%if (typeof(precautions) !== "undefined") {%>
-                        <p><i>Precautions:</i> <%- precautions%> </p>
+                        <p><label>Precautions:</label> <%- precautions%> </p>
                     <%}%>
                     <%if (typeof(warnings) !== "undefined") {%>
-                        <p><i>Warnings:</i> <%- warnings%> </p>
+                        <p><label>Warnings:</label> <%- warnings%> </p>
                     <%}%>
                     <%if (typeof(general_precautions) !== "undefined") {%>
-                        <p><i>General Precautions:</i> <%- general_precautions%> </p>
+                        <p><label>General Precautions:</label> <%- general_precautions%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="other-fields">
+            <div class="label-section"  id="other-fields">
                 <dl>
                 <dt>Other Fields</dt>
                 <dd id="other-fields-data">
                     <%if (typeof(laboratory_tests) !== "undefined") {%>
-                        <p><i>Laboratory Tests:</i> <%- laboratory_tests%> </p>
+                        <p><label>Laboratory Tests:</label> <%- laboratory_tests%> </p>
                     <%}%>
                     <%if (typeof(recent_major_changes) !== "undefined") {%>
-                        <p><i>Recent Major Changes:</i> <%- recent_major_changes%> </p>
+                        <p><label>Recent Major Changes:</label> <%- recent_major_changes%> </p>
                     <%}%>
                     <%if (typeof(microbiology) !== "undefined") {%>
-                        <p><i>Microbiology:</i> <%- microbiology%> </p>
+                        <p><label>Microbiology:</label> <%- microbiology%> </p>
                     <%}%>
                     <%if (typeof(package_label_principal_display_panel) !== "undefined") {%>
-                        <p><i>Package Label Principal Display Panel:</i> <%- package_label_principal_display_panel%> </p>
+                        <p><label>Package Label Principal Display Panel:</label> <%- package_label_principal_display_panel%> </p>
                     <%}%>
                     <%if (typeof(spl_unclassified_section) !== "undefined") {%>
-                        <p><i>SPL Unclassified Section:</i> <%- spl_unclassified_section%> </p>
+                        <p><label>SPL Unclassified Section:</label> <%- spl_unclassified_section%> </p>
                     <%}%>
                 </dd>
                 </dl>
             </div>
 
-            <div id="open-fda-fields">
-                <h2>Open FDA fields</h2>
-                <div id="open-fda-fields-data">
+            <div  class="label-section" id="open-fda-fields">
+            <dl>
+                <dt>Open FDA fields</dt>
+                <dd  class="label-section"  id="open-fda-fields-data">
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.application_number) !== "undefined") {%>
-                        <p><i>Application Number:</i> <%- openfda.application_number %> </p>
+                        <p><label>Application Number:</label> <%- openfda.application_number %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
-                        <p><i>Brand Name:</i> <%- openfda.brand_name %> </p>
+                        <p><label>Brand Name:</label> <%- openfda.brand_name %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.dosage_form) !== "undefined") {%>
-                        <p><i>Dosage Form:</i> <%- openfda.dosage_form %> </p>
+                        <p><label>Dosage Form:</label> <%- openfda.dosage_form %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.generic_name) !== "undefined") {%>
-                        <p><i>Generic Name:</i> <%- openfda.generic_name %> </p>
+                        <p><label>Generic Name:</label> <%- openfda.generic_name %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.manufacturer_name) !== "undefined") {%>
-                        <p><i>Manufacturer Name:</i> <%- openfda.manufacturer_name %> </p>
+                        <p><label>Manufacturer Name:</label> <%- openfda.manufacturer_name %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.is_original_packager) !== "undefined") {%>
-                        <p><i>Is Original Packager:</i> <%- openfda.is_original_packager %> </p>
+                        <p><label>Is Original Packager:</label> <%- openfda.is_original_packager %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.product_ndc) !== "undefined") {%>
-                        <p><i>Product NDC:</i> <%- openfda.product_ndc %> </p>
+                        <p><label>Product NDC:</label> <%- openfda.product_ndc %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.product_type) !== "undefined") {%>
-                        <p><i>Product Type:</i> <%- openfda.product_type %> </p>
+                        <p><label>Product Type:</label> <%- openfda.product_type %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.route) !== "undefined") {%>
-                        <p><i>Route:</i> <%- openfda.route %> </p>
+                        <p><label>Route:</label> <%- openfda.route %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.substance_name) !== "undefined") {%>
-                        <p><i>Substance Name:</i> <%- openfda.substance_name %> </p>
+                        <p><label>Substance Name:</label> <%- openfda.substance_name %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.spl_id) !== "undefined") {%>
-                        <p><i>SPL ID:</i> <%- openfda.spl_id %> </p>
+                        <p><label>SPL ID:</label> <%- openfda.spl_id %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.spl_set_id) !== "undefined") {%>
-                        <p><i>SPL Set ID:</i> <%- openfda.spl_set_id %> </p>
+                        <p><label>SPL Set ID:</label> <%- openfda.spl_set_id %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_moa) !== "undefined") {%>
-                        <p><i>Mechanism of Action:</i> <%- openfda.pharm_class_moa %> </p>
+                        <p><label>Mechanism of Action:</label> <%- openfda.pharm_class_moa %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_cs) !== "undefined") {%>
-                        <p><i>Chemical Structure:</i> <%- openfda.pharm_class_cs %> </p>
+                        <p><label>Chemical Structure:</label> <%- openfda.pharm_class_cs %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_pe) !== "undefined") {%>
-                        <p><i>Physiologic Effect:</i> <%- openfda.pharm_class_pe %> </p>
+                        <p><label>Physiologic Effect:</label> <%- openfda.pharm_class_pe %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_epc) !== "undefined") {%>
-                        <p><i>Established Pharmacologic Class:</i> <%- openfda.pharm_class_epc %> </p>
+                        <p><label>Established Pharmacologic Class:</label> <%- openfda.pharm_class_epc %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.upc) !== "undefined") {%>
-                        <p><i>UPC:</i> <%- openfda.upc %> </p>
+                        <p><label>UPC:</label> <%- openfda.upc %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.unii) !== "undefined") {%>
-                        <p><i>unii:</i> <%- openfda.unii %> </p>
+                        <p><label>unii:</label> <%- openfda.unii %> </p>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.rxcui) !== "undefined") {%>
-                        <p><i>rxcui:</i> <%- openfda.rxcui %> </p>
+                        <p><label>rxcui:</label> <%- openfda.rxcui %> </p>
+                    <%}%>
+                </dd>
+            </dl>
+            </div>
+   
+   </div> 
+   </script>
+
+        <script type="text/template" id="drug-recall-info">
+        
+            <div class="display-module">
+                <div class="module-title">Is XXXX FDA-Approved?</div>
+                <div class="module-content"  id="recall-results">
+                    <%if (typeof(isRecalled) !== "undefined" && isRecalled == true) {%>
+                       <h3 class="hasRecall">Yes</h3>
+                    <% } %>
+
+                    <%if (typeof(isRecalled) !== "undefined" && isRecalled == false) {%>
+                           <h3>No</h3>
+                    <% } %>
+
+                    <%if (typeof(openfda)!== "undefined" && typeof(openfda.generic_name) !== "undefined") {%>
+                        <p><label>Generic Name:</label> <%- openfda.generic_name %> </p>
+                    <%}%>
+
+                    <%if (typeof(openfda)!== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
+                        <p><label>Brand Name:</label> <%- openfda.brand_name %> </p>
+                    <%}%>
+
+                    <%if (typeof(product_description) !== "undefined") {%>
+                        <p><label>Drug Description:</label> <%- product_description %> </p>
+                    <%}%>
+
+                    <%if (typeof(openfda)!== "undefined" && typeof(openfda.product_ndc) !== "undefined") {%>
+                        <p><label>Product NDCs:</label> <%- openfda.product_ndc %> </p>
+                    <%}%>
+
+                    <%if (typeof(openfda)!== "undefined" && typeof(openfda.package_ndc) !== "undefined") {%>
+                        <p style="word-break: break-all;"><label>Package NDCs:</label> <%- openfda.package_ndc %> </p>
+                    <%}%>
+
+                    <%if (typeof(status) !== "undefined" && status.length > 0) {%>
+                        <p><label>Recall Status:</label> <%- status %> </p>
+                    <%}%>
+
+                    <%if (typeof(reason_for_recall) !== "undefined") {%>
+                        <p><label>Recall Reason:</label> <%- reason_for_recall %> </p>
+                    <%}%>
+
+                    <%if (typeof(classification) !== "undefined") {%>
+                        <p><label>Recall Health Hazard Classification:</label> <%- classification %> </p>
+                    <%}%>
+
+                    <%if (typeof(code_info) !== "undefined") {%>
+                        <p><label>Applicable Product Codes/ID Numbers:</label> <%- code_info %> </p>
+                    <%}%>
+
+                    <%if (typeof(voluntary_mandated) !== "undefined") {%>
+                        <p><label>Recall Type:</label> <%- voluntary_mandated %> </p>
+                    <%}%>
+
+                    <%if (typeof(distribution_pattern) !== "undefined") {%>
+                        <p><label>Recall Scope:</label> <%- distribution_pattern %> </p>
+                    <%}%>
+
+                    <%if (typeof(recall_initiation_date) !== "undefined") {%>
+                        <p><label>Recall Initiation Date:</label> <%- recall_initiation_date %> </p>
+                    <%}%>
+
+                    <%if (typeof(report_date) !== "undefined") {%>
+                        <p><label>Recall Enforcement Date:</label> <%- report_date %> </p>
+                    <%}%>
+
+                    <%if (typeof(recall_number) !== "undefined") {%>
+                        <p><label>FDA Recall Number:</label> <%- recall_number %> </p>
+                    <%}%>
+
+                    <%if (typeof(recalling_firm) !== "undefined") {%>
+                        <p><label>Recalling Firm:</label> <%- recalling_firm %> </p>
                     <%}%>
                 </div>
-                <br/><br/>
             </div>
-        </div>
-    </script>
-
-        <script type="text/template" id="drug-recall-info" style=\"margin-top: 25px;\">
-        
-		<div class="toggle">
-
-			<%if (typeof(isRecalled) !== "undefined" && isRecalled == true) {%>
-
-			<div class="approved active" style="display:inline-box;border: 1px solid #fff; line-height: 48px;height: 48px;background: #00ff00">Yes</div>
-			<% } %>
-			
-			<%if (typeof(isRecalled) !== "undefined" && isRecalled == false) {%>
-			<div class="negatory" style="display:inline-box;border: 1px solid #fff; margin-left: 5px;line-height: 48px;height: 48px; background: #cc0000;">No</div>
-			<% } %>
-		</div>
-		
-		<div style=\"margin-bottom: 15px;\">
-		
-		<div id="recall-results" style="margin-left: 40px; margin-right: 40px;">
-
-			
-			<%if (typeof(openfda)!== "undefined" && typeof(openfda.generic_name) !== "undefined") {%>
-				<p><i>Generic Name:</i> <%- openfda.generic_name %> </p>
-			<%}%>
-			
-			<%if (typeof(openfda)!== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
-				<p><i>Brand Name:</i> <%- openfda.brand_name %> </p>
-			<%}%>
-			
-			<%if (typeof(product_description) !== "undefined") {%>
-				<p><i>Drug Description:</i> <%- product_description %> </p>
-			<%}%>
-			
-			<%if (typeof(openfda)!== "undefined" && typeof(openfda.product_ndc) !== "undefined") {%>
-				<p><i>Product NDCs:</i> <%- openfda.product_ndc %> </p>
-			<%}%>
-			
-			<%if (typeof(openfda)!== "undefined" && typeof(openfda.package_ndc) !== "undefined") {%>
-				<p style="word-break: break-all;"><i>Package NDCs:</i> <%- openfda.package_ndc %> </p>
-			<%}%>
-			
-			<%if (typeof(status) !== "undefined" && status.length > 0) {%>
-				<p><i>Recall Status:</i> <%- status %> </p>
-			<%}%>
-			
-			<%if (typeof(reason_for_recall) !== "undefined") {%>
-				<p><i>Recall Reason:</i> <%- reason_for_recall %> </p>
-			<%}%>
-			
-			<%if (typeof(classification) !== "undefined") {%>
-				<p><i>Recall Health Hazard Classification:</i> <%- classification %> </p>
-			<%}%>
-			
-			<%if (typeof(code_info) !== "undefined") {%>
-				<p><i>Applicable Product Codes/ID Numbers:</i> <%- code_info %> </p>
-			<%}%>
-			
-			<%if (typeof(voluntary_mandated) !== "undefined") {%>
-				<p><i>Recall Type:</i> <%- voluntary_mandated %> </p>
-			<%}%>
-			
-			<%if (typeof(distribution_pattern) !== "undefined") {%>
-				<p><i>Recall Scope:</i> <%- distribution_pattern %> </p>
-			<%}%>
-			
-			<%if (typeof(recall_initiation_date) !== "undefined") {%>
-				<p><i>Recall Initiation Date:</i> <%- recall_initiation_date %> </p>
-			<%}%>
-			
-			<%if (typeof(report_date) !== "undefined") {%>
-				<p><i>Recall Enforcement Date:</i> <%- report_date %> </p>
-			<%}%>
-			
-			<%if (typeof(recall_number) !== "undefined") {%>
-				<p><i>FDA Recall Number:</i> <%- recall_number %> </p>
-			<%}%>
-			
-			<%if (typeof(recalling_firm) !== "undefined") {%>
-				<p><i>Recalling Firm:</i> <%- recalling_firm %> </p>
-			<%}%>
-
-		</div>	
-	  </div>		
-    </script>
+        </script>
     
     <!-- Main JS File -->
     <script src="./js/app.js"></script>

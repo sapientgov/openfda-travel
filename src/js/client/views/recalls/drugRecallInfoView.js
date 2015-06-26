@@ -13,8 +13,6 @@ var DrugRecallInfoView = Backbone.View.extend({
         this.template = _.template($('#drug-recall-info').html());
 		options.drug.isRecalled = options.isRecalled;
         this.drug = options.drug;
-		console.log("options: ", options);
-		console.log("options.isRecalled: ", options.isRecalled);
 		
     },
     
@@ -23,10 +21,6 @@ var DrugRecallInfoView = Backbone.View.extend({
         this.$el.html(this.template(this.drug));
 		this.deleteLastResults();
 		
-		$( ".fda-approved" ).removeClass("active");
-		$("#noBtn").addClass("active");
-		
-		//console.log("yesBtnJq: ", yesBtnJq);
 		return this;
     },
 	

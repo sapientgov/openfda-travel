@@ -114,7 +114,6 @@ var DrugRecallPageView = Backbone.View.extend({
         console.log('getting drug recall info for %s.', drugId);
         var self=this;
 
-		//FdaService.findDrugRecallsByBrand(drugId).done(function(data) {
         FdaService.findRecallInfoByDrugId(drugId).done(function(data) {
             if(data.results && data.results.length > 0) {
                 
@@ -139,8 +138,6 @@ var DrugRecallPageView = Backbone.View.extend({
 				console.log("drug has not been recalled");
 				
 				var curView = self.currentView = new DrugRecallInfoView({drug: drugId, isRecalled: false});
-				console.log("currentView: ", curView); 
-                self.currentView.render();
 				self.$el.append(self.currentView.render().el);
 			}
         });

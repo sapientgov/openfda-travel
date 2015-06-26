@@ -1,9 +1,12 @@
 'use strict';
 
-var $ = require('jquery');
+var $ = window.$ = window.jQuery = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 var AppRouter = require('./routes/appRouter');
+
+var Bootstrap = require('./libs/bootstrap/bootstrap');
+Bootstrap.jQuery = $;
 
 //setup router
 $(function() {

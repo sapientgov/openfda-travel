@@ -39,6 +39,7 @@ var FdaService = {
         //add qs parameters
         var qs = BEGIN_QS + '&count=openfda.brand_name.exact&search=openfda.brand_name:' + brandQ;
         
+		
         //make json call
         return this.executeApiQuery(reqUrl + qs);
     },
@@ -93,7 +94,7 @@ var FdaService = {
         
         //add qs parameters
         var qs = BEGIN_QS + '&count=openfda.generic_name.exact&search=openfda.generic_name:' + genericQ;
-        
+		
         //make json call
         return this.executeApiQuery(reqUrl + qs);
     },

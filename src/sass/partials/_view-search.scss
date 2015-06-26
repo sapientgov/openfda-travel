@@ -23,13 +23,13 @@
         background-color:#fff;
         margin-top:-15px;
         #count-results-list {
-            color:#555;
+            color:$text-grey;
             .result-item {
                 padding: 5px 10px;
                 cursor: pointer;
             }
             .result-item:hover {
-                background-color: #fdcc4c;
+                background-color: $fda-yellow;
             }
         }
     }
@@ -37,11 +37,10 @@
 
 #product-result-list{
     li{
-        background: rgba(255, 255, 255, 0.25);
-        color: #fff;
-        border: 1px solid #fff;
-        margin-bottom: 5px;
-        padding: 5px 15px;
+        background: #fff;
+        color: $text-black;
+        border-bottom: 1px solid $text-grey;
+        padding: 5px $global-padding;
         label{
             font-weight: bold;
         }

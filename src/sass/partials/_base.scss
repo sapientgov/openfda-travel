@@ -63,7 +63,6 @@ strong{
 }
 section{
     padding: 15px 0;
-
 }
 
 h1 {
@@ -74,9 +73,8 @@ h1 {
         font-weight: 400;
     }
 }
-
-h3 {
-    font-size: 14px;
+h3{ 
+    margin: 0
 }
 
 h4 {
@@ -110,14 +108,52 @@ header {
         background: rgba(255,255,255, 0.20);
         border: 0 none;
         @include border-radius(0);
+        .navbar-nav{
+        a, a:active, a:visited{
+            color: #fff;
+            font-size: 32px;
+        }
+        .open .dropdown-menu{
+            background: #fff;
+            li{
+                a, a:active, a:visited{
+                    color: $text-grey;
+                    font-size: 14px;
+                    &:hover{
+                        background: $fda-yellow;
+                    }
+                }
+            }
+        }
+        }
     }
     .navbar-brand{
-        height: auto;
-        max-height: 80px;
-        *{
-            font-family: 'RobotoCondensed',Arial, Verdana, sans-serif;
-            color: #333 !important
+        width: 100%;
+        max-width: 250px;
+        padding: 0 15px;
+        img{
+            padding-top: 7px;
         }
+    }
+    .navbar-header{
+        margin: 5px 10px;
+    }
+    
+    .dropdown-menu{
+        background: #fff;
+        li{
+            a, a:active, a:visited{
+                color: $text-grey;
+                font-size: 14px;
+                &:hover{
+                    background: $fda-yellow;
+                }
+            }
+        }
+    }
+
+    .nav > li{
+        display: inline-block;
     }
 }
 
@@ -185,6 +221,9 @@ aside{
         font-size: 12px;
         font-weight: 400;
         cursor: pointer;
+        &:hover{
+            background: #ccc;
+        }
     }
     dd{
         display:none;
@@ -192,7 +231,7 @@ aside{
         background: #fff;
     }
 }
-.btn-wire{
+.btn-wire, .btn-cta{
     @extend .btn;
     background: none;
     font-size: 16px;
@@ -203,22 +242,10 @@ aside{
     height: 48px;
     margin: 10px 0;
     &:hover{
-        background: rgba(255, 255, 255, 0.25);
+        background: $fda-teal;
         color: #fff;
     }
 
-}
-.btn-cta{
-    display: block;
-    border: 0 none;
-    text-align: left;
-    background: $fda-teal;
-    @include border-radius(0);
-    color: #fff;
-    padding: 5px 45px 5px 15px;
-    font-family: 'RobotoCondensed', Arial, Helvetica, sans-serif;
-    min-height: 32px;
-    font-weight: 500;
 }
 
 
@@ -247,6 +274,9 @@ aside{
                     font-size: 14px;
                     font-weight: 400;
                     margin-bottom: $global-margin;
+                    &:hover{
+                        background: #ccc;
+                    }
                 }
             }
         }
