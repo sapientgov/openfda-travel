@@ -49,7 +49,6 @@ var DrugSearchPageView = Backbone.View.extend({
                 title = 'TITLE NOT CONFIGURED';
         }
         var searchType = this.searchTarget;
-		console.log("searchType: ", searchType);
 		
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
@@ -65,8 +64,6 @@ var DrugSearchPageView = Backbone.View.extend({
         //split the query into parts
         var apiQ = DataUtils.combineMultipartQuery(q, '+AND+');
         console.log('count results for query %s', apiQ);
-		
-		console.log("this.searchType: ",this.searchType);
         
         //check the search type and react accordingly
         switch(this.searchType) {
@@ -150,7 +147,6 @@ var DrugSearchPageView = Backbone.View.extend({
             
             //display products
             self.displayProductOptions(data.results);
-			console.log("get data.results: ", data.results);
         });
     },
     
@@ -227,10 +223,9 @@ var DrugSearchPageView = Backbone.View.extend({
                 self.$('#count-results-list').empty();
             }
 			
+			// if no results are returned (drug is not in the fda api) then display "Not Approved" to the user
 			if(jqXHR.status == 404)
 			{
-				console.log("231");
-				
 				var curView = self.currentView = new DrugApprovedInfoView({drug: val, isApproved: false});
 				self.$el.append(self.currentView.render().el);
 			}
@@ -238,6 +233,7 @@ var DrugSearchPageView = Backbone.View.extend({
         
 	},
     
+	//if the selected search term in the autopopulate dropdown results in multiple matches, display a summary of all results to the user.
     displayProductOptions: function(prodList) {
         var self = this;
         
@@ -288,7 +284,12 @@ var DrugSearchPageView = Backbone.View.extend({
                         result: item, 
                         callback: _.bind(self.chooseResult, self)
                     });
-                    self.$('#count-results-list').append(view.render().el);    
+					
+					//display each result in the autopopulate dropdown ONLY IF the user-entered search term is in the result string
+					if(item.term.toLowerCase().indexOf(q.toLowerCase()) > -1)
+					{
+						self.$('#count-results-list').append(view.render().el);  
+					}					
                 });
             }
             
@@ -300,6 +301,20 @@ var DrugSearchPageView = Backbone.View.extend({
             }
         });
     },
+	
+	/**
+	Clears display of previous search results when the user navigates to another search tab.
+	**/
+	clearPreviousResults: function() {
+		
+		var productResults = $("#product-results");
+		
+		if(productResults !== null){
+			$("#product-result-list").empty();
+			$("#product-results").css("display", "none");
+		}
+		
+	},
     
     /**
      * Clears the result after a short delay. This should only be used 
@@ -327,6 +342,7 @@ var DrugSearchPageView = Backbone.View.extend({
     }, 200),
     
     clickSearchType: function(e) {
+		this.clearPreviousResults();
         var $clicked = $(e.target);
         if($clicked.hasClass('search-all')) {
             this.changeSearchType('ALL', 'All', 'search-all');
