@@ -236,6 +236,8 @@ var DrugSearchPageView = Backbone.View.extend({
 	//if the selected search term in the autopopulate dropdown results in multiple matches, display a summary of all results to the user.
     displayProductOptions: function(prodList) {
         var self = this;
+		
+		self.clearPreviousResults();
         
         console.log('found label data for product list', prodList);
         _.each(prodList, function(item) {
