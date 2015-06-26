@@ -80,7 +80,10 @@ var AuthProvider = {
                     AuthProvider.removUserFromHashByDigitsId(resJson.id_str);
                     
                     //generate a uuid for public use
-                    var uuid_str = uuid.v4();
+                    var uuid_str;
+                    do {
+                        uuid_str = uuid.v4();
+                    } while (_active[uuid_str] !== undefined);
                     console.log('generated uuid ', uuid_str);
                     
                     //add user to active hash
