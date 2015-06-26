@@ -37,7 +37,7 @@ var UserUtils = {
             
             //TODO: send this to server
             verifyLogin(loginResponse).done(function(response) {
-                console.log('successful login received: ', response);
+                console.log('successful login received.');
                 
                 //set active flag
                 _active = true;
