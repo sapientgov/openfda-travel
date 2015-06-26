@@ -88,7 +88,7 @@ var AuthProvider = {
                     
                     //execute success callback
                     if(typeof options.success === 'function') {
-                        options.success({token: uuid_str});
+                        options.success(uuid_str);
                     }
                 } else {
                     

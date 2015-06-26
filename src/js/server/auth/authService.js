@@ -17,10 +17,16 @@ module.exports = function(app) {
             AuthProvider.verifyLoginWithDigits({
                 providerUrl: req.body.serviceProvider, 
                 authHeader: req.body.credentials,
-                success: function(data) {
+                success: function(loginToken) {
 
-                    //send the JSON data back with successful result
-                    res.json(data);
+                    //set login token in cookie
+                    res.cookie('fdaaw-token', loginToken, {
+                        httpOnly: true,
+                        expires: 0
+                    });
+                    
+                    //send back success response
+                    res.sendStatus(200);
                 },
                 error: function(error) {
                     console.error('Unable to verify OAuth cerdentials: ', error);

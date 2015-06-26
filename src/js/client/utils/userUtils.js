@@ -2,7 +2,6 @@
 
 var $ = require('jquery');
 
-var _uid = null;
 var _active = false;
 
 var verifyLogin = function(loginResponse) {
@@ -14,19 +13,14 @@ var verifyLogin = function(loginResponse) {
     
     //make call and return resulting promise object
     return $.ajax('http://localhost:8080/login', {
-        dataType: "json",
         data: sendData,
-        type: 'POST',
+        type: 'POST'
     });
 };
 
 var UserUtils = {
     
     isLoggedIn: function() {
-        if(typeof Digits === 'undefined') {
-            throw new Error('Digits is not initialized');
-        }
-        
         return _active;
     },
     
@@ -44,9 +38,16 @@ var UserUtils = {
             //TODO: send this to server
             verifyLogin(loginResponse).done(function(response) {
                 console.log('successful login received: ', response);
+                
+                //set active flag
+                _active = true;
+                
+                //resolve deferred
                 deferred.resolve(response);
+                
             }).fail(function(e) {
                 console.error('login unsuccessful!', e);
+                _active = false;
                 deferred.reject({
                     type: 'verify',
                     message: 'login could not be verified'
@@ -55,6 +56,7 @@ var UserUtils = {
             
         }).fail(function(reason) {
             console.log('Digits login failed.', reason);
+            _active = false;
             deferred.reject(reason);
         });
         
@@ -62,7 +64,6 @@ var UserUtils = {
     },
     
     logout: function() {
-        _uid = null;
         _active = false;
     }
 };
