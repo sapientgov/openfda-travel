@@ -112,6 +112,12 @@ header {
         a, a:active, a:visited{
             color: #fff;
             font-size: 32px;
+            &.login-link {
+                line-height: 62px;
+                font-size: 1.5em;
+                color: #fff;
+                padding: 0 10px;
+            }
         }
         .open .dropdown-menu{
             background: #fff;
@@ -154,6 +160,11 @@ header {
 
     .nav > li{
         display: inline-block;
+        a.login-link {
+            line-height: 62px;
+            color: #fff;
+            padding: 0 10px;
+        }
     }
 }
 

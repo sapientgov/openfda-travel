@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>1515 App</title>
+    <title>FDA|anywhere</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut" type="image/x-icon" href="./favicon.ico?" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?" />
@@ -19,6 +19,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
+              <li><a class="login-link" href="#">Login</a></li>
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                 <ul class="dropdown-menu pull-right">
                     <li><a href="#">Create a Profile</a></li>
@@ -141,7 +142,7 @@
 				<% } %>
 				
 				<% if(title.indexOf("approved") > 0) { %>
-				<button type="button" class="btn approved-search search-all">Search</button>
+				<button type="button" class="btn approved-search search-all">Submit</button>
 				<% } %>
             </div>
 			
@@ -568,7 +569,7 @@
         <script type="text/template" id="drug-recall-info">
         
             <div class="display-module">
-                <div class="module-title">Is XXXX FDA-Approved?</div>
+                <div class="module-title"></div>
                 <div class="module-content"  id="recall-results">
                     <%if (typeof(isRecalled) !== "undefined" && isRecalled == true) {%>
                        <h3 class="hasRecall">Yes</h3>
