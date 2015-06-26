@@ -43,7 +43,7 @@ var DrugSearchPageView = Backbone.View.extend({
                 title = 'Has this medication been recalled?';
                 break;
             case 'APPROVED':
-                title = 'Has this medication been approved?';
+                title = 'Is this medication FDA approved?';
                 break;
             default:
                 title = 'TITLE NOT CONFIGURED';
@@ -312,6 +312,15 @@ var DrugSearchPageView = Backbone.View.extend({
 		if(productResults !== null){
 			$("#product-result-list").empty();
 			$("#product-results").css("display", "none");
+		}
+		
+		var self = this;
+		
+		var numChildren = document.getElementById("primary-content").childNodes.length;
+				
+		if(numChildren > 1)
+		{
+			document.getElementById("primary-content").lastChild.remove();
 		}
 		
 	},
