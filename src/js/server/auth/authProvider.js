@@ -111,6 +111,22 @@ var AuthProvider = {
     logout: function(uuid) {
         console.log('digits id to logout: %s', _active[uuid]);
         delete _active[uuid];
+    },
+    
+    checkAuthentication: function(uuid) {
+        
+        //check auth
+        if(typeof uuid === 'string' && uuid.length > 0
+          && typeof _active[uuid] !== 'undefined') {
+            
+            return true;
+        } else {
+            return false;
+        }
+    },
+    
+    getUserId: function(uuid) {
+        return _active[uuid];
     }
 };
 
