@@ -12,7 +12,7 @@ var verifyLogin = function(loginResponse) {
     };
     
     //make call and return resulting promise object
-    return $.ajax('http://localhost:8080/login', {
+    return $.ajax('/login', {
         data: sendData,
         type: 'POST'
     });
