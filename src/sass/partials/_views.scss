@@ -284,66 +284,12 @@
             -webkit-animation-duration:1s;
             -moz-animation-duration:1s;
             animation-duration:1s;
-&.animDelay1 {
-    animation-delay: 0.3s;
-}
-&.animDelay2 {
-    animation-delay: 0.6s;
-}
-&.animDelay3 {
-    animation-delay: 0.9s;
-}
-&.animDelay4 {
-    animation-delay: 1.2s;
-}
-&.animDelay5 {
-    animation-delay: 1.5s;
-}
-&.animDelay6 {
-    animation-delay: 1.8s;
-}
-&.animDelay7 {
-    animation-delay: 2.1s;
-}
-&.animDelay8 {
-    animation-delay: 2.4s;
-}
-&.animDelay9 {
-    animation-delay: 2.7s;
-}
-&.animDelay10 {
-    animation-delay: 3s;
-}
-&.animDelay11 {
-    animation-delay: 3.3s;
-}
-&.animDelay12 {
-    animation-delay: 3.6s;
-}
-&.animDelay13 {
-    animation-delay: 3.9s;
-}
-&.animDelay14 {
-    animation-delay: 4.2s;
-}
-&.animDelay15 {
-    animation-delay: 4.5s;
-}
-&.animDelay16 {
-    animation-delay: 4.8s;
-}
-&.animDelay17 {
-    animation-delay: 5.1s;
-}
-&.animDelay18 {
-    animation-delay: 5.4s;
-}
-&.animDelay19 {
-    animation-delay: 5.7s;
-}
-&.animDelay20 {
-    animation-delay: 6s;
-}
+            $anim-slug: animDelay !default;
+            @for $i from 1 through 20{
+              &.#{$anim-slug}#{$i*1}{
+                animation-delay: 0.3s * $i;
+                }
+            }
 
         }
 
