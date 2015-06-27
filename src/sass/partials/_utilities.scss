@@ -53,9 +53,11 @@ input.form-control:-ms-input-placeholder {
 }
 
 $class-slug: col !default;
-
 @for $i from 1 through 100{
   .#{$class-slug}#{$i*1}{
     width: 1% * $i;
     }
 }
+
+
+
