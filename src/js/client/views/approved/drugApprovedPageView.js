@@ -13,8 +13,12 @@ var DrugApprovedPageView = Backbone.View.extend({
     el: '#primary-content',
     
     render: function() {
+		
+        console.log('drugApprovedPageView');
+        //change section background
+		$('body').css('background-image',"url(../img/approved.jpg)");
         
-        //clear the existing content out
+		//clear the existing content out
         this.$el.empty();
         
         //add the drug search to the page
