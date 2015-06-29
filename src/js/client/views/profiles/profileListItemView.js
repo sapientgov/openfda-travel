@@ -6,11 +6,12 @@ Backbone.$ = $;
 var _ = require('underscore');
 
 var ProfileListItemView = Backbone.View.extend({
-    attributes: {
-        class: "profile"
-    },
     initialize: function() {
         this.template = _.template($('#profile-item-template').html());
+    },
+    
+    events: {
+        'click .link-delete': 'deleteProfile'
     },
     
     render: function() {
@@ -24,6 +25,13 @@ var ProfileListItemView = Backbone.View.extend({
         
         //enable chaining
         return this;
+    },
+    
+    deleteProfile: function(e) {
+        e.preventDefault();
+        if(confirm('Are you sure you want to delete this profile?')) {
+            this.model.destroy();
+        }
     }
 });
 

@@ -3,7 +3,8 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 
 var Profile = Backbone.Model.extend({
-    url: '/profiles',
+    idAttribute: '_id',
+    urlRoot: '/profiles',
     defaults: {
         name: '',
         ageRange: '',

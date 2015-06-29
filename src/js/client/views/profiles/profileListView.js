@@ -26,7 +26,7 @@ var ProfileListView = Backbone.View.extend({
             var itemView = new ProfileListItemView({
                 model: item
             });
-            self.$('.profile-list').append(itemView.render().$el.html());
+            self.$('.profile-list').append(itemView.render().el);
         });
         
         //enable chaining
