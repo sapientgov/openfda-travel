@@ -13,7 +13,11 @@ var DrugLabelPageView = Backbone.View.extend({
     el: '#primary-content',
     
     render: function() {
+        console.log('drugLabelPageView');
         
+        //change section background
+        $('body').css('background-image',"url(../img/canitakethis.jpg)");
+
         //clear the existing content out
         this.$el.empty();
         

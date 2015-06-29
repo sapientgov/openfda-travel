@@ -13,7 +13,11 @@ var DrugRecallPageView = Backbone.View.extend({
     el: '#primary-content',
     
     render: function() {
-        
+        console.log('drugRecalledPageView');
+
+        //change section background
+        $('body').css('background-image',"url(../img/recalled.jpg)");
+
         //clear the existing content out
         this.$el.empty();
         

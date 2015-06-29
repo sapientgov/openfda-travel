@@ -113,6 +113,7 @@
         color: $text-black;
         border-bottom: 1px solid $text-grey;
         dt{
+            position: relative;
             font-size: 16px;
             font-weight: 400;
             min-height:44px;
@@ -121,6 +122,30 @@
             cursor:pointer;
             &:hover{
                 background: #ccc;
+            }
+            a.flag{
+                margin: 0 5px 0 0;
+                float: right;
+                font-size: 21px;
+                &.warning{
+                    color: #c00;
+                }
+                &.info{
+                    color: $fda-teal;
+                    margin-right: 30px;
+                }
+            }
+            &:after{
+                content:"\f106";
+                font-family: "FontAwesome";
+                position: absolute;
+                right: 15px;
+                font-weight: normal;
+            }
+            &.expanded{
+                &:after{
+                    content:"\f107";
+                }
             }
         }
         dd{
@@ -173,10 +198,11 @@
 
 #product-result-list{
     li{
-        background: #fff;
+        background: none;;
         color: #fff;
         margin-bottom: 5px;
         padding: 5px 15px;
+        border: 1px solid #fff;
         label{
             font-weight: bold;
         }

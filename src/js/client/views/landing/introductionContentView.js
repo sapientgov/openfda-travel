@@ -13,6 +13,9 @@ var IntroContentView = Backbone.View.extend({
     },
     
     render: function() {
+        console.log('introductionContentView');
+        //change section background
+        $('body').css('background-image',"url(../img/home.jpg)");
         //just render template into element
         this.$el.html(this.template());
     },

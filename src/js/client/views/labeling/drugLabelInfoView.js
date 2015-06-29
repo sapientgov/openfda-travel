@@ -19,7 +19,8 @@ var DrugLabelInfoView = Backbone.View.extend({
         
         var self = this;
         this.$('dt').click(function(){
-            self.$(this).closest('dl').find('dd').toggle();
+            self.$(this).toggleClass('expanded');
+            self.$(this).closest('dl').find('dd').slideToggle();
         });
 
         //toggle the sections

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FDA|anywhere</title>
+    <title>FDA | anywhere</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut" type="image/x-icon" href="./favicon.ico?" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?" />
@@ -135,7 +135,7 @@
                 <label for="ndc" class="sr-only">medication entry</label>
                 
 				<%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
-				<input type="text" name="brand-name" class="form-control" placeholder=<%- openfda.brand_name %> autocomplete="off" />
+				<input type="text" name="brand-name" class="form-control" placeholder="<%- openfda.brand_name %>" autocomplete="off" />
 				<% } %>
 				
 				<%if (typeof(openfda) == "undefined") {%>
