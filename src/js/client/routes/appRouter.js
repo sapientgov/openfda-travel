@@ -17,6 +17,8 @@ var MapModuleView = require('../views/location/mapModuleView');
 var AppLandingView = require('../views/landing/appLandingView');
 var ProfileEditView = require('../views/profiles/profileEditView');
 var Profile = require('../data/profile');
+var UserUtils = require('../utils/userUtils');
+var ProfileListView = require('../views/profiles/profileListView');
 
 var AppRouter = Backbone.Router.extend({
     
@@ -26,7 +28,8 @@ var AppRouter = Backbone.Router.extend({
         'label': 'label',
         'recall': 'recall',
         'approved': 'approved',
-        'profile(/:id)': 'editProfile'
+        'profile(/:id)': 'editProfile',
+        'pmanage': 'profileList'
     },
     
     'intro': function() {
@@ -114,6 +117,22 @@ var AppRouter = Backbone.Router.extend({
             model: new Profile()
         });
         this.fullView.render();
+    },
+    
+    profileList: function() {
+        //get rid of existing content
+        this.resetContent();
+        
+        //hide the split container
+        $('#split-container').hide();
+        
+        //init the profile list view
+        this.fullView = new ProfileListView({
+            el: $('#full-width-container'),
+            collection: UserUtils.getCurrentUser().get('profiles')
+        });
+        this.fullView.render();
+        
     },
     
     ///////////////////////////

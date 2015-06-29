@@ -469,6 +469,47 @@
         </div>
     </script>
     
+    <script type="text/template" id="list-profiles-template">
+        <div class="profile-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-7 clearfix">
+            <h1>Manage Medication Profile</h1>
+            <div class="display-module">
+                <div class="module-title">Click 'edit' to change your settings</div>
+                <div class="module-content">
+                    <dl class="profile-list"></dl>
+                </div>
+            </div>
+        </div>
+    </script>
+    
+    <script type="text/template" id="profile-item-template">
+        <dd id="<%- _id %>">
+            <fieldset>
+                <label>Your age range:</label>
+                <div><%- ageRange %></div>
+            </fieldset>
+            <fieldset>
+                <label>Gender:</label>
+                <div><%- gender %></div>
+            </fieldset>
+            <fieldset>
+                <label>Medications you take:</label>
+                <div><%- medications %></div>
+            </fieldset>
+            <fieldset>
+                <label>Medical conditions you may have:</label>
+                <div><%- conditions %></div>
+            </fieldset>
+            <fieldset>
+                <label>Allergies you may have:</label>
+                <div><%- allergies %></div>
+            </fieldset>
+            <div class="profile-actions">
+                <a href="#" class="" title="Delete Profile">Delete Profile</a>
+                <a href="#" class="" title="Edit Profile">Edit Profile</a>
+            </div>
+        </dd>
+    </script>
+    
     <!-- Main JS File -->
     <script src="./js/app.js"></script>
     <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
