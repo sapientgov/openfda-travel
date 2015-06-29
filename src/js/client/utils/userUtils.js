@@ -27,16 +27,22 @@ var UserUtils = {
     },
     
     initUser: function() {
-        //create user object
-        _user = new User();
-        
-        //check for profiles
+        //create profiles collection
         var profiles = new ProfileCollection();
+        
+        //create user object
+        _user = new User({
+            profiles: profiles
+        });
+        
+        //check for existing profiles
         profiles.fetch({
             success: function(collection, response, options) {
-                console.log('initial fetch success!');
-                //set the user object
+                console.log('initial fetch success!', collection);
+                
+                //set the user object attributes
                 _user.set({
+                    selectedPid: collection.length > 0 ? collection.at(0).get('_id') : null,
                     profiles: collection,
                     loggedIn: true
                 });

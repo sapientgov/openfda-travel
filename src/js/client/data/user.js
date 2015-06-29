@@ -6,6 +6,7 @@ var  User = Backbone.Model.extend({
     defaults: {
         profiles: null,
         loggedIn: false,
+        selectedPid: null
     }
 });
 
