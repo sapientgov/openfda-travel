@@ -15,12 +15,6 @@ var DrugLabelPageView = Backbone.View.extend({
     render: function() {
         console.log('drugLabelPageView');
         
-        //change section background
-        $('body').css('background-image',"url(../img/canitakethis.jpg)");
-
-        //clear the existing content out
-        this.$el.empty();
-        
         //add the drug search to the page
         this.searchView = new DrugSearchPageView({searchTarget: 'LABEL'});
         this.$el.html(this.searchView.render().el);

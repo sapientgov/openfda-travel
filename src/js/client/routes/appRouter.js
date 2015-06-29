@@ -28,79 +28,88 @@ var AppRouter = Backbone.Router.extend({
     
     'intro': function() {
         
-        //get rid of intro content
-        this.clearIntroContent();
+        //clear
+        this.resetContent();
+        
+        //hide the main content divs
+        $('#split-container').hide();
+        
+        //change section background
+        $('body').css('background-image',"url(../img/landing.jpg)");
         
         //setup the landing view
-        this.landingView = new AppLandingView();
-        this.landingView.render();
+        this.fullView = new AppLandingView();
+        this.fullView.render();
     },
     
     questions: function() {
         
-        //get rid of intro content
-        this.clearLanding();
+        //get rid of existing content
+        this.resetContent();
         
         //setup map view
         //TODO - this should probably go somewhere better
         MapModuleView.createInstance();
         
+        //change section background
+        $('body').css('background-image',"url(../img/home.jpg)");
+        
         //add intro content
-        this.introView = new IntroductionContentView();
-        this.introView.render();
+        this.fullView = new IntroductionContentView();
+        this.fullView.render();
         
         //add buttons
-        this.currentView = new InitialQuestionsView();
-        this.currentView.render();
+        this.mainView = new InitialQuestionsView();
+        this.mainView.render();
     },
     
     label: function() {
-        //get rid of intro content
-        this.clearIntroContent();
-        this.clearLanding();
+        //get rid of existing content
+        this.resetContent();
+        
+        //change section background
+        $('body').css('background-image',"url(../img/canitakethis.jpg)");
         
         //init drug label view
-        this.currentView = new DrugLabelPageView();
-        this.currentView.render();
+        this.mainView = new DrugLabelPageView();
+        this.mainView.render();
     },
     
     recall: function() {
-        //get rid of intro content
-        this.clearIntroContent();
-        this.clearLanding();
+        //get rid of existing content
+        this.resetContent();
+        
+        //change section background
+        $('body').css('background-image',"url(../img/recalled.jpg)");
         
         //init drug recall view
-        this.currentView = new DrugRecallPageView();
-        this.currentView.render();
+        this.mainView = new DrugRecallPageView();
+        this.mainView.render();
    },
     
     approved: function() {
-         //get rid of intro content
-        this.clearIntroContent();
-        this.clearLanding();
+         //get rid of existing content
+        this.resetContent();
+        
+        //change section background
+		$('body').css('background-image',"url(../img/approved.jpg)");
         
         //init drug approved view
-        this.currentView = new DrugApprovedPageView();
-        this.currentView.render();
+        this.mainView = new DrugApprovedPageView();
+        this.mainView.render();
     },
     
     ///////////////////////////
     //NON-ROUTING FUNCTIONS//
     ///////////////////////////
     
-    clearLanding: function() {
-        $('.landing-page').remove();
-        $('#container-main .row').show();
-    },
-    
-    clearIntroContent: function() {
-        //make sure intro content is gone
-        if(this.introView) {
-            this.introView.remove();
-            this.introView = undefined;
-        }
+    resetContent: function() {
+        $('#full-width-container').empty();
+        this.fullView = undefined;
+        $('#split-container').show();
+        $('#primary-content').empty();
+        this.mainView = undefined;
     }
-
 });
 
 module.exports = AppRouter;

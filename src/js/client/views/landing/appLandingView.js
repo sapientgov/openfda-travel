@@ -14,11 +14,9 @@ var IntroContentView = Backbone.View.extend({
     },
     
     render: function() {
-        //hide the main content divs
-        this.$('.row').hide();
         
         //render template into element
-        this.$el.append(this.template());
+        this.$('#full-width-container').append(this.template());
         
         //setup login view
         this.loginView = new DigitsLoginView({

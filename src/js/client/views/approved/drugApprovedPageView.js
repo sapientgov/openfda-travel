@@ -14,13 +14,6 @@ var DrugApprovedPageView = Backbone.View.extend({
     
     render: function() {
 		
-        console.log('drugApprovedPageView');
-        //change section background
-		$('body').css('background-image',"url(../img/approved.jpg)");
-        
-		//clear the existing content out
-        this.$el.empty();
-        
         //add the drug search to the page
         this.searchView = new DrugSearchPageView({searchTarget: 'APPROVED'});
         this.$el.html(this.searchView.render().el);
@@ -31,7 +24,6 @@ var DrugApprovedPageView = Backbone.View.extend({
     },
     
     renderApprovedInfo: function(searchData) {
-        console.log('Rendering drug approved info!', searchData);
 		
 		//if we got an actual result object from the search we just need to show it
         if(searchData.result) {

@@ -52,9 +52,15 @@
     <main id="content" role="main">
         <section>
             <div id="container-main" class="container">
-                <div  id="intro" class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10"></div>
-                <div class="row clearfix">
+                <div class="row" id="full-width-container">
+                </div>
+                
+                <div class="row" id="split-container">
+                    
+                    <!-- main content section -->
                     <div id="primary-content" class="col-xs-12 col-sm-8 col-md-offset-1 col-md-6"></div>
+                    
+                    <!-- right column -->
                     <aside class="col-xs-12 col-sm-4 col-md-4">
                             <button class="btn-cta full-width add-margin-bottom">Click here to enter your profile information</button>
 
@@ -77,10 +83,23 @@
                                 </dl>
                             </div>
                     </aside>
-
-                </div><!-- End row-->
-				
+                </div>
+                
             </div>
+            
+            
+            
+            
+            <!--
+            <div id="container-main" class="container">
+                <div  id="intro" class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10"></div>
+                <div class="row clearfix">
+                    
+                    
+
+                </div>
+				
+            </div> -->
         </section>
     </main> <!-- /main-content -->
 
@@ -114,7 +133,6 @@
     
     <script type="text/template" id="drug-search-template">
         <div id="drug-search">
-            <h1><%- title %></h1>
             <!-- segmented buttons -->
             <h3>Enter medication by: </h3>
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -142,9 +160,7 @@
 				<input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
 				<% } %>
 				
-				<% if(title.indexOf("approved") > 0) { %>
 				<button type="button" class="btn approved-search search-all">Submit</button>
-				<% } %>
             </div>
 			
             <div id="drug-search-results">
