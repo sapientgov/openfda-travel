@@ -170,6 +170,8 @@ var DrugSearchPageView = Backbone.View.extend({
             });
             return;
         }
+		
+		document.getElementById("multi_results_text").innerHTML = (self.count+1) + " results for <b>\"" + self.selection + "\"</b>";
         
         //if the selection is not an object, it must be a query term
         if(self.count > 1) {
