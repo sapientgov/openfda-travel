@@ -5,7 +5,12 @@ Backbone.$ = $;
 var Profile = Backbone.Model.extend({
     url: '/profiles',
     defaults: {
-        name: ''
+        name: '',
+        ageRange: '',
+        gender: '',
+        medications: [],
+        conditions: [],
+        allergies: []
     }
 });
 

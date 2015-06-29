@@ -15,6 +15,8 @@ var IntroductionContentView = require('../views/landing/introductionContentView'
 var InitialQuestionsView = require('../views/landing/initialQuestionsView');
 var MapModuleView = require('../views/location/mapModuleView');
 var AppLandingView = require('../views/landing/appLandingView');
+var ProfileEditView = require('../views/profiles/profileEditView');
+var Profile = require('../data/profile');
 
 var AppRouter = Backbone.Router.extend({
     
@@ -23,7 +25,8 @@ var AppRouter = Backbone.Router.extend({
         'q': 'questions',
         'label': 'label',
         'recall': 'recall',
-        'approved': 'approved'
+        'approved': 'approved',
+        'profile(/:id)': 'editProfile'
     },
     
     'intro': function() {
@@ -97,6 +100,20 @@ var AppRouter = Backbone.Router.extend({
         //init drug approved view
         this.mainView = new DrugApprovedPageView();
         this.mainView.render();
+    },
+    
+    editProfile: function(pid) {
+        //get rid of existing content
+        this.resetContent();
+        
+        //hide the split container
+        $('#split-container').hide();
+        
+        //init the profile edit view
+        this.fullView = new ProfileEditView({
+            model: new Profile()
+        });
+        this.fullView.render();
     },
     
     ///////////////////////////

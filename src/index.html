@@ -23,7 +23,7 @@
               <li><a class="login-link" href="#">Login</a></li>
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                 <ul class="dropdown-menu pull-right">
-                    <li><a href="#">Create a Profile</a></li>
+                    <li><a href="#profile">Create a Profile</a></li>
                     <li class="divider"></li>
                     <li><a href="#">Profile 1</a></li>
                     <li><a href="#">Profile 2</a></li>
@@ -422,6 +422,54 @@
                 </div>
             </div>
         </script>
+    
+    <!--profile template -->
+    <script type="text/template" id="edit-profile-template">
+        <div class="profile-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-7 clearfix">
+            <h1>Create Medication Profile</h1>
+            <div class="display-module">
+                <div class="module-title">Complete the steps below to personalize your results.</div>
+                    <div class="module-content">
+                        <p>
+                            <label for="txtName">Profile name:</label><br>
+                            <input type="text" id="txtName" name="name" />
+                        </p>
+                        <p>
+                            <label for="ddAge">Your age range:</label>
+                            <select id="ddAge" name="age-range">
+                                <option value=""></option>
+                                <option value="infant">Infant</option>
+                                <option value="child">Child</option>
+                                <option value="adult">Adult</option>
+                                <option value="elderly">Elderly</option>
+                            </select>
+                            <label for="ddGender">Your gender:</label>
+                            <select id="ddGender" name="gender">
+                                <option value=""></option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </p>
+                        <p>
+                            <label for="txtMeds">Medications you take:</label><br>
+                            <input type="text" id="txtMeds" name="meds" />
+                        </p>
+                        <p>
+                            <label for="txtConditions">Medical conditions you have:</label><br>
+                            <input type="text" id="txtConditions" name="conditions" />
+                        </p>
+                        <p>
+                            <label for="txtAllergies">Allergies you may have:</label><br>
+                            <input type="text" id="txtAllergies" name="allergies" />
+                        </p>
+                        <p>
+                            <button class="btn btn-profile-save">Submit</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
     
     <!-- Main JS File -->
     <script src="./js/app.js"></script>
