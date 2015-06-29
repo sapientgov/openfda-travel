@@ -9,6 +9,8 @@ var DataUtils = require('../../utils/dataUtils');
 var DrugSearchResultsView = require('./drugSearchResultsView');
 var DrugProductResultsView = require('./drugProductResultsView');
 var DrugApprovedInfoView = require('../approved/drugApprovedInfoView');
+var selection = null;
+var count = null;
 
 var DrugSearchPageView = Backbone.View.extend({
     initialize: function(options) {
@@ -25,11 +27,11 @@ var DrugSearchPageView = Backbone.View.extend({
     events: {
         'click .query-labelIndex': 'searchSubmit',
 		'keyup input[name="brand-name"]': 'updateAutocomplete',
-		'click button.approved-search': 'searchIfApproved',
         'keydown input[name="brand-name"]': 'checkEnter',
         'blur input[name="brand-name"]': 'clearResultsOnDelay',
         'focus input[name="brand-name"]': 'updateAutocomplete',
-        'click button.fda-search': 'clickSearchType'
+        'click button.fda-search': 'clickSearchType',
+		'click button.search-all': 'submitSearch'
     },
     
     render: function() {
@@ -105,28 +107,81 @@ var DrugSearchPageView = Backbone.View.extend({
         }
     },
     
+	/*This function is called when the user selects a specific drug in the autopopulate search dropdown. 
+	//This function will update the input field with the chosen drug's brand name, and save the selection 
+	//and count to use once the user clicks on the Submit button.*/
     chooseResult: function(selection, count) {
-        if(_.isObject(selection)) {
+		var inputObj = document.getElementsByClassName("form-control");
+		if(inputObj !== "undefined" && inputObj.length > 0)
+		{
+			
+			if(typeof(count) != "undefined")
+			{
+				inputObj[0].value = selection;
+			}else if(selection.openfda !== "undefined") {
+				inputObj[0].value = selection.openfda.brand_name;
+			}
+        }
+		
+		this.selection = selection;
+		this.count = count;
+		
+		var self = this;
+		
+		if(typeof(count) == "undefined") {
+			if(_.isObject(self.selection)) {
+				//this is an actual object being passed back - send it to the target page
+				console.log('triggering search for %s', self.selection);
+				this.trigger('drug-search-complete', {
+					type: this.searchType,
+					result: self.selection
+				});
+				return;
+			}
+			
+			//if the selection is not an object, it must be a query term
+			if(self.count > 1) {
+				//we need the user to choose a product since we have multiple matches
+				this.showProductOptions(self.selection);
+			} else {
+				//only one object to match - just send it back
+				//should we go ahead and fetch the actual result object here?
+				console.log('triggering search for %s', self.selection);
+				this.trigger('drug-search-complete', {
+					type: this.searchType,
+					q: self.selection
+				});
+			}
+		}
+	},
+	
+	/*This function is called when the user clicks on the Submit button of any search page. If the user had
+		previously selected a drug in the autopopulate dropdown, then a search will be performed on that drug
+		based on the current search page.*/
+	submitSearch: function() {
+		var self = this;
+		
+		if(_.isObject(self.selection)) {
             //this is an actual object being passed back - send it to the target page
-            console.log('triggering search for %s', selection);
+            console.log('triggering search for %s', self.selection);
             this.trigger('drug-search-complete', {
                 type: this.searchType,
-                result: selection
+                result: self.selection
             });
             return;
         }
         
         //if the selection is not an object, it must be a query term
-        if(count > 1) {
+        if(self.count > 1) {
             //we need the user to choose a product since we have multiple matches
-            this.showProductOptions(selection);
+            this.showProductOptions(self.selection);
         } else {
             //only one object to match - just send it back
             //should we go ahead and fetch the actual result object here?
-            console.log('triggering search for %s', selection);
+            console.log('triggering search for %s', self.selection);
             this.trigger('drug-search-complete', {
                 type: this.searchType,
-                q: selection
+                q: self.selection
             });
         }
     },
@@ -158,88 +213,14 @@ var DrugSearchPageView = Backbone.View.extend({
             self.displayProductOptions(data.results);
         });
     },
-	
-	searchIfApproved: function(e) {
-		var $clicked = $(e.target);
-		
-		var val = this.$('input[name="brand-name"]').val();
-        if(val && val.length > 2 && this.searchTarget != "APPROVED") {
-            this.updateAutocompleteResults(val);
-        }
-		
-		//split the query into parts
-        var apiQ = DataUtils.combineMultipartQuery(val, '+AND+');
-        console.log('count results for query %s', apiQ);
-		
-		console.log("this.searchType: ",this.searchType);
-        var apiPromise = FdaService.findDrugsByBrand(apiQ);
-        //check the search type and react accordingly
-        switch(this.searchType) {
-            case 'BRAND':
-                //this.countByBrand(val, apiQ);
-                apiPromise = FdaService.findDrugsByBrand(apiQ);
-				break;
-            case 'ALL':
-                alert('Cannot search by this yet');
-                break;
-            case 'GENERIC':
-                apiPromise = FdaService.findDrugsByGeneric(apiQ);
-                break;
-            case 'INGREDIENT':
-                apiPromise = FdaService.findDrugsByActive(apiQ);
-                break;
-            default:
-                throw new Error('Unexpected search type!');
-        }
-		
-		var self = this;
-		
-		apiPromise.done(function(data) {
-		
-			FdaService.findLabelInfoByBrand(val).done(function(data) {
-            
-            //trim brand data and display
-            var exacts = DataUtils.findExactBrandMatches(data.results, val);
-				self.displayProductOptions(exacts);
-			});
-            
-            //only update results if the field value is the same as what was requested
-            if(self.$('input[name="brand-name"]').val() === val) {
-                self.$('#count-results-list').empty();
-                _.each(data.results, function(item) {
-					console.log("214");
-					console.log("item: ", item);
-					var view = new DrugProductResultsView({
-					result: item, isApproved: true,
-					callback: _.bind(self.chooseResult, self)
-					});
-					self.$('#product-result-list').append(view.render().el);
-                });
-            }
-            
-        }).fail(function(jqXHR, textStatus, errorThrown) {
-            //if the input value is the same as what we're looking for, clear the results
-            if(self.$('input[name="brand-name"]').val() === val) {
-                self.$('#count-results-list').empty();
-            }
-			
-			// if no results are returned (drug is not in the fda api) then display "Not Approved" to the user
-			if(jqXHR.status == 404)
-			{
-				var curView = self.currentView = new DrugApprovedInfoView({drug: val, isApproved: false});
-				self.$el.append(self.currentView.render().el);
-			}
-        });
-        
-	},
-    
+	    
 	//if the selected search term in the autopopulate dropdown results in multiple matches, display a summary of all results to the user.
     displayProductOptions: function(prodList) {
         var self = this;
 		
 		self.clearPreviousResults();
         
-        console.log('found label data for product list', prodList);
+        //console.log('found label data for product list', prodList);
         _.each(prodList, function(item) {
             var view = new DrugProductResultsView({
                 result: item,
@@ -347,7 +328,8 @@ var DrugSearchPageView = Backbone.View.extend({
     
     updateAutocomplete: _.debounce(function(event) {
         var val = this.$('input[name="brand-name"]').val();
-        if(val && val.length > 2 && this.searchTarget != "APPROVED") {
+		//added back autocomplete to approved search. to remove:  && this.searchTarget != "APPROVED"
+        if(val && val.length > 2) {
             this.updateAutocompleteResults(val);
         }
     }, 200),

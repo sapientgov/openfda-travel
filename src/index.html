@@ -141,15 +141,21 @@
 				<input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
 				<% } %>
 				
-				<% if(title.indexOf("approved") > 0) { %>
-				<button type="button" class="btn approved-search search-all">Submit</button>
-				<% } %>
+				
+				
             </div>
 			
-            <div id="drug-search-results">
+			<div style="position:relative;left:45%;bottom:5px;z-index:50;">
+				<button type="button" class="btn search-all">Submit</button>
+            </div>
+			
+			<div id="drug-search-results" style="position:relative;top:-40px;z-index:100;">
                 <ul id="count-results-list">
                 </ul>
-            </div>
+			</div>
+				
+			
+			
             <div id="product-results" style="display:none">
                 <p>We found multiple products that may match your search. Please select the product below that best matches what you are looking for.</p>
                 <ul id="product-result-list"></ul>
