@@ -1,8 +1,10 @@
 'use strict';
 
 var $ = require('jquery');
+var User = require('../data/user');
+var ProfileCollection = require('../data/profileCollection');
 
-var _active = false;
+var _user = null;
 
 var verifyLogin = function(loginResponse) {
     //transform login object
@@ -20,8 +22,40 @@ var verifyLogin = function(loginResponse) {
 
 var UserUtils = {
     
+    getCurrentUser: function() {
+        return _user;
+    },
+    
+    initUser: function() {
+        //create user object
+        _user = new User();
+        
+        //check for profiles
+        var profiles = new ProfileCollection();
+        profiles.fetch({
+            success: function(collection, response, options) {
+                console.log('initial fetch success!');
+                //set the user object
+                _user.set({
+                    profiles: collection,
+                    loggedIn: true
+                });
+            },
+            error: function(collection, response, options) {
+                console.log('initial fetch failed.');
+                
+                _user.set({
+                    profiles: null,
+                    loggedIn: false
+                });
+            }
+        });
+        
+        return _user;
+    },
+    
     isLoggedIn: function() {
-        return _active;
+        return _user && _user.get('loggedIn');
     },
     
     login: function() {
@@ -35,19 +69,25 @@ var UserUtils = {
         Digits.logIn().done(function(loginResponse) {
             console.log('received Digits authentication - logging in to FDAanywhere...');
             
-            //TODO: send this to server
+            //verify the OAuth headers
             verifyLogin(loginResponse).done(function(response) {
                 console.log('successful login received.');
                 
                 //set active flag
-                _active = true;
+                if(_user) {
+                    _user.set('loggedIn', true);
+                } else {
+                    _user = new User({
+                        loggedIn: true
+                    });
+                }
                 
                 //resolve deferred
                 deferred.resolve(response);
                 
             }).fail(function(e) {
                 console.error('login unsuccessful!', e);
-                _active = false;
+                _user = null;
                 deferred.reject({
                     type: 'verify',
                     message: 'login could not be verified'
@@ -56,7 +96,7 @@ var UserUtils = {
             
         }).fail(function(reason) {
             console.log('Digits login failed.', reason);
-            _active = false;
+            _user = null;
             deferred.reject(reason);
         });
         
@@ -64,7 +104,9 @@ var UserUtils = {
     },
     
     logout: function() {
-        _active = false;
+        if(_user) {
+            _user.set('loggedIn', false);
+        }
         
         //let the server know
         return $.ajax('/logout', {
