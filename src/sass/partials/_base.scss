@@ -74,11 +74,23 @@ section{
 }
 
 h1 {
-
+    position: relative;
     font-size: 34px;
     padding: 10px 0;
     &.welcome{
         font-weight: 400;
+    }
+    a{
+        text-decoration: none;
+        color: #fff;
+        line-height: 38px;
+        position: absolute;
+        left: -32px;
+        font-size: 26px;
+        &:hover{
+            text-decoration: none;
+            color: $fda-teal;
+        }
     }
 }
 h3{ 
@@ -293,11 +305,45 @@ aside{
                     font-size: 14px;
                     font-weight: 400;
                     margin-bottom: $global-margin;
-                    &:hover{
-                        background: #ccc;
-                    }
+                    
                 }
             }
+        }
+    }
+}
+
+.boxed-input{
+    height: 48px;
+    overflow: hidden;
+    line-height: 48px;
+    border: 1px solid #fff;
+
+    input{
+        border: 0 none;
+        width: 90%;
+        float: left;
+        background: none;
+        margin: 0; padding: 0 15px;
+        font-size: 16px;
+        outline: none;
+        font-weight: bold;
+    }
+    button{
+        width: 48px;
+        height: 48px;
+        line-height: 44px;
+        text-align: center;
+        color: #fff;
+        border-width: 0 0 0 1px;
+        border-style: solid;
+        border-color: #fff;
+        float: right;
+        background: none;
+        padding: none;
+        margin: none;
+        outline: none;
+        &:hover{
+            background: $fda-teal;
         }
     }
 }
