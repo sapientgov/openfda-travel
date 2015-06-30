@@ -93,7 +93,7 @@ var ProfileManager = function(app) {
             console.log(error);
             res.status(404).send(error);
           } else {
-            res.send('');
+            res.json(_profile);
           }
         });
       }
@@ -111,7 +111,7 @@ var ProfileManager = function(app) {
           if (error) {
             res.status(404).send(error);
           } else {
-            res.send('');
+            res.json({});
           }
         });
       }

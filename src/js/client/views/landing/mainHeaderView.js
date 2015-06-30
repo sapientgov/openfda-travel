@@ -25,6 +25,10 @@ var MainHeaderView = Backbone.View.extend({
     setupProfileList: function() {
         var self = this, profHtml = '';
         
+        //clear any current entries in the list
+        this.$('.profile-link').remove();
+        this.$('.profile-div').remove();
+        
         //iterate over list
         if(this.model.get('profiles') && this.model.get('profiles').length > 0) {
             //find the selected profile
@@ -35,7 +39,7 @@ var MainHeaderView = Backbone.View.extend({
                 if(item.get('_id') === selectedPid) {
                     if(self.model.get('profiles').length > 1) {
                         //need to add additional divider
-                        profHtml = '<li class="divider"></li>' + profHtml;
+                        profHtml = '<li class="divider profile-div"></li>' + profHtml;
                     }
                     profHtml = '<li><a href="#" class="profile-link primary">' + item.get('name') + '</a></li>' + profHtml;
                 } else {

@@ -30,7 +30,9 @@ var ProfileListItemView = Backbone.View.extend({
     deleteProfile: function(e) {
         e.preventDefault();
         if(confirm('Are you sure you want to delete this profile?')) {
-            this.model.destroy();
+            this.model.destroy({
+                wait: true,
+            });
         }
     }
 });
