@@ -124,44 +124,47 @@ var AppRouter = Backbone.Router.extend({
     },
     
     editProfile: function(pid) {
-        //get rid of existing content
-        this.resetContent();
-        
-        //hide the split container
-        $('#split-container').hide();
-        
-        //get model
-        var editModel;
-        if(!_.isEmpty(pid)) {
-            editModel = UserUtils.getCurrentUser().get('profiles').find(function(p) {
-                return p.get('_id') === pid;
+        if(this.checkAuth()) {
+            //get rid of existing content
+            this.resetContent();
+
+            //hide the split container
+            $('#split-container').hide();
+
+            //get model
+            var editModel;
+            if(!_.isEmpty(pid)) {
+                editModel = UserUtils.getCurrentUser().get('profiles').find(function(p) {
+                    return p.get('_id') === pid;
+                });
+            } else {
+                editModel = new Profile();
+            }
+            console.log(editModel);
+
+            //init the profile edit view
+            this.fullView = new ProfileEditView({
+                model: editModel
             });
-        } else {
-            editModel = new Profile();
+            this.fullView.render();
         }
-        console.log(editModel);
-        
-        //init the profile edit view
-        this.fullView = new ProfileEditView({
-            model: editModel
-        });
-        this.fullView.render();
     },
     
     profileList: function() {
-        //get rid of existing content
-        this.resetContent();
-        
-        //hide the split container
-        $('#split-container').hide();
-        
-        //init the profile list view
-        this.fullView = new ProfileListView({
-            el: $('#full-width-container'),
-            collection: UserUtils.getCurrentUser().get('profiles')
-        });
-        this.fullView.render();
-        
+        if(this.checkAuth()) {
+            //get rid of existing content
+            this.resetContent();
+
+            //hide the split container
+            $('#split-container').hide();
+
+            //init the profile list view
+            this.fullView = new ProfileListView({
+                el: $('#full-width-container'),
+                collection: UserUtils.getCurrentUser().get('profiles')
+            });
+            this.fullView.render();
+        }
     },
     
     ///////////////////////////
@@ -174,6 +177,16 @@ var AppRouter = Backbone.Router.extend({
         $('#split-container').show();
         $('#primary-content').empty();
         this.mainView = undefined;
+    },
+    
+    checkAuth: function() {
+        var user = UserUtils.getCurrentUser();
+        if(!user || !user.get('loggedIn')) {
+            alert('You must log in to FDA Anywhere first. Use the login link in the header to log in.');
+            window.history.back();
+            return false;
+        }
+        return true;
     }
 });
 
