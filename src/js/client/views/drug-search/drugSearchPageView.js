@@ -87,7 +87,12 @@ var DrugSearchPageView = Backbone.View.extend({
         }
     },
     
-    showProductOptions: function(q) {
+    showProductOptions: function(qOriginal) {
+	
+		//replace commas with "+" before querying
+		var q = qOriginal.replace(",", "+");
+		
+		console.log("in showProductOptions for %s with search type as %s", q, this.searchType);
         
         //check the search type and react accordingly
         switch(this.searchType) {
@@ -160,11 +165,12 @@ var DrugSearchPageView = Backbone.View.extend({
 		previously selected a drug in the autopopulate dropdown, then a search will be performed on that drug
 		based on the current search page.*/
 	submitSearch: function() {
+		console.log("submitSearch: called on button click");
 		var self = this;
 		
 		if(_.isObject(self.selection)) {
             //this is an actual object being passed back - send it to the target page
-            console.log('triggering search for %s', self.selection);
+			console.log('submitSearch: triggering search for %s', self.selection);
             this.trigger('drug-search-complete', {
                 type: this.searchType,
                 result: self.selection
@@ -172,18 +178,19 @@ var DrugSearchPageView = Backbone.View.extend({
             return;
         }
 		
-		document.getElementById("multi_results_text").innerHTML = (self.count+1) + " results for <b>\"" + self.selection + "\"</b>";
-        
+        console.log('submitSearch: count is ', self.count);
+		
         //if the selection is not an object, it must be a query term
         if(self.count > 1) {
             //we need the user to choose a product since we have multiple matches
+			console.log('submitSearch: count is greater than 1, calling showProductOptions');
             this.showProductOptions(self.selection);
         } else {
+			console.log('submitSearch: count is less than or equal to 1, triggering search for %s', self.selection);
             //only one object to match - just send it back
             //should we go ahead and fetch the actual result object here?
-            console.log('triggering search for %s', self.selection);
             this.trigger('drug-search-complete', {
-                type: this.searchType,
+				type: this.searchType,
                 q: self.selection
             });
         }
@@ -191,28 +198,38 @@ var DrugSearchPageView = Backbone.View.extend({
     
     getProductsByBrand: function(q) {
         var self = this;
+		console.log("getProductsByBrand: calling fda service findLabelInfoByBrand for %s", q);
         FdaService.findLabelInfoByBrand(q).done(function(data) {
-            
+			console.log("getProductsByBrand: data retrieved from findLabelInfoByBrand: ", data);
             //trim brand data and display
             var exacts = DataUtils.findExactBrandMatches(data.results, q);
+			console.log("getProductsByBrand: data results (exact match) for brand: ", exacts);
+			document.getElementById("multi_results_text").innerHTML = (exacts.length) + " results for <b>\"" + self.selection + "\"</b>";
             self.displayProductOptions(exacts);
         });
+		
     },
     
     getProductsByActive: function(q) {
         var self = this;
+		console.log("getProductsByActive: calling fda service findLabelInfoByIngredient for %s", q);
         FdaService.findLabelInfoByIngredient(q).done(function(data) {
-            
+            console.log("getProductsByBrand: data retrieved from findLabelInfoByIngredient: ", data);
             //display products
+			console.log("getProductsByBrand: data results for active: ", data.results);
+			document.getElementById("multi_results_text").innerHTML = (data.results.length) + " results for <b>\"" + self.selection + "\"</b>";
             self.displayProductOptions(data.results);
         });
     },
     
     getProductsByGeneric: function(q) {
         var self = this;
+		console.log("getProductsByGeneric: calling fda service findLabelInfoByGeneric for %s", q);
         FdaService.findLabelInfoByGeneric(q).done(function(data) {
-            
+            console.log("getProductsByBrand: data retrieved from findLabelInfoByGeneric: ", data);
             //display products
+			console.log("getProductsByBrand: data results for generic: ", data.results);
+			document.getElementById("multi_results_text").innerHTML = (data.results.length) + " results for <b>\"" + self.selection + "\"</b>";
             self.displayProductOptions(data.results);
         });
     },
