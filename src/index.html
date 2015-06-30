@@ -180,16 +180,16 @@
 <div id="approved-results" class="display-module">
 			
 			<%if (typeof(openfda) !== "undefined") {%>
-				<div class="module-title"></div>
+				<div id="result-title" class="module-title"></div>
 			<% } %>
 			
-            <div class="label-section" id="open-fda-fields">
+            <div class="label-section module-content" id="open-fda-fields">
             <dl>
 				<%if (typeof(openfda) !== "undefined") { %>
-				<h3 class="hasRecall">Yes</h3>
+				<dt><h3 class="hasRecall">Yes</h3></dt>
                 <% } %>
 				<%if (typeof(openfda) == "undefined") { %>
-				<h3 class="hasRecall">No</h3>
+				<dt><h3 class="hasRecall">No</h3></dt>
                 <% } %>
                 <dd  class="label-section"  id="open-fda-fields-data">
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
@@ -360,7 +360,7 @@
                 <div class="module-title"></div>
                 <div class="module-content"  id="recall-results">
                     <%if (typeof(isRecalled) !== "undefined" && isRecalled == true) {%>
-                       <h3 class="hasRecall">Yes</h3>
+                       <dt class="hasRecall">Yes</h3>
                     <% } %>
 
                     <%if (typeof(isRecalled) !== "undefined" && isRecalled == false) {%>

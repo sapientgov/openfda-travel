@@ -168,6 +168,8 @@ var DrugSearchPageView = Backbone.View.extend({
 		console.log("submitSearch: called on button click");
 		var self = this;
 		
+		self.clearPreviousResults();
+		
 		if(typeof(self.selection) == "undefined") {
 			self.searchByTextInput();
 		} else {
@@ -198,8 +200,6 @@ var DrugSearchPageView = Backbone.View.extend({
 					q: self.selection
 				});
 			}
-			self.selection = "undefined";
-			self.count = "undefined";
 		}
     },
 	

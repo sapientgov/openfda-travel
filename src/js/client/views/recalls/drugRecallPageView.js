@@ -44,7 +44,13 @@ var DrugRecallPageView = Backbone.View.extend({
             if(searchType == 'BRAND')
             {
                 this.brandSearch(brand);
-            }
+            }else if(searchType == 'GENERIC')
+			{
+				this.genericSearch(brand);
+			}else if(searchType == 'INGREDIENT')
+			{
+				this.activeIngSearch(brand);
+			}
         }
     },
     
@@ -106,6 +112,78 @@ var DrugRecallPageView = Backbone.View.extend({
     /* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
     */
     brandSearch: function(drugId) {
+        //find the drug we want
+        console.log('getting drug recall info for %s.', drugId);
+        var self=this;
+
+        FdaService.findRecallInfoByDrugId(drugId).done(function(data) {
+            if(data.results && data.results.length > 0) {
+                
+                //make sure we only include exact matches
+                //var exacts = DataUtils.findExactBrandMatches(data.results, drugId);
+                if(data.results.length > 0) {
+                    console.log("drug has been recalled");
+                    //for now just take the first result - may need to have the user choose?
+                    self.currentView = new DrugRecallInfoView({drug: data.results[0], isRecalled: true});
+					self.$el.append(self.currentView.render().el);
+                    return;
+                }
+            }
+            
+            //if we get here there were no results we could use
+            console.log('no results returned');
+            
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('failed to find drug recall by brand');
+			if(jqXHR.status == 404)
+			{
+				console.log("drug has not been recalled");
+				
+				var curView = self.currentView = new DrugRecallInfoView({drug: drugId, isRecalled: false});
+				self.$el.append(self.currentView.render().el);
+			}
+        });
+    },
+	
+	/* This search function is called when the user selects a specific drug in the automated dropdown for the generic search.
+    */
+    genericSearch: function(drugId) {
+        //find the drug we want
+        console.log('getting drug recall info for %s.', drugId);
+        var self=this;
+
+        FdaService.findRecallInfoByDrugId(drugId).done(function(data) {
+            if(data.results && data.results.length > 0) {
+                
+                //make sure we only include exact matches
+                //var exacts = DataUtils.findExactBrandMatches(data.results, drugId);
+                if(data.results.length > 0) {
+                    console.log("drug has been recalled");
+                    //for now just take the first result - may need to have the user choose?
+                    self.currentView = new DrugRecallInfoView({drug: data.results[0], isRecalled: true});
+					self.$el.append(self.currentView.render().el);
+                    return;
+                }
+            }
+            
+            //if we get here there were no results we could use
+            console.log('no results returned');
+            
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.error('failed to find drug recall by brand');
+			if(jqXHR.status == 404)
+			{
+				console.log("drug has not been recalled");
+				
+				var curView = self.currentView = new DrugRecallInfoView({drug: drugId, isRecalled: false});
+				self.$el.append(self.currentView.render().el);
+			}
+        });
+    },
+	
+	/* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
+    */
+    activeIngSearch: function(drugId) {
         //find the drug we want
         console.log('getting drug recall info for %s.', drugId);
         var self=this;
