@@ -33,12 +33,10 @@ var MongoClient = require('mongodb').MongoClient;
 var BSON = require('bson').BSONPure;
 
 //setup connection URL
-var dbName = 'fda-anywhere';
 var dbConnectUrl = 'mongodb://localhost:27017/';
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
   dbConnectUrl = process.env.OPENSHIFT_MONGODB_DB_URL;
 }
-dbConnectUrl += dbName;
 console.log('mongo URL: ' + dbConnectUrl);
 
 var _db;
