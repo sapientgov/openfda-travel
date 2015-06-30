@@ -249,12 +249,11 @@ var DrugSearchPageView = Backbone.View.extend({
 		
 			FdaService.findLabelInfoByBrand(val).done(function(data) {
             
-            //trim brand data and display
-            var exacts = DataUtils.findExactBrandMatches(data.results, val);
-				self.displayProductOptions(exacts);
-				document.getElementById("multi_results_text").innerHTML = (exacts.length) + " results for <b>\"" + val + "\"</b>";
+				self.displayProductOptions(data.results);
+				document.getElementById("multi_results_text").innerHTML = (data.results.length) + " results for <b>\"" + val + "\"</b>";
 			});
             
+			console.log("value of input: ", self.$('input[name="brand-name"]').val());
             //only update results if the field value is the same as what was requested
             if(self.$('input[name="brand-name"]').val() === val) {
                 self.$('#count-results-list').empty();
