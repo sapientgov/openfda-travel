@@ -50,7 +50,8 @@
                 <div class="row" id="split-container">
                     
                     <!-- main content section -->
-                    <div id="primary-content" class="col-xs-12 col-sm-offset-1 col-sm-6 col-md-offset-1 col-md-6 col-lg-offset-1 col-lg-6"></div>
+                    <div id="primary-content" class="col-xs-12 col-sm-offset-1 col-sm-6 col-md-offset-1 col-md-6 col-lg-offset-1 col-lg-6">
+                    </div>
                     
                     <!-- right column -->
                     <div class="clearfix visible-xs-block"></div>
@@ -63,9 +64,7 @@
                         </div>
 
 
-                            <div id="map-module">
-
-                                <div class="module-title">Local Information</div>
+                            <div id="map-module">Local health assistance</div>
                                 <div class="module-item require-gps" style="display:none">
                                     <div class="module-content">
                                         <div class="map-ph"></div>
@@ -73,11 +72,11 @@
                                 </div>
 
                                 <dl class="require-gps" style="display:none">
-                                    <dt data-locType="pharmacy">Pharmacies near you</dt>
+                                    <dt data-locType="pharmacy">Pharmacies</dt>
                                     <dd class="pharmacy"></dd>
-                                    <dt data-locType="hospital">Hospitals / Clinics near you</dt>
+                                    <dt data-locType="hospital">Hospitals / Clinics</dt>
                                     <dd class="hospital"></dd>
-                                    <dt data-locType="embassy">U.S. Embassy / Consulates near you</dt>
+                                    <dt data-locType="embassy">U.S. Embassy / Consulates</dt>
                                     <dd class="embassy"></dd>
                                 </dl>
                             </div>
@@ -137,8 +136,17 @@
         <p>Complete your medication profile to personalize your experience. <a href="#"><i class="fa fa-info-circle"></i></a></p>
     </div>
     </script>
-    
-    
+
+    <script type="text/template" id="approval-search-default-template">
+        <div class="display-module">
+            <div class="module-title">What FDA approval means to you:</div>
+            <div class="module-content">
+                <p>FDA is responsible for protecting the public health by regulating human and animal drugs, biologics (e.g. vaccines and cellular and gene therapies). New drugs and biologics must be proven safe and effective to FDA’s satisfaction before companies can market them. FDA does not develop or test products; FDA experts review the results of laboratory, animal, and human clinical testing done by manufacturers.</p>
+                <p>If FDA grants an approval, it means the agency has determined that the benefits of the product outweigh the risks for the intended use.</p>
+             </div> 
+        </div>
+    </script>
+
     <script type="text/template" id="drug-search-template">
         <div id="drug-search">
             <!-- segmented buttons -->
@@ -195,6 +203,8 @@
                 <% } %>
 				<%if (typeof(openfda) == "undefined") { %>
 				<h3>No</h3>
+                <p>The FDA has not approved this medication.</p>
+                <p>Check the spelling of the medication or start a new search.</p>
                 <% } %>
                 <div class="label-section"  id="open-fda-fields-data">
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
@@ -370,6 +380,8 @@
 
                     <%if (typeof(isRecalled) !== "undefined" && isRecalled == false) {%>
                            <h3>No</h3>
+                           <p>The FDA has not recalled this medication. </p>
+                           <p>Check the spelling of the medication or start a new search.</p>
                     <% } %>
 
 					<%if (typeof(openfda)!== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
