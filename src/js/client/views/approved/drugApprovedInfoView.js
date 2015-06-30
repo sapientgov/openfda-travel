@@ -10,7 +10,6 @@ var DrugApprovedInfoView = Backbone.View.extend({
     
     initialize: function(options) {
         this.template = _.template($('#drug-approved-info').html());
-		options.drug.isApproved = options.isApproved;
         this.drug = options.drug;
     },
     

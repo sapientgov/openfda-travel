@@ -97,7 +97,7 @@ var DrugApprovedPageView = Backbone.View.extend({
 				var exacts = DataUtils.findExactBrandMatches(data.results, brand);
                 if (exacts.length > 0) {
                     //for now just take the first result - may need to have the user choose?
-                    self.approvedInfoView = new DrugApprovedInfoView({drug: exacts[0], isApproved: true});
+                    self.approvedInfoView = new DrugApprovedInfoView({drug: exacts[0]});
 					var viewTest = self.approvedInfoView;
 					self.approvedInfoView.deleteLastResults();
 					self.$el.append(self.approvedInfoView.render().el);
@@ -112,7 +112,7 @@ var DrugApprovedPageView = Backbone.View.extend({
 			{
 				console.log("drug has not been recalled");
 				
-				var curView = self.currentView = new DrugApprovedInfoView({drug: brand, isApproved: false});
+				var curView = self.currentView = new DrugApprovedInfoView({drug: brand});
 				self.$el.append(self.currentView.render().el);
 			}
         });
@@ -132,7 +132,7 @@ var DrugApprovedPageView = Backbone.View.extend({
                 //make sure we only include exact matches
                 if (data.results.length > 0) {
                     //for now just take the first result - may need to have the user choose?
-                    self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0], isApproved: true});
+                    self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0]});
 					var viewTest = self.approvedInfoView;
 					self.approvedInfoView.deleteLastResults();
 					self.$el.append(self.approvedInfoView.render().el);
@@ -147,7 +147,7 @@ var DrugApprovedPageView = Backbone.View.extend({
 			{
 				console.log("drug has not been recalled");
 				
-				var curView = self.currentView = new DrugApprovedInfoView({drug: generic, isApproved: false});
+				var curView = self.currentView = new DrugApprovedInfoView({drug: generic});
 				self.$el.append(self.currentView.render().el);
 			}
         });
@@ -167,7 +167,7 @@ var DrugApprovedPageView = Backbone.View.extend({
                 //make sure we only include exact matches
                 if (data.results.length > 0) {
                     //for now just take the first result - may need to have the user choose?
-                    self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0], isApproved: true});
+                    self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0]});
 					var viewTest = self.approvedInfoView;
 					self.approvedInfoView.deleteLastResults();
 					self.$el.append(self.approvedInfoView.render().el);
@@ -182,7 +182,7 @@ var DrugApprovedPageView = Backbone.View.extend({
 			{
 				console.log("drug has not been recalled");
 				
-				var curView = self.currentView = new DrugApprovedInfoView({drug: ingredient, isApproved: false});
+				var curView = self.currentView = new DrugApprovedInfoView({drug: ingredient});
 				self.$el.append(self.currentView.render().el);
 			}
         });
