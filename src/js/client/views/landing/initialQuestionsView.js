@@ -13,6 +13,7 @@ var InitialQuestionsView = Backbone.View.extend({
     },
     
     render: function() {
+    	$('aside').removeClass('tamped');
         //just render template into element
         this.$el.html(this.template());
     }
