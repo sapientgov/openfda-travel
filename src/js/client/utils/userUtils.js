@@ -98,7 +98,10 @@ var UserUtils = {
     
     logout: function() {
         if(_user) {
-            _user.set('loggedIn', false);
+            _user.set({
+                'loggedIn': false,
+                'profiles': null
+            });
         }
         
         //let the server know
