@@ -343,6 +343,15 @@ aside{
     }
     .module-content{
         padding: $global-padding;
+        h3{
+            color: $fda-red;
+            font-size: 24px;
+            font-weight: 700;
+            margin:0 0 10px 0;
+            &.hasRecall{
+                color: $fda-green !important;
+            }
+        }
         dl{
             color: $text-black;
             &.faq{

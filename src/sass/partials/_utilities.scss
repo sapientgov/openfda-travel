@@ -1,14 +1,15 @@
 .capitalize {
     text-transform: capitalize;
 }
-
+.remove-padding{
+    padding:0;
+}
 .full-width {
     width: 100%;
 }
 .add-margin {
     margin: $global-margin;
 }
-
 .add-margin-horiz {
     margin-right: $global-margin;
     margin-left: $global-margin;
