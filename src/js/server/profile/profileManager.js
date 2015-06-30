@@ -46,6 +46,7 @@ var ProfileManager = function(app) {
           //TODO: remove account ID param?
         profileProvider.fetchAllProfilesByAccountId(accountId, function(error, profiles) {
           if (error) {
+            console.error(error);
             res.status(500).send(error);
           } else {
             res.json(profiles);
@@ -68,6 +69,7 @@ var ProfileManager = function(app) {
 
         profileProvider.insertProfile(req.body, function(error, profile) {
           if (error) {
+            console.error(error);
             res.status(500).send(error);
           } else {
             res.send(profile);
@@ -85,12 +87,12 @@ var ProfileManager = function(app) {
     var accountId = getAccountId(req, res);
       if(accountId) {
         var _profile = req.body;
-        _profile._id = req.params.id;
-        _profile.accountId = accountId;
+        _profile._id = undefined; //remove the id from the fields to update
+        _profile.accountId = accountId; //add the correct account ID
 
-        profileProvider.updateProfile(_profile, function(error, profile) {
+        profileProvider.updateProfile(req.params.id, _profile, function(error, profile) {
           if (error) {
-            console.log(error);
+            console.error(error);
             res.status(404).send(error);
           } else {
             res.json(_profile);
@@ -109,6 +111,7 @@ var ProfileManager = function(app) {
       if(accountId) {
         profileProvider.deleteProfile(req.params.id, function(error, profile) {
           if (error) {
+            console.error(error);
             res.status(404).send(error);
           } else {
             res.json({});

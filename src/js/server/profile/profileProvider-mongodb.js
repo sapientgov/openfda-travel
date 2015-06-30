@@ -115,7 +115,7 @@ var ProfileProvider = function(host, port) {
     * (no error nor does it add) if the profile does not exist.
     * @param   {String}  profile the profile document to update
     */
-  this.updateProfile = function(profile, cb) {
+  this.updateProfile = function(id, profile, cb) {
     this.db.collection(profilesTable, function(error, profiles) {
       if (error) {
         cb(error, null);
@@ -126,16 +126,15 @@ var ProfileProvider = function(host, port) {
           throw "illegal profile document. It does not contain the required" +
           " 'accountId' field at the root";
         }
+          
+        //setup the BSON id
+        var bsonId = new BSON.ObjectID(id);
+        profile._id = bsonId;
 
         //finds a single document with the DB generated _id in the input
         //profile.  The db generated _id must be converted to a ObjectId when 
         //searching
-        profiles.update({_id:new BSON.ObjectID(profile._id)},
-          /*
-          {accountId:profile.accountId, primary:profile.primary, profileName:profile.profileName,
-            ageRange:profile.ageRange, gender:profile.gender, medications:profile.medications,
-            conditions:profile.conditions, allergies:profile.allergies},
-          */ profile, 
+        profiles.update({_id: bsonId}, profile, 
           function(error, result) {
             cb(error, result);
         });

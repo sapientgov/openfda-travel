@@ -430,7 +430,7 @@
                     <div class="module-content">
                         <p>
                             <label for="txtName">Profile name:</label><br>
-                            <input type="text" id="txtName" name="name" />
+                            <input type="text" id="txtName" name="name" value="<%- name %>" />
                         </p>
                         <p>
                             <label for="ddAge">Your age range:</label>
@@ -450,15 +450,15 @@
                         </p>
                         <p>
                             <label for="txtMeds">Medications you take:</label><br>
-                            <input type="text" id="txtMeds" name="meds" />
+                            <input type="text" id="txtMeds" name="meds" value="<%- medications %>" />
                         </p>
                         <p>
                             <label for="txtConditions">Medical conditions you have:</label><br>
-                            <input type="text" id="txtConditions" name="conditions" />
+                            <input type="text" id="txtConditions" name="conditions" value="<%- conditions %>" />
                         </p>
                         <p>
                             <label for="txtAllergies">Allergies you may have:</label><br>
-                            <input type="text" id="txtAllergies" name="allergies" />
+                            <input type="text" id="txtAllergies" name="allergies" value="<%- allergies %>" />
                         </p>
                         <p>
                             <button class="btn btn-profile-save">Submit</button>
@@ -505,7 +505,7 @@
             </fieldset>
             <div class="profile-actions">
                 <a href="#" class="link-delete" title="Delete Profile">Delete Profile</a>
-                <a href="#" class="" title="Edit Profile">Edit Profile</a>
+                <a href="#" class="link-edit" title="Edit Profile">Edit Profile</a>
             </div>
         </dd>
     </script>

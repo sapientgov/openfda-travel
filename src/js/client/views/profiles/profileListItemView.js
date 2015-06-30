@@ -11,7 +11,8 @@ var ProfileListItemView = Backbone.View.extend({
     },
     
     events: {
-        'click .link-delete': 'deleteProfile'
+        'click .link-delete': 'deleteProfile',
+        'click .link-edit': 'editProfile'
     },
     
     render: function() {
@@ -34,6 +35,11 @@ var ProfileListItemView = Backbone.View.extend({
                 wait: true,
             });
         }
+    },
+    
+    editProfile: function(e) {
+        e.preventDefault();
+        Backbone.history.navigate('profile/' + this.model.get('_id'), {trigger: true});
     }
 });
 

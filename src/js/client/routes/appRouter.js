@@ -3,6 +3,7 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
+var _ = require('underscore');
 var FdaService = require('../service/fdaService');
 var DataUtils = require('../utils/dataUtils');
 
@@ -112,9 +113,20 @@ var AppRouter = Backbone.Router.extend({
         //hide the split container
         $('#split-container').hide();
         
+        //get model
+        var editModel;
+        if(!_.isEmpty(pid)) {
+            editModel = UserUtils.getCurrentUser().get('profiles').find(function(p) {
+                return p.get('_id') === pid;
+            });
+        } else {
+            editModel = new Profile();
+        }
+        console.log(editModel);
+        
         //init the profile edit view
         this.fullView = new ProfileEditView({
-            model: new Profile()
+            model: editModel
         });
         this.fullView.render();
     },
