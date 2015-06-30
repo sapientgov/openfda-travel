@@ -36,26 +36,7 @@ var UserUtils = {
         });
         
         //check for existing profiles
-        profiles.fetch({
-            success: function(collection, response, options) {
-                console.log('initial fetch success!', collection);
-                
-                //set the user object attributes
-                _user.set({
-                    selectedPid: collection.length > 0 ? collection.at(0).get('_id') : null,
-                    profiles: collection,
-                    loggedIn: true
-                });
-            },
-            error: function(collection, response, options) {
-                console.log('initial fetch failed.');
-                
-                _user.set({
-                    profiles: null,
-                    loggedIn: false
-                });
-            }
-        });
+        this.fetchProfiles(profiles);
         
         return _user;
     },
@@ -69,7 +50,7 @@ var UserUtils = {
             throw new Error('Digits is not initialized');
         }
         
-        var deferred = $.Deferred();
+        var self = this, deferred = $.Deferred();
         
         console.log('launching digits login process...');
         Digits.logIn().done(function(loginResponse) {
@@ -80,13 +61,19 @@ var UserUtils = {
                 console.log('successful login received.');
                 
                 //set active flag
+                var profiles = new ProfileCollection();
                 if(_user) {
                     _user.set('loggedIn', true);
+                    profiles = profiles;
                 } else {
                     _user = new User({
+                        profiles: profiles,
                         loggedIn: true
                     });
                 }
+                
+                //fetch profiles
+                self.fetchProfiles(profiles);
                 
                 //resolve deferred
                 deferred.resolve(response);
@@ -117,6 +104,30 @@ var UserUtils = {
         //let the server know
         return $.ajax('/logout', {
             type: 'POST'
+        });
+    },
+    
+    fetchProfiles: function(profiles) {
+        //check for existing profiles
+        profiles.fetch({
+            success: function(collection, response, options) {
+                console.log('profile fetch success', collection);
+                
+                //set the user object attributes
+                _user.set({
+                    selectedPid: collection.length > 0 ? collection.at(0).get('_id') : null,
+                    profiles: collection,
+                    loggedIn: true
+                });
+            },
+            error: function(collection, response, options) {
+                console.log('profile fetch failed.');
+                
+                _user.set({
+                    profiles: null,
+                    loggedIn: false
+                });
+            }
         });
     }
 };

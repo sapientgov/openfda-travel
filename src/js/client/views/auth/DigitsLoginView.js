@@ -6,20 +6,31 @@ Backbone.$ = $;
 var UserUtils = require('../../utils/userUtils');
 
 var DigitsLoginView = Backbone.View.extend({
-    initialize: function(options) {
-        this.successCallback = options.success || $.noop();
-    },
     
     events: {
         'click': 'launchLogin'
     },
     
-    launchLogin: function() {
+    launchLogin: function(e) {
+        e.preventDefault();
+        
         if(typeof Digits === 'undefined') {
             throw new Error('Digits is not yet initialized');
         }
         
-        UserUtils.login().done(this.successCallback);
+        //swtich based on current status
+        var user = UserUtils.getCurrentUser();
+        console.log(user);
+        if(user && user.get('loggedIn')) {
+            UserUtils.logout();
+        } else {
+            UserUtils.login().done(this.loginSuccess);
+        }
+    },
+    
+    loginSuccess: function() {
+        console.log('login complete! Forwarding onward.');
+        Backbone.history.navigate('q', {trigger: true});
     }
 });
 

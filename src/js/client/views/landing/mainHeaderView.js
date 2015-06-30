@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
 var UserUtils = require('../../utils/userUtils');
+var DigitsLoginView = require('../auth/digitsLoginView');
 
 var MainHeaderView = Backbone.View.extend({
     el: '#app-header',
@@ -14,12 +15,22 @@ var MainHeaderView = Backbone.View.extend({
         //setup model events
         this.listenTo(this.model, 'change:loggedIn', this.loginStateChange);
         this.listenTo(this.model.get('profiles'), 'update', this.setupProfileList);
+        this.listenTo(this.model, 'change:profiles', this.setupProfileList);
+    },
+    
+    events: {
+        'click .profile-link': 'switchProfile',
+        'click .login-link': 'loginAction'
     },
     
     render: function() {
             
         //setup profiles
         this.setupProfileList();
+        
+        this.loginView = new DigitsLoginView({
+            el: this.$('.login-link')
+        });
     },
     
     setupProfileList: function() {

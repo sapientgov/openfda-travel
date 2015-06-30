@@ -46,5 +46,6 @@ module.exports = function(app) {
         var loginToken = req.cookies['fdaaw-token'];
         console.log('logout for token %s', loginToken);
         AuthProvider.logout(loginToken);
+        res.sendStatus(200);
     });
 };

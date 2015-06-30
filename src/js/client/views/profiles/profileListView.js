@@ -22,12 +22,14 @@ var ProfileListView = Backbone.View.extend({
         this.$el.html(this.template());
         
         //insert each profile into the list
-        this.collection.each(function(item) {
-            var itemView = new ProfileListItemView({
-                model: item
+        if(this.collection) {
+            this.collection.each(function(item) {
+                var itemView = new ProfileListItemView({
+                    model: item
+                });
+                self.$('.profile-list').append(itemView.render().el);
             });
-            self.$('.profile-list').append(itemView.render().el);
-        });
+        }
         
         //enable chaining
         return this;

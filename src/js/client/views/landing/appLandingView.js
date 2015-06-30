@@ -20,14 +20,8 @@ var IntroContentView = Backbone.View.extend({
         
         //setup login view
         this.loginView = new DigitsLoginView({
-            el: this.$('.diglogin'),
-            success: _.bind(this.onLoginSuccess, this)
+            el: this.$('.diglogin')
         });
-    },
-    
-    onLoginSuccess: function() {
-        console.log('login complete! Forwarding onward.');
-        Backbone.history.navigate('q', {trigger: true});
     }
 });
 
