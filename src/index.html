@@ -30,9 +30,9 @@
               </li>
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
                 <ul class="dropdown-menu pull-right">
-                     <li><a href="#label">Can I take this medication?</a></li>
+                     <li><a href="#label">Search medication information</a></li>
                      <li><a href="#approved">Is this medication FDA approved?</a></li>
-                     <li><a href="#recall">Has this medication been recalled?</a></li>
+                     <li><a href="#recall">Has a medication been recalled?</a></li>
                   </ul>
               </li>
             </ul>
@@ -131,11 +131,11 @@
     </script>
     
     <script type="text/template" id="dashboard-intro-template">
-    <div class="landing-page col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
+    <div class="landing-page col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10">
         <h1>Welcome to FDA Anywhere</h1>
         <p>Created for your piece of mind, run quick checks on medications you access when traveling outside the U.S. using data compiled on thousands of medicines approved for use in the U.S.</p>
         <p>Complete your medication profile to personalize your experience. <a href="#"><i class="fa fa-info-circle"></i></a></p>
-        </div>
+    </div>
     </script>
     
     
@@ -188,26 +188,26 @@
 				<div class="module-title"></div>
 			<% } %>
 			
-            <div class="label-section" id="open-fda-fields">
-            <dl>
+            <div class="label-section module-content" id="open-fda-fields">
+            
 				<%if (typeof(openfda) !== "undefined") { %>
 				<h3 class="hasRecall">Yes</h3>
                 <% } %>
 				<%if (typeof(openfda) == "undefined") { %>
-				<h3 class="hasRecall">No</h3>
+				<h3>No</h3>
                 <% } %>
-                <dd  class="label-section"  id="open-fda-fields-data">
+                <div class="label-section"  id="open-fda-fields-data">
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
-                        <p><label>Brand Name:</label> <%- openfda.brand_name %> </p>
+                        <div class="form-group"><label>Brand Name:</label> <%- openfda.brand_name %> </div>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.generic_name) !== "undefined") {%>
-                        <p><label>Generic Name:</label> <%- openfda.generic_name %> </p>
+                        <div class="form-group"><label>Generic Name:</label> <%- openfda.generic_name %> </div>
                     <%}%>
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_epc) !== "undefined") {%>
-                        <p><label>Class:</label> <%- openfda.pharm_class_epc %> </p>
+                        <div class="form-group"><label>Class:</label> <%- openfda.pharm_class_epc %> </div>
                     <%}%>
-                </dd>
-            </dl>
+                </div>
+            
             </div>
    
    </div> 
@@ -373,27 +373,27 @@
                     <% } %>
 
 					<%if (typeof(openfda)!== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
-                        <p><label>Brand Name:</label> <%- openfda.brand_name %> </p>
+                        <div class="form-group"><label>Brand Name:</label> <%- openfda.brand_name %> </div>
                     <%}%>
 					
                     <%if (typeof(openfda)!== "undefined" && typeof(openfda.generic_name) !== "undefined") {%>
-                        <p><label>Generic Name:</label> <%- openfda.generic_name %> </p>
+                        <div class="form-group"><label>Generic Name:</label> <%- openfda.generic_name %> </div>
                     <%}%>
 					
 					<%if (typeof(openfda) !== "undefined" && typeof(openfda.pharm_class_epc) !== "undefined") {%>
-                        <p><label>Class:</label> <%- openfda.pharm_class_epc %> </p>
+                        <div class="form-group"><label>Class:</label> <%- openfda.pharm_class_epc %> </div>
                     <%}%>
 					
 					<%if (typeof(status) !== "undefined" && status.length > 0) {%>
-                        <p><label>Status:</label> <%- status %> </p>
+                        <div class="form-group"><label>Status:</label> <%- status %> </div>
                     <%}%>
 
 					<%if (typeof(report_date) !== "undefined") {%>
-                        <p><label>Date:</label> <%- report_date %> </p>
+                        <div class="form-group"><label>Date:</label> <%- report_date %> </div>
                     <%}%>
 					
                     <%if (typeof(reason_for_recall) !== "undefined") {%>
-                        <p><label>Reason:</label> <%- reason_for_recall %> </p>
+                        <div class="form-group"><label>Reason:</label> <%- reason_for_recall %> </div>
                     <%}%>
 					
                 </div>
