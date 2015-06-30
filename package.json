@@ -37,5 +37,6 @@
   "scripts": {
     "test": "grunt ci",
     "start": "node ./dist/server/app.js"
-  }
+  },
+  "main": "./dist/server/app.js"
 }

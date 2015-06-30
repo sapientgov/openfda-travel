@@ -29,18 +29,28 @@
   */
 
 var profilesTable = 'profiles';
-var Db = require('mongodb').Db;
-var Connection = require('mongodb').Connection;
-var Server = require('mongodb').Server;
+var MongoClient = require('mongodb').MongoClient;
 var BSON = require('bson').BSONPure;
+
+//setup connection URL
+var dbName = 'fda-anywhere';
+var dbConnectUrl = 'mongodb://localhost:27017/';
+if(process.env.OPENSHIFT_MONGODB_DB_URL){
+  dbConnectUrl = process.env.OPENSHIFT_MONGODB_DB_URL;
+}
+dbConnectUrl += dbName;
+console.log('mongo URL: ' + dbConnectUrl);
 
 
 var ProfileProvider = function(host, port) {
+  var self = this;
+    
+  //create DB connection and store it
+  MongoClient.connect(dbConnectUrl, function(err, db) {
+      console.log("Connected correctly to mongo server");
+      self.db = db;
+  });
   
-  // Creates a collection named 'profiles'
-  this.db = new Db('profiles', new Server(host, port));
-  this.db.open(function(){});
-
   /**
     * Retrieves all the profiles in the database with the input accountId
     * @param   {String}  myAccountId the accountId of the the profiles

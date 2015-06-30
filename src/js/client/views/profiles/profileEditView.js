@@ -32,6 +32,9 @@ var EditProfileView = Backbone.View.extend({
         this.model.set('name', this.$('input[name="name"]').val());
         this.model.set('ageRange', this.$('select[name="age-range"]').val());
         this.model.set('gender', this.$('select[name="gender"]').val());
+        this.model.set('medications', this.$('input[name="meds"]').val().split(/\s*,\s*/));
+        this.model.set('conditions', this.$('input[name="conditions"]').val().split(/\s*,\s*/));
+        this.model.set('allergies', this.$('input[name="allergies"]').val().split(/\s*,\s*/));
         
         //save the model
         this.model.save(null, {

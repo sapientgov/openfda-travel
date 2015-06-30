@@ -16,7 +16,7 @@ var DrugProductResultsView = Backbone.View.extend({
         this.template = _.template($('#search-product-result').html());
     },
     render: function() {
-        console.log('rendering product: %s', this.result.openfda.brand_name);
+        //console.log('rendering product: %s', this.result.openfda.brand_name);
         this.$el.html(this.template(this.result));
         return this;
     },
