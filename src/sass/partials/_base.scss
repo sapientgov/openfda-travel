@@ -218,6 +218,9 @@ input.form-control {
 
 aside{
     padding:  0 0 15px 0;
+    &.tamped{
+        margin-top: 160px;
+    }
 }
 
 #map-module{
@@ -278,20 +281,17 @@ aside{
     }
 }
 .btn-cta{
-    @extend .btn;
+    display:block;
+    text-decoration: none;
+    text-align: left;
     background: none;
     font-size: 16px;
     font-weight: bold;
-    border: 1px solid #fff;
     @include border-radius(0);
     color: #fff;
-    height: 48px;
-    margin: 0 0 10px 0;
-    &:hover{
-        background: $fda-teal;
-        color: #fff;
-    }
-
+    margin: 0 0 $global-margin 0;
+    background: $fda-teal;
+    padding: 7px 15px;
 }
 .btn-wire{
     @extend .btn;
