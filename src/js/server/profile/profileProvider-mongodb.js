@@ -48,8 +48,12 @@ var ProfileProvider = function(host, port) {
     
   //create DB connection and store it
   MongoClient.connect(dbConnectUrl, function(err, db) {
-      console.log("Connected correctly to mongo server");
-      _db = db;
+      if(err) {
+          console.error('Error connecting to Mongo!', err);
+      } else {
+          console.log("Connected correctly to mongo server");
+          _db = db;
+      }
   });
   
   /**
