@@ -22,7 +22,10 @@ var DigitsLoginView = Backbone.View.extend({
         var user = UserUtils.getCurrentUser();
         console.log(user);
         if(user && user.get('loggedIn')) {
-            UserUtils.logout();
+            if(confirm('Are you sure you want to log out?')) {
+                UserUtils.logout();
+                Backbone.history.navigate('', {trigger: true});
+            }
         } else {
             UserUtils.login().done(this.loginSuccess);
         }
