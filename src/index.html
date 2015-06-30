@@ -16,7 +16,7 @@
     <div class="container col-md-offset-1 col-md-10 ">
         <div class="navbar-header ">
           <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-          <a href="./#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.png" alt="FDA | Anywhere" width="250px" height="auto"></a> 
+          <a href="./#q" class="navbar-brand"><img src="img/fda-anywhere-logo-01.png" alt="FDA | Anywhere" width="250px" height="auto"></a> 
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
@@ -123,15 +123,18 @@
     
     <script type="text/template" id="dashboard-template">
         <div id="dashboard" class="question-nav list-group">
-            <a class="list-group-item" href="#label" role="button">Can I take this medication?</a>
+            <a class="list-group-item" href="#label" role="button">Search medication information</a>
             <a class="list-group-item" href="#approved" role="button">Is this medication FDA approved?</a>
             <a class="list-group-item" href="#recall" role="button">Has this medication been recalled?</a>
         </div>
     </script>
     
     <script type="text/template" id="dashboard-intro-template">
+    <div class="landing-page col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-8">
         <h1>Welcome to FDA Anywhere</h1>
-        <p>This system will allow you to search the FDA Database and find out more information about your medications or potential medications you may be taking on the go.</p>
+        <p>Created for your piece of mind, run quick checks on medications you access when traveling outside the U.S. using data compiled on thousands of medicines approved for use in the U.S.</p>
+        <p>Complete your medication profile to personalize your experience. <a href="#"><i class="fa fa-info-circle"></i></a></p>
+        </div>
     </script>
     
     
@@ -140,9 +143,6 @@
             <!-- segmented buttons -->
             <h3>Enter medication by: </h3>
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn fda-search search-all">All</button>
-                </div>
                 <div class="btn-group active" role="group">
                     <button type="button" class="btn fda-search search-brand">Brand</button>
                 </div>
@@ -153,23 +153,15 @@
                     <button type="button" class="btn fda-search search-ingredient">Ingredient</button>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group boxed-input">
                 <label for="ndc" class="sr-only">medication entry</label>
-                
-				<%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
-				<input type="text" name="brand-name" class="form-control" placeholder="<%- openfda.brand_name %>" autocomplete="off" />
-				<% } %>
-				
 				<%if (typeof(openfda) == "undefined") {%>
-				<input type="text" name="brand-name" class="form-control" placeholder="Brand Name" autocomplete="off" />
+				<input type="text" name="brand-name" placeholder="Brand Name" autocomplete="off" />
 				<% } %>
-            </div>
+                 <button type="submit" class="search-all"><i class="fa fa-chevron-circle-right"></i></button>
+            </div>   
 			
-			<div style="position:relative;left:45%;bottom:5px;z-index:50;">
-				<button type="button" class="btn search-all">Submit</button>
-            </div>
-			
-			<div id="drug-search-results" style="position:relative;top:-40px;z-index:100;">
+			<div id="drug-search-results" style="position:relative;top:-5px;z-index:100;">
                 <ul id="count-results-list">
                 </ul>
 			</div>

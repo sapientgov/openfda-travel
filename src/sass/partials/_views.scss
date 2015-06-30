@@ -2,7 +2,7 @@
 *  Landing Page
 ****************/
 .landing-page{
-    margin-bottom: 120px;
+    margin-bottom: 30px;
     h1{
         font-size: 34px;  
         font-weight: 700;  
@@ -52,7 +52,7 @@
         border: 1px solid #ccc;
         color: $text-black;
         @include border-radius(4px);
-        height: 42px;
+        height: 36px;
     }
     .module-title{
     }
