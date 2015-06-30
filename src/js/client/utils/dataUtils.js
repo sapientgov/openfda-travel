@@ -31,7 +31,7 @@ var DataUtils = {
      */
     combineMultipartQuery: function(q, separator) {
         if(!_.isEmpty(q)) {
-            var queryParts = q.split(' ');
+            var queryParts = q.trim().split(' ');
             return queryParts.join(separator);
         }
         return '';
