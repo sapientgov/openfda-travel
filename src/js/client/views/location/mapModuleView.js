@@ -40,11 +40,12 @@ var MapModuleView = Backbone.View.extend({
        var self = this;
        //Function to get and hide places requests
         $('#map-module dt').click(function () {
+            $(this).toggleClass('expanded');
             var locType = $(this).attr('data-locType');
             if (!$.trim($('dd.' + locType).html())) {
                 self.placesRequest(locType);
             } else {
-                $('dd.' + locType).html('').slideUp();
+                $('dd.' + locType).html('').slideToggle();
             }
         });
     },

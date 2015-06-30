@@ -258,6 +258,18 @@ aside{
         &:hover{
             background: #ccc;
         }
+        &:after{
+            content:"\f106";
+            font-family: "FontAwesome";
+            position: absolute;
+            right: 30px;
+            font-weight: normal;
+        }
+        &.expanded{
+            &:after{
+                content:"\f107";
+            }
+        }
     }
     dd{
         display:none;
@@ -274,7 +286,7 @@ aside{
     @include border-radius(0);
     color: #fff;
     height: 48px;
-    margin: 10px 0;
+    margin: 0 0 10px 0;
     &:hover{
         background: $fda-teal;
         color: #fff;
@@ -334,9 +346,10 @@ aside{
     button{
         width: 48px;
         height: 48px;
-        line-height: 44px;
+        line-height: 42px;
         text-align: center;
         color: #fff;
+        font-size: 21px;
         border-width: 0 0 0 1px;
         border-style: solid;
         border-color: #fff;
