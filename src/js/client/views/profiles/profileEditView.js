@@ -26,6 +26,12 @@ var EditProfileView = Backbone.View.extend({
     handleProfileSubmit: function(e) {
         e.preventDefault();
         
+        //check that the name field is entered
+        if(!this.$('input[name="name"]').val()) {
+            alert('Please provide a profile name.');
+            return;
+        }
+        
         var isNew = this.model.isNew();
         
         //set the values into the model

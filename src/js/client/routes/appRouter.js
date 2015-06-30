@@ -20,6 +20,7 @@ var ProfileEditView = require('../views/profiles/profileEditView');
 var Profile = require('../data/profile');
 var UserUtils = require('../utils/userUtils');
 var ProfileListView = require('../views/profiles/profileListView');
+var ActionButtonsView = require('../views/landing/actionButtonsView');
 
 var AppRouter = Backbone.Router.extend({
     
@@ -31,6 +32,14 @@ var AppRouter = Backbone.Router.extend({
         'approved': 'approved',
         'profile(/:id)': 'editProfile',
         'pmanage': 'profileList'
+    },
+    
+    initialize: function() {
+        console.log('init  router');
+        
+        //setup side views
+        MapModuleView.createInstance();
+        ActionButtonsView.createInstance();
     },
     
     'intro': function() {
@@ -54,9 +63,8 @@ var AppRouter = Backbone.Router.extend({
         //get rid of existing content
         this.resetContent();
         
-        //setup map view
-        //TODO - this should probably go somewhere better
-        MapModuleView.createInstance();
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'Q'});
         
         //change section background
         $('body').css('background-image',"url(../img/home.jpg)");
@@ -74,6 +82,9 @@ var AppRouter = Backbone.Router.extend({
         //get rid of existing content
         this.resetContent();
         
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'LABEL'});
+        
         //change section background
         $('body').css('background-image',"url(../img/canitakethis.jpg)");
         
@@ -85,6 +96,9 @@ var AppRouter = Backbone.Router.extend({
     recall: function() {
         //get rid of existing content
         this.resetContent();
+        
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'RECALL'});
         
         //change section background
         $('body').css('background-image',"url(../img/recalled.jpg)");
@@ -98,6 +112,9 @@ var AppRouter = Backbone.Router.extend({
          //get rid of existing content
         this.resetContent();
         
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'APPROVED'});
+        
         //change section background
 		$('body').css('background-image',"url(../img/approved.jpg)");
         
@@ -107,44 +124,47 @@ var AppRouter = Backbone.Router.extend({
     },
     
     editProfile: function(pid) {
-        //get rid of existing content
-        this.resetContent();
-        
-        //hide the split container
-        $('#split-container').hide();
-        
-        //get model
-        var editModel;
-        if(!_.isEmpty(pid)) {
-            editModel = UserUtils.getCurrentUser().get('profiles').find(function(p) {
-                return p.get('_id') === pid;
+        if(this.checkAuth()) {
+            //get rid of existing content
+            this.resetContent();
+
+            //hide the split container
+            $('#split-container').hide();
+
+            //get model
+            var editModel;
+            if(!_.isEmpty(pid)) {
+                editModel = UserUtils.getCurrentUser().get('profiles').find(function(p) {
+                    return p.get('_id') === pid;
+                });
+            } else {
+                editModel = new Profile();
+            }
+            console.log(editModel);
+
+            //init the profile edit view
+            this.fullView = new ProfileEditView({
+                model: editModel
             });
-        } else {
-            editModel = new Profile();
+            this.fullView.render();
         }
-        console.log(editModel);
-        
-        //init the profile edit view
-        this.fullView = new ProfileEditView({
-            model: editModel
-        });
-        this.fullView.render();
     },
     
     profileList: function() {
-        //get rid of existing content
-        this.resetContent();
-        
-        //hide the split container
-        $('#split-container').hide();
-        
-        //init the profile list view
-        this.fullView = new ProfileListView({
-            el: $('#full-width-container'),
-            collection: UserUtils.getCurrentUser().get('profiles')
-        });
-        this.fullView.render();
-        
+        if(this.checkAuth()) {
+            //get rid of existing content
+            this.resetContent();
+
+            //hide the split container
+            $('#split-container').hide();
+
+            //init the profile list view
+            this.fullView = new ProfileListView({
+                el: $('#full-width-container'),
+                collection: UserUtils.getCurrentUser().get('profiles')
+            });
+            this.fullView.render();
+        }
     },
     
     ///////////////////////////
@@ -157,6 +177,16 @@ var AppRouter = Backbone.Router.extend({
         $('#split-container').show();
         $('#primary-content').empty();
         this.mainView = undefined;
+    },
+    
+    checkAuth: function() {
+        var user = UserUtils.getCurrentUser();
+        if(!user || !user.get('loggedIn')) {
+            alert('You must log in to FDA Anywhere first. Use the login link in the header to log in.');
+            window.history.back();
+            return false;
+        }
+        return true;
     }
 });
 
