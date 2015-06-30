@@ -5,6 +5,7 @@ var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
 var FdaService = require('../../service/fdaService');
+var UserUtils = require('../../utils/userUtils');
 
 var DrugLabelInfoView = Backbone.View.extend({
     
@@ -27,6 +28,64 @@ var DrugLabelInfoView = Backbone.View.extend({
         this.toggleSectionDisplays();
 		this.deleteLastResults();
         
+        //update the section heights
+        this.updateSectionHeights();
+        
+        //personalize results
+        this.personalizeLabelResults();
+        
+        return this;
+
+    },
+    
+    personalizeLabelResults: function() {
+        
+        //get & verify user 
+        var user = UserUtils.getCurrentUser(), self = this;
+        if(!user || !user.get('loggedIn') || !user.get('selectedPid') || !user.get('profiles')) {
+            //cannot personalize results because there is no available profile
+            console.log('cannot personalize');
+            return;
+        }
+        
+        //get selected profile
+        var profile = user.get('profiles').find(function(item) {
+            return item.get('_id') === user.get('selectedPid');
+        });
+        
+        //find sections to flag
+        this.$('.label-section').each(function() {
+            var $dd = $(this).find('dd'),
+                sectionContent = $dd.html(),
+                flagged = false, key;
+            
+            //go through profile attributes and find matches
+            flagged = self.findKeywordInContent(profile, 'medications', sectionContent, flagged);
+            flagged = self.findKeywordInContent(profile, 'conditions', sectionContent, flagged);
+            flagged = self.findKeywordInContent(profile, 'allergies', sectionContent, flagged);
+            
+            //add warning icon if section flagged
+            if(flagged) {
+                $dd.siblings('dt').append('<a class="flag warning"><i class="fa fa-exclamation-circle"></i></a>');
+            }
+        });
+    },
+    
+    findKeywordInContent: function(profile, attr, content, flagged) {
+        if(flagged) {
+            return true;
+        }
+        
+        var list = profile.get(attr);
+        for(var key in list) {
+            if(!_.isEmpty(list[key]) && content.indexOf(list[key]) >= 0) {
+                return true;
+            }
+        }
+        return false;
+    },
+    
+    updateSectionHeights: function() {
         //update the heigh of sections based on content length
         this.$('.label-section').each(function() {
             var $dd = $(this).find('dd');
@@ -52,9 +111,6 @@ var DrugLabelInfoView = Backbone.View.extend({
                 $dd.siblings('dt').css('min-height', '50px');
             }
         });
-        
-        return this;
-
     },
 	
 	deleteLastResults: function() {
