@@ -174,6 +174,9 @@ header {
                 &:hover{
                     background: $fda-yellow;
                 }
+                &.primary {
+                    font-weight: bold;
+                }
             }
         }
     }

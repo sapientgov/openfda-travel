@@ -13,13 +13,6 @@ var DrugRecallPageView = Backbone.View.extend({
     el: '#primary-content',
     
     render: function() {
-        console.log('drugRecalledPageView');
-
-        //change section background
-        $('body').css('background-image',"url(../img/recalled.jpg)");
-
-        //clear the existing content out
-        this.$el.empty();
         
         //add the drug search to the page
         this.searchView = new DrugSearchPageView({searchTarget: 'RECALL'});
@@ -31,7 +24,6 @@ var DrugRecallPageView = Backbone.View.extend({
     },
     
     renderRecallInfo: function(searchData) {
-        console.log('Rendering recall info!', searchData);
         
         //if we got an actual result object from the search we just need to show it
         if(searchData.result) {

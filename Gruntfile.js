@@ -15,13 +15,13 @@ module.exports = function(grunt) {
             html : {
                 cwd: 'src/',
                 src : ['*.html','*.ico', 'fonts/**/*', 'img/**/*'],
-                dest : 'dist/',
+                dest : 'dist/public',
                 expand: true
             },
             server_js: {
-                cwd: 'src/',
-                src: ['js/server/**/*.js'],
-                dest: 'dist/',
+                cwd: 'src/js/server/',
+                src: ['**/*.js'],
+                dest: 'dist/server',
                 expand: true
             }
         },
@@ -30,14 +30,14 @@ module.exports = function(grunt) {
             dist: {
                 options: {
                     sassDir: 'src/sass',
-                    cssDir: 'dist/css',
+                    cssDir: 'dist/public/css',
                     environment: 'production'
                 }
             },
 			dev: {
                 options: {
                     sassDir: 'src/sass',
-                    cssDir: 'dist/css'
+                    cssDir: 'dist/public/css'
                 }
             }
         },
@@ -53,7 +53,8 @@ module.exports = function(grunt) {
                     devel: true,
                     strict: true,
                     globals: {
-                        google: false
+                        google: false,
+                        Digits: false
                     }
                 }
             }
@@ -61,7 +62,7 @@ module.exports = function(grunt) {
 
 		browserify: {
             web: {
-                dest: 'dist/js/client/app.js',
+                dest: 'dist/public/js/app.js',
                 src: ['src/js/client/main.js'],
                 options: {
                     watch: true
@@ -87,15 +88,6 @@ module.exports = function(grunt) {
                 tasks: ['jshint']
             }
         },
-
-        connect: {
-            server: {
-                options: {
-                    port: 8080,
-                    base: 'dist'
-                }
-            }
-        },
         
         karma: {
             dev: {
@@ -114,7 +106,7 @@ module.exports = function(grunt) {
         express: {
             dev: {
                 options: {
-                    script: 'dist/js/server/app.js'
+                    script: 'dist/server/app.js'
                 }
             }
         }
@@ -125,7 +117,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('bootstrap-sass');
     grunt.loadNpmTasks('grunt-karma');
@@ -134,7 +125,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify']);
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
-    grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'connect:server', 'express:dev', 'watch']);
+    grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'express:dev', 'watch']);
     grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci']);
 
 }

@@ -39,24 +39,25 @@ var DrugSearchPageView = Backbone.View.extend({
         var title;
         switch(this.searchTarget) {
             case 'LABEL':
-                title = 'Can I take this medication?';
+                title = '<h1>Can I take this medication?</h1>';
                 break;
             case 'RECALL':
-                title = 'Has this medication been recalled?';
+                title = '<h1>Has this medication been recalled?</h1>';
                 break;
             case 'APPROVED':
-                title = 'Is this medication FDA approved?';
+                title = '<h1>Is this medication FDA approved?</h1>';
                 break;
             default:
                 title = 'TITLE NOT CONFIGURED';
         }
         var searchType = this.searchTarget;
+        
+        //set the title
+        $('#full-width-container').html(title);
 		
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
-        this.$el.html(inputTemplate({
-            title: title
-        }));
+        this.$el.html(inputTemplate());
         
         //enable chaining
         return this;

@@ -4,6 +4,7 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
+var DigitsLoginView = require('../auth/digitsLoginView');
 
 var IntroContentView = Backbone.View.extend({
     el: '#container-main',
@@ -13,11 +14,14 @@ var IntroContentView = Backbone.View.extend({
     },
     
     render: function() {
-        //hide the main content divs
-        this.$('.row').hide();
         
         //render template into element
-        this.$el.append(this.template());
+        this.$('#full-width-container').append(this.template());
+        
+        //setup login view
+        this.loginView = new DigitsLoginView({
+            el: this.$('.diglogin')
+        });
     }
 });
 
