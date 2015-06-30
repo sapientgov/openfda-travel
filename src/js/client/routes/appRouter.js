@@ -20,6 +20,7 @@ var ProfileEditView = require('../views/profiles/profileEditView');
 var Profile = require('../data/profile');
 var UserUtils = require('../utils/userUtils');
 var ProfileListView = require('../views/profiles/profileListView');
+var ActionButtonsView = require('../views/landing/actionButtonsView');
 
 var AppRouter = Backbone.Router.extend({
     
@@ -31,6 +32,14 @@ var AppRouter = Backbone.Router.extend({
         'approved': 'approved',
         'profile(/:id)': 'editProfile',
         'pmanage': 'profileList'
+    },
+    
+    initialize: function() {
+        console.log('init  router');
+        
+        //setup side views
+        MapModuleView.createInstance();
+        ActionButtonsView.createInstance();
     },
     
     'intro': function() {
@@ -54,9 +63,8 @@ var AppRouter = Backbone.Router.extend({
         //get rid of existing content
         this.resetContent();
         
-        //setup map view
-        //TODO - this should probably go somewhere better
-        MapModuleView.createInstance();
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'Q'});
         
         //change section background
         $('body').css('background-image',"url(../img/home.jpg)");
@@ -74,6 +82,9 @@ var AppRouter = Backbone.Router.extend({
         //get rid of existing content
         this.resetContent();
         
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'LABEL'});
+        
         //change section background
         $('body').css('background-image',"url(../img/canitakethis.jpg)");
         
@@ -86,6 +97,9 @@ var AppRouter = Backbone.Router.extend({
         //get rid of existing content
         this.resetContent();
         
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'RECALL'});
+        
         //change section background
         $('body').css('background-image',"url(../img/recalled.jpg)");
         
@@ -97,6 +111,9 @@ var AppRouter = Backbone.Router.extend({
     approved: function() {
          //get rid of existing content
         this.resetContent();
+        
+        //change the questions on the side
+        ActionButtonsView.getInstance().render({view: 'APPROVED'});
         
         //change section background
 		$('body').css('background-image',"url(../img/approved.jpg)");

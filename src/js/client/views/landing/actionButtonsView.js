@@ -3,16 +3,24 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
+var UserUtils = require('../../utils/userUtils');
 
-var ActionButtonsView = new Backbone.View.extend({
+var _instance;
+
+var ActionButtonsView = Backbone.View.extend({
     el: '#action-buttons',
     render: function(options) {
         var view = options.view;
         
         //show all buttons by default
-        this.$('.cta-btn').show();
+        this.$('.btn-cta').show();
         
         //turn off buttons as needed
+        if(view === 'Q') {
+            this.$('#action-btn-label').hide();
+            this.$('#action-btn-recall').hide();
+            this.$('#action-btn-approved').hide();
+        }
         if(view === 'LABEL') {
             this.$('#action-btn-label').hide();
         }
@@ -33,3 +41,15 @@ var ActionButtonsView = new Backbone.View.extend({
         }
     }
 });
+
+var SingletonWrapper = {
+    createInstance: function() {
+        _instance = new ActionButtonsView();
+    },
+    
+    getInstance: function() {
+        return _instance;
+    }
+};
+
+module.exports = SingletonWrapper;
