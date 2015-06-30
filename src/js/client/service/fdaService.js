@@ -159,7 +159,7 @@ var FdaService = {
         var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:' + brand;
+        var qs = BEGIN_QS + '&limit=100&search=openfda.brand_name:"' + brand + '"';
         console.log("fdaService.findLabelInfoByBrand, query is: ", reqUrl + qs);
         //make json call
         return this.executeApiQuery(reqUrl + qs);
@@ -174,7 +174,7 @@ var FdaService = {
         var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&limit=100&search=openfda.generic_name:' + generic;
+        var qs = BEGIN_QS + '&limit=100&search=openfda.generic_name:"' + generic + '"';
         console.log("fdaService.findLabelInfoByGeneric, query is: ", reqUrl + qs);
         //make json call
         return this.executeApiQuery(reqUrl + qs);
@@ -189,7 +189,7 @@ var FdaService = {
         var reqUrl = LABEL_URL;
         
         //add qs parameters
-        var qs = BEGIN_QS + '&limit=100&search=openfda.substance_name:' + ing;
+        var qs = BEGIN_QS + '&limit=100&search=openfda.substance_name:"' + ing + '"';
         console.log("fdaService.findLabelInfoByIngredient, query is: ", reqUrl + qs);
         //make json call
         return this.executeApiQuery(reqUrl + qs);
