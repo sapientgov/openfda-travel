@@ -219,9 +219,6 @@ var DrugSearchPageView = Backbone.View.extend({
                 //this.countByBrand(val, apiQ);
                 apiPromise = FdaService.findDrugsByBrand(apiQ);
 				break;
-            case 'ALL':
-                alert('Cannot search by this yet');
-                break;
             case 'GENERIC':
                 apiPromise = FdaService.findDrugsByGeneric(apiQ);
                 break;
@@ -433,9 +430,7 @@ var DrugSearchPageView = Backbone.View.extend({
     clickSearchType: function(e) {
 		this.clearPreviousResults();
         var $clicked = $(e.target);
-        if($clicked.hasClass('search-all')) {
-            this.changeSearchType('ALL', 'All', 'search-all');
-        } else if($clicked.hasClass('search-brand')) {
+        if($clicked.hasClass('search-brand')) {
             this.changeSearchType('BRAND', 'Brand Name', 'search-brand');
         } else if($clicked.hasClass('search-generic')) {
             this.changeSearchType('GENERIC', 'Generic', 'search-generic');
