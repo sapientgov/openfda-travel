@@ -226,7 +226,7 @@ var DrugSearchPageView = Backbone.View.extend({
                 apiPromise = FdaService.findDrugsByGeneric(apiQ);
                 break;
             case 'INGREDIENT':
-                apiPromise = FdaService.findDrugsByActive(apiQ);
+                apiPromise = FdaService.findDrugsByActiveIng(apiQ);
                 break;
             default:
                 throw new Error('Unexpected search type!');
