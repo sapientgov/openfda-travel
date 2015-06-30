@@ -41,14 +41,19 @@ if(process.env.OPENSHIFT_MONGODB_DB_URL){
 dbConnectUrl += dbName;
 console.log('mongo URL: ' + dbConnectUrl);
 
+var _db;
 
 var ProfileProvider = function(host, port) {
   var self = this;
     
   //create DB connection and store it
   MongoClient.connect(dbConnectUrl, function(err, db) {
-      console.log("Connected correctly to mongo server");
-      self.db = db;
+      if(err) {
+          console.error('Error connecting to Mongo!', err);
+      } else {
+          console.log("Connected correctly to mongo server");
+          _db = db;
+      }
   });
   
   /**
@@ -57,7 +62,7 @@ var ProfileProvider = function(host, port) {
     * @return  {Array}   an array of profile documents
     */
   this.fetchAllProfilesByAccountId = function(myAccountId, cb) {
-    this.db.collection(profilesTable, function(error, profiles) {
+    _db.collection(profilesTable, function(error, profiles) {
       if (error) {
         cb(error, null);
       } else {
@@ -76,7 +81,7 @@ var ProfileProvider = function(host, port) {
     * @return  {String}   the profile document
     */
   this.fetchProfileById = function(id, cb) {
-    this.db.collection(profilesTable, function(error, profiles) {
+    _db.collection(profilesTable, function(error, profiles) {
       if (error) {
         cb(error, null);
       } else {
@@ -99,7 +104,7 @@ var ProfileProvider = function(host, port) {
     */
   this.insertProfile = function(profile, cb) {
     
-    this.db.collection(profilesTable, function(error, profiles) {
+    _db.collection(profilesTable, function(error, profiles) {
       if (error) {
         cb(error, null);
         console.error(error);
@@ -126,7 +131,7 @@ var ProfileProvider = function(host, port) {
     * @param   {String}  profile the profile document to update
     */
   this.updateProfile = function(id, profile, cb) {
-    this.db.collection(profilesTable, function(error, profiles) {
+    _db.collection(profilesTable, function(error, profiles) {
       if (error) {
         cb(error, null);
       } else {
@@ -158,7 +163,7 @@ var ProfileProvider = function(host, port) {
     * @param   {String}  the db generated _id of the profile to be deleted
     */
   this.deleteProfile = function(id, cb) {
-    this.db.collection(profilesTable, function(error, profiles) {
+    _db.collection(profilesTable, function(error, profiles) {
       if (error) {
         cb(error, null);
       } else {

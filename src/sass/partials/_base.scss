@@ -76,7 +76,7 @@ section{
 h1 {
     position: relative;
     font-size: 34px;
-    padding: 10px 0;
+    padding: 0;
     &.welcome{
         font-weight: 400;
     }
@@ -192,7 +192,7 @@ header {
 }
 
 main {
-    padding: 45px 0;
+    padding: $global-padding 0;
     color: #fff;
 }
 
