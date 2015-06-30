@@ -47,6 +47,16 @@
 /****************
 *  Profile Page
 ****************/
+.profile-page{
+    input.form-control{
+        border: 1px solid #ccc;
+        color: $text-black;
+        @include border-radius(4px);
+        height: 42px;
+    }
+    .module-title{
+    }
+}
 .profile-list{
     color: $text-black;
     dt{ 

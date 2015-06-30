@@ -277,7 +277,7 @@ aside{
         background: #fff;
     }
 }
-.btn-wire, .btn-cta{
+.btn-cta{
     @extend .btn;
     background: none;
     font-size: 16px;
@@ -293,8 +293,43 @@ aside{
     }
 
 }
+.btn-wire{
+    @extend .btn;
+    background: none;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    @include border-radius(4px);
+    color: #aaa;
+    margin: 0 0 10px 0;
+    &:hover{
+        background: $fda-teal;
+        color: #fff;
+    }
 
-
+}
+.btn-teal{
+    @extend .btn;
+    background: $fda-teal;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #aaa;
+    @include border-radius(4px);
+    color: #fff;
+    margin: 0 0 10px 0;
+}
+.btn-add-profile{
+    @include border-radius(4px);
+    border: 1px solid $text-grey;
+    padding: 0 10px;
+    margin: 5px 0;
+    line-height: 32px;
+    color: $text-grey;
+    cursor: pointer;
+    &:hover{
+        background: #fff;
+    }
+}
 .display-module{
     background: #fff;
     color: $text-black;

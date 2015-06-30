@@ -414,41 +414,43 @@
             <div class="display-module">
                 <div class="module-title">Complete the steps below to personalize your results.</div>
                     <div class="module-content">
-                        <p>
+                        <div class="form-group">
                             <label for="txtName">Profile name:</label><br>
-                            <input type="text" id="txtName" name="name" value="<%- name %>" />
-                        </p>
-                        <p>
+                            <input type="text" id="txtName" class="form-control" name="name" value="<%- name %>" />
+                        </div>
+                        <div class="form-group">
                             <label for="ddAge">Your age range:</label>
-                            <select id="ddAge" name="age-range">
+                            <select id="ddAge" name="age-range" class="form-control">
                                 <option value=""></option>
                                 <option value="infant">Infant</option>
                                 <option value="child">Child</option>
                                 <option value="adult">Adult</option>
                                 <option value="elderly">Elderly</option>
                             </select>
+                        </div>
+                        <div class="form-group">
                             <label for="ddGender">Your gender:</label>
-                            <select id="ddGender" name="gender">
+                            <select id="ddGender" name="gender" class="form-control">
                                 <option value=""></option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </select>
-                        </p>
-                        <p>
+                        </div>
+                        <div class="form-group">
                             <label for="txtMeds">Medications you take:</label><br>
-                            <input type="text" id="txtMeds" name="meds" value="<%- medications %>" />
-                        </p>
-                        <p>
+                            <input type="text" id="txtMeds" name="meds" class="form-control" value="<%- medications %>" />
+                        </div>
+                        <div class="form-group">
                             <label for="txtConditions">Medical conditions you have:</label><br>
-                            <input type="text" id="txtConditions" name="conditions" value="<%- conditions %>" />
-                        </p>
-                        <p>
+                            <input type="text" id="txtConditions" name="conditions"  class="form-control" value="<%- conditions %>" />
+                        </div>
+                        <div class="form-group">
                             <label for="txtAllergies">Allergies you may have:</label><br>
-                            <input type="text" id="txtAllergies" name="allergies" value="<%- allergies %>" />
-                        </p>
-                        <p>
-                            <button class="btn btn-profile-save">Submit</button>
-                        </p>
+                            <input type="text" id="txtAllergies" name="allergies" class="form-control" value="<%- allergies %>" />
+                        </div>
+                        <div class="form-group">
+                            <button class="btn-teal btn-profile-save">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -459,7 +461,7 @@
         <div class="profile-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-7 clearfix">
             <h1>Manage Medication Profile</h1>
             <div class="display-module">
-                <div class="module-title">Click 'edit' to change your settings</div>
+                <div class="module-title">Click 'Edit Profile' to change your settings<a class="btn-add-profile pull-right"><i class="fa fa-user-plus"></i> Add Profile</a></div>
                 <div class="module-content">
                     <dl class="profile-list"></dl>
                 </div>
@@ -469,29 +471,29 @@
     
     <script type="text/template" id="profile-item-template">
         <dd id="<%- _id %>">
-            <fieldset>
+            <div class="form-group">
                 <label>Your age range:</label>
                 <div><%- ageRange %></div>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div class="form-group">
                 <label>Gender:</label>
                 <div><%- gender %></div>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div class="form-group">
                 <label>Medications you take:</label>
                 <div><%- medications %></div>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div class="form-group">
                 <label>Medical conditions you may have:</label>
                 <div><%- conditions %></div>
-            </fieldset>
-            <fieldset>
+            </div>
+            <div class="form-group">
                 <label>Allergies you may have:</label>
                 <div><%- allergies %></div>
-            </fieldset>
-            <div class="profile-actions">
-                <a href="#" class="link-delete" title="Delete Profile">Delete Profile</a>
-                <a href="#" class="link-edit" title="Edit Profile">Edit Profile</a>
+            </div>
+            <div class="profile-actions clearfix">
+                <a href="#" class="btn-wire link-delete" title="Delete Profile"><i class="fa fa-user-times"></i> Delete Profile</a>
+                <a href="#" class="btn-teal link-edit pull-right" title="Edit Profile">Edit Profile</a>
             </div>
         </dd>
     </script>
