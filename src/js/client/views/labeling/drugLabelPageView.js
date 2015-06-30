@@ -42,7 +42,13 @@ var DrugLabelPageView = Backbone.View.extend({
             if(searchType == 'BRAND')
             {
                 this.brandSearch(brand);
-            }
+            }else if(searchType == 'GENERIC')
+			{
+				this.genericSearch(brand);
+			}else if(searchType == 'INGREDIENT')
+			{
+				this.activeIngSearch(brand);
+			}
         }
     },
 	
@@ -73,6 +79,66 @@ var DrugLabelPageView = Backbone.View.extend({
             
         }).fail(function() {
             console.error('failed to find label by brand');
+        });
+    },
+	
+	/* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
+	*/
+	genericSearch: function(generic) {
+        //find the drug we want
+        console.log('getting drug label info for %s.', generic);
+		var self = this; 
+		
+		
+        FdaService.findLabelInfoByGeneric(generic).done(function(data) {
+            if(data.results && data.results.length > 0) {
+                
+                //make sure we only include exact matches
+				//var exacts = DataUtils.findExactBrandMatches(data.results, generic);
+                if (data.results.length > 0) {
+                    //for now just take the first result - may need to have the user choose?
+                    self.labelInfoView = new DrugLabelInfoView({drug: data.results[0]});
+					var viewTest = self.labelInfoView;
+					self.labelInfoView.deleteLastResults();
+					self.$el.append(self.labelInfoView.render().el);
+                }
+            }
+            
+            //if we get here there were no results we could use
+            console.log('no results returned');
+            
+        }).fail(function() {
+            console.error('failed to find label by generic');
+        });
+    },
+	
+	/* This search function is called when the user selects a specific drug in the automated dropdown for the active ingredient search.
+	*/
+	activeIngSearch: function(activeIng) {
+        //find the drug we want
+        console.log('getting drug label info for %s.', activeIng);
+		var self = this; 
+		
+		
+        FdaService.findLabelInfoByIngredient(activeIng).done(function(data) {
+            if(data.results && data.results.length > 0) {
+                
+                //make sure we only include exact matches
+				//var exacts = DataUtils.findExactBrandMatches(data.results, generic);
+                if (data.results.length > 0) {
+                    //for now just take the first result - may need to have the user choose?
+                    self.labelInfoView = new DrugLabelInfoView({drug: data.results[0]});
+					var viewTest = self.labelInfoView;
+					self.labelInfoView.deleteLastResults();
+					self.$el.append(self.labelInfoView.render().el);
+                }
+            }
+            
+            //if we get here there were no results we could use
+            console.log('no results returned');
+            
+        }).fail(function() {
+            console.error('failed to find label by active ingredient');
         });
     }
 });

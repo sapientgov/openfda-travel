@@ -44,7 +44,13 @@ var DrugApprovedPageView = Backbone.View.extend({
             if(searchType == 'BRAND')
             {
                 this.brandSearch(brand);
-            }
+            }else if(searchType == 'GENERIC')
+			{
+				this.genericSearch(brand);
+			}else if(searchType == 'INGREDIENT')
+			{
+				this.activeIngSearch(brand);
+			}
         }
     },
     
@@ -92,7 +98,6 @@ var DrugApprovedPageView = Backbone.View.extend({
                 if (exacts.length > 0) {
                     //for now just take the first result - may need to have the user choose?
                     self.approvedInfoView = new DrugApprovedInfoView({drug: exacts[0], isApproved: true});
-					console.log("98");
 					var viewTest = self.approvedInfoView;
 					self.approvedInfoView.deleteLastResults();
 					self.$el.append(self.approvedInfoView.render().el);
@@ -108,11 +113,81 @@ var DrugApprovedPageView = Backbone.View.extend({
 				console.log("drug has not been recalled");
 				
 				var curView = self.currentView = new DrugApprovedInfoView({drug: brand, isApproved: false});
-				console.log("115");
+				self.$el.append(self.currentView.render().el);
+			}
+        });
+    },
+	
+	    /* This search function is called when the user selects a specific drug in the automated dropdown for the generic search.
+	*/
+	genericSearch: function(generic) {
+        //find the drug we want
+        console.log('getting drug approved info for %s.', generic);
+		var self = this; 
+		
+		
+        FdaService.findLabelInfoByGeneric(generic).done(function(data) {
+            if(data.results && data.results.length > 0) {
+                
+                //make sure we only include exact matches
+                if (data.results.length > 0) {
+                    //for now just take the first result - may need to have the user choose?
+                    self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0], isApproved: true});
+					var viewTest = self.approvedInfoView;
+					self.approvedInfoView.deleteLastResults();
+					self.$el.append(self.approvedInfoView.render().el);
+                }
+            }
+            
+            //if we get here there were no results we could use
+            console.log('no results returned');
+            
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status == 404)
+			{
+				console.log("drug has not been recalled");
+				
+				var curView = self.currentView = new DrugApprovedInfoView({drug: generic, isApproved: false});
+				self.$el.append(self.currentView.render().el);
+			}
+        });
+    },
+	
+	    /* This search function is called when the user selects a specific drug in the automated dropdown for the ingredient search.
+	*/
+	activeIngSearch: function(ingredient) {
+        //find the drug we want
+        console.log('getting drug approved info for %s.', ingredient);
+		var self = this; 
+		
+		
+        FdaService.findLabelInfoByIngredient(ingredient).done(function(data) {
+            if(data.results && data.results.length > 0) {
+                
+                //make sure we only include exact matches
+                if (data.results.length > 0) {
+                    //for now just take the first result - may need to have the user choose?
+                    self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0], isApproved: true});
+					var viewTest = self.approvedInfoView;
+					self.approvedInfoView.deleteLastResults();
+					self.$el.append(self.approvedInfoView.render().el);
+                }
+            }
+            
+            //if we get here there were no results we could use
+            console.log('no results returned');
+            
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+			if(jqXHR.status == 404)
+			{
+				console.log("drug has not been recalled");
+				
+				var curView = self.currentView = new DrugApprovedInfoView({drug: ingredient, isApproved: false});
 				self.$el.append(self.currentView.render().el);
 			}
         });
     }
+	
 });
 
 module.exports = DrugApprovedPageView;

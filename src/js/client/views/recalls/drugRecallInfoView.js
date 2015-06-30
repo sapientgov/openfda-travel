@@ -20,7 +20,7 @@ var DrugRecallInfoView = Backbone.View.extend({
         console.log('rendering label: ', this.drug);
         this.$el.html(this.template(this.drug));
 		this.deleteLastResults();
-		
+
 		return this;
     },
 	
