@@ -260,7 +260,7 @@ var DrugSearchPageView = Backbone.View.extend({
                 self.$('#count-results-list').empty();
                 _.each(data.results, function(item) {
 					var view = new DrugProductResultsView({
-					result: item, isApproved: true,
+					result: item,
 					callback: _.bind(self.chooseResult, self)
 					});
 					self.$('#product-result-list').append(view.render().el);
@@ -276,7 +276,7 @@ var DrugSearchPageView = Backbone.View.extend({
 			// if no results are returned (drug is not in the fda api) then display "Not Approved" to the user
 			if(jqXHR.status == 404)
 			{
-				var curView = self.currentView = new DrugApprovedInfoView({drug: val, isApproved: false});
+				var curView = self.currentView = new DrugApprovedInfoView({drug: val});
 				self.$el.append(self.currentView.render().el);
 			}
         });
