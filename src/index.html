@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FDA | anywhere</title>
+    <title>FDA | Anywhere</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut" type="image/x-icon" href="./favicon.ico?" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?" />
@@ -16,7 +16,7 @@
     <div class="container col-md-offset-1 col-md-10 ">
         <div class="navbar-header ">
           <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-          <a href="./#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.png" alt="FDA | anywhere" width="250px" height="auto"></a> 
+          <a href="./#" class="navbar-brand"><img src="img/fda-anywhere-logo-01.png" alt="FDA | Anywhere" width="250px" height="auto"></a> 
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
@@ -105,7 +105,7 @@
     <script type="text/template" id="landing-content-template">
         <!-- landing page -->
         <div class="landing-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-8">
-            <h1>Welcome to FDAanywhere</h1>
+            <h1>Welcome to FDA Anywhere</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in </p>
             <div class="landing-actions">
                 <a href="#" class="diglogin">Log-In</a>
@@ -124,7 +124,7 @@
     </script>
     
     <script type="text/template" id="dashboard-intro-template">
-        <h1>Welcome to FDAAnywhere</h1>
+        <h1>Welcome to FDA Anywhere</h1>
         <p>This system will allow you to search the FDA Database and find out more information about your medications or potential medications you may be taking on the go.</p>
     </script>
     
@@ -352,29 +352,6 @@
                     <%}%>
                     <%if (typeof(geriatric_use) !== "undefined") {%>
                         <p><label>Geriatric Use:</label> <%- geriatric_use%> </p>
-                    <%}%>
-                </dd>
-                </dl>
-            </div>
-
-            <div class="label-section"  id="other-fields">
-                <dl>
-                <dt>Other Fields</dt>
-                <dd id="other-fields-data">
-                    <%if (typeof(laboratory_tests) !== "undefined") {%>
-                        <p><label>Laboratory Tests:</label> <%- laboratory_tests%> </p>
-                    <%}%>
-                    <%if (typeof(recent_major_changes) !== "undefined") {%>
-                        <p><label>Recent Major Changes:</label> <%- recent_major_changes%> </p>
-                    <%}%>
-                    <%if (typeof(microbiology) !== "undefined") {%>
-                        <p><label>Microbiology:</label> <%- microbiology%> </p>
-                    <%}%>
-                    <%if (typeof(package_label_principal_display_panel) !== "undefined") {%>
-                        <p><label>Package Label Principal Display Panel:</label> <%- package_label_principal_display_panel%> </p>
-                    <%}%>
-                    <%if (typeof(spl_unclassified_section) !== "undefined") {%>
-                        <p><label>SPL Unclassified Section:</label> <%- spl_unclassified_section%> </p>
                     <%}%>
                 </dd>
                 </dl>

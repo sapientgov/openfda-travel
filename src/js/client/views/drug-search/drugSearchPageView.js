@@ -89,8 +89,8 @@ var DrugSearchPageView = Backbone.View.extend({
     
     showProductOptions: function(qOriginal) {
 	
-		//replace commas with "+" before querying
-		var q = qOriginal.replace(",", "+");
+		//replace all commas with plus signs before querying
+		var q = qOriginal.replace(/,/gi, "+");
 		
 		console.log("in showProductOptions for %s with search type as %s", q, this.searchType);
         
@@ -168,33 +168,109 @@ var DrugSearchPageView = Backbone.View.extend({
 		console.log("submitSearch: called on button click");
 		var self = this;
 		
-		if(_.isObject(self.selection)) {
-            //this is an actual object being passed back - send it to the target page
-			console.log('submitSearch: triggering search for %s', self.selection);
-            this.trigger('drug-search-complete', {
-                type: this.searchType,
-                result: self.selection
-            });
-            return;
-        }
+		if(typeof(self.selection) == "undefined") {
+			self.searchByTextInput();
+		} else {
 		
-        console.log('submitSearch: count is ', self.count);
-		
-        //if the selection is not an object, it must be a query term
-        if(self.count > 1) {
-            //we need the user to choose a product since we have multiple matches
-			console.log('submitSearch: count is greater than 1, calling showProductOptions');
-            this.showProductOptions(self.selection);
-        } else {
-			console.log('submitSearch: count is less than or equal to 1, triggering search for %s', self.selection);
-            //only one object to match - just send it back
-            //should we go ahead and fetch the actual result object here?
-            this.trigger('drug-search-complete', {
-				type: this.searchType,
-                q: self.selection
-            });
-        }
+			if(_.isObject(self.selection)) {
+				//this is an actual object being passed back - send it to the target page
+				console.log('submitSearch: triggering search for %s', self.selection);
+				this.trigger('drug-search-complete', {
+					type: this.searchType,
+					result: self.selection
+				});
+				return;
+			}
+			
+			console.log('submitSearch: count is ', self.count);
+			
+			//if the selection is not an object, it must be a query term
+			if(self.count > 1) {
+				//we need the user to choose a product since we have multiple matches
+				console.log('submitSearch: count is greater than 1, calling showProductOptions');
+				this.showProductOptions(self.selection);
+			} else {
+				console.log('submitSearch: count is less than or equal to 1, triggering search for %s', self.selection);
+				//only one object to match - just send it back
+				//should we go ahead and fetch the actual result object here?
+				this.trigger('drug-search-complete', {
+					type: this.searchType,
+					q: self.selection
+				});
+			}
+			self.selection = "undefined";
+			self.count = "undefined";
+		}
     },
+	
+	searchByTextInput: function() {
+		
+		var val = this.$('input[name="brand-name"]').val();
+		
+		//split the query into parts
+        var apiQ = DataUtils.combineMultipartQuery(val, '+AND+');
+        console.log('count results for query %s', apiQ);
+		
+		console.log("this.searchType: ",this.searchType);
+        var apiPromise = FdaService.findDrugsByBrand(apiQ);
+        //check the search type and react accordingly
+        switch(this.searchType) {
+            case 'BRAND':
+                //this.countByBrand(val, apiQ);
+                apiPromise = FdaService.findDrugsByBrand(apiQ);
+				break;
+            case 'ALL':
+                alert('Cannot search by this yet');
+                break;
+            case 'GENERIC':
+                apiPromise = FdaService.findDrugsByGeneric(apiQ);
+                break;
+            case 'INGREDIENT':
+                apiPromise = FdaService.findDrugsByActive(apiQ);
+                break;
+            default:
+                throw new Error('Unexpected search type!');
+        }
+		
+		var self = this;
+		
+		apiPromise.done(function(data) {
+		
+			FdaService.findLabelInfoByBrand(val).done(function(data) {
+            
+            //trim brand data and display
+            var exacts = DataUtils.findExactBrandMatches(data.results, val);
+				self.displayProductOptions(exacts);
+				document.getElementById("multi_results_text").innerHTML = (exacts.length) + " results for <b>\"" + val + "\"</b>";
+			});
+            
+            //only update results if the field value is the same as what was requested
+            if(self.$('input[name="brand-name"]').val() === val) {
+                self.$('#count-results-list').empty();
+                _.each(data.results, function(item) {
+					var view = new DrugProductResultsView({
+					result: item, isApproved: true,
+					callback: _.bind(self.chooseResult, self)
+					});
+					self.$('#product-result-list').append(view.render().el);
+                });
+            }
+            
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            //if the input value is the same as what we're looking for, clear the results
+            if(self.$('input[name="brand-name"]').val() === val) {
+                self.$('#count-results-list').empty();
+            }
+			
+			// if no results are returned (drug is not in the fda api) then display "Not Approved" to the user
+			if(jqXHR.status == 404)
+			{
+				var curView = self.currentView = new DrugApprovedInfoView({drug: val, isApproved: false});
+				self.$el.append(self.currentView.render().el);
+			}
+        });
+        
+	},
     
     getProductsByBrand: function(q) {
         var self = this;
@@ -204,7 +280,7 @@ var DrugSearchPageView = Backbone.View.extend({
             //trim brand data and display
             var exacts = DataUtils.findExactBrandMatches(data.results, q);
 			console.log("getProductsByBrand: data results (exact match) for brand: ", exacts);
-			document.getElementById("multi_results_text").innerHTML = (exacts.length) + " results for <b>\"" + self.selection + "\"</b>";
+			document.getElementById("multi_results_text").innerHTML = (exacts.length) + " results for <b>\"" + q + "\"</b>";
             self.displayProductOptions(exacts);
         });
 		
