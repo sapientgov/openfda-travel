@@ -78,7 +78,7 @@ var AppRouter = Backbone.Router.extend({
         this.mainView.render();
         
         //show map
-        MapModuleView.getInstance().triggerResize();
+        this.resetMapView();
     },
     
     label: function() {
@@ -96,7 +96,7 @@ var AppRouter = Backbone.Router.extend({
         this.mainView.render();
         
         //show map
-        MapModuleView.getInstance().triggerResize();
+        this.resetMapView();
     },
     
     recall: function() {
@@ -114,11 +114,11 @@ var AppRouter = Backbone.Router.extend({
         this.mainView.render();
         
         //show map
-        MapModuleView.getInstance().triggerResize();
+        this.resetMapView();
    },
     
     approved: function() {
-         //get rid of existing content
+        //get rid of existing content
         this.resetContent();
         
         //change the questions on the side
@@ -132,7 +132,7 @@ var AppRouter = Backbone.Router.extend({
         this.mainView.render();
         
         //show map
-        MapModuleView.getInstance().triggerResize();
+        this.resetMapView();
     },
     
     editProfile: function(pid) {
@@ -189,6 +189,13 @@ var AppRouter = Backbone.Router.extend({
         $('#split-container').show();
         $('#primary-content').empty();
         this.mainView = undefined;
+    },
+    
+    resetMapView: function() {
+        var mapView = MapModuleView.getInstance();
+        if(typeof mapView !== 'undefined') {
+            mapView.triggerResize();
+        }
     },
     
     checkAuth: function() {
