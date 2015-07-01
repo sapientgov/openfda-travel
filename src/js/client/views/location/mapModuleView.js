@@ -97,6 +97,10 @@ var MapModuleView = Backbone.View.extend({
             radius: '2414', //1.5 miles = 2414 meters
             types: [locType]
         };
+        
+        if (locType == 'embassy') {
+            request.keyword = 'United States';
+        }
         //Set the locType for future reference
         this.locType = locType;
         //Perform the nearby search
@@ -110,12 +114,18 @@ var MapModuleView = Backbone.View.extend({
         if (status == google.maps.places.PlacesServiceStatus.OK) {
             var newcontent = '';
             //Loop through the results
-            for (var i = 0; i < results.length ; i++) {
-                var place = results[i];
-                newcontent += '<div><strong>' + place.name  + '</strong><br/>' + place.vicinity + '</div>';
-            }
+            if (results.length >= 1) {
+                for (var i = 0; i < results.length; i++) {
+                    var place = results[i];
+                    newcontent += '<div><strong>' + place.name + '</strong><br/>' + place.vicinity + '</div>';
+                }
+            } 
             //Append the results to the correct section, and animate their display
             $('dd.' + locType).html(newcontent).slideDown();
+        } else if (status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS){
+            var noResults = '<div><strong>No Results Found</strong></div>';
+            //Append the No Result string to the correct section, and animate the display
+            $('dd.' + locType).html(noResults).slideDown();
         }
     }
                                          
