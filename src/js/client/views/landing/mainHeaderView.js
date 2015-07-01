@@ -43,7 +43,7 @@ var MainHeaderView = Backbone.View.extend({
         //iterate over list
         if(this.model.get('profiles') && this.model.get('profiles').length > 0) {
             //find the selected profile
-            var selectedPid = this.model.get('currentPid') || this.model.get('profiles').at(0).get('_id');
+            var selectedPid = this.model.get('selectedPid') || this.model.get('profiles').at(0).get('_id');
             this.model.get('profiles').each(function(item, index) {
                 
                 //check for selected profile - add it to the front if present
@@ -52,10 +52,10 @@ var MainHeaderView = Backbone.View.extend({
                         //need to add additional divider
                         profHtml = '<li class="divider profile-div"></li>' + profHtml;
                     }
-                    profHtml = '<li><a href="#" class="profile-link primary">' + item.get('name') + '</a></li>' + profHtml;
+                    profHtml = '<li><a href="#" class="profile-link primary" data-pid="' + item.get('_id') + '">' + item.get('name') + '</a></li>' + profHtml;
                 } else {
                     //just add it to the end of the list
-                    profHtml += '<li><a href="#" class="profile-link">' + item.get('name') + '</a></li>';
+                    profHtml += '<li><a href="#" class="profile-link" data-pid="' + item.get('_id') + '">' + item.get('name') + '</a></li>';
                 }
             });
             
@@ -73,6 +73,20 @@ var MainHeaderView = Backbone.View.extend({
             //user is now logged out
             this.$('.login-link').text('Login');
         }
+    },
+    
+    switchProfile: function(e) {
+        e.preventDefault();
+        
+        //get the id of the selected profile
+        var newPid = $(e.target).data('pid');
+        console.log('new selected pid = %s', newPid);
+        
+        //change the selected ID in the user model
+        this.model.set('selectedPid', newPid);
+        
+        //reset the profiles list
+        this.setupProfileList();
     }
 });
 
