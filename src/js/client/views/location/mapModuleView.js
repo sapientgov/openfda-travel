@@ -40,10 +40,14 @@ var MapModuleView = Backbone.View.extend({
         var self = this;
         //Function to get and hide places requests
         $('#map-module dt').click(function () {
-            $(this).toggleClass('expanded');
             var locType = $(this).attr('data-locType');
             if (!$.trim($('dd.' + locType).html())) {
-                self.placesRequest(locType);
+                if (locType == 'embassy') {
+                    self.embassyLink();
+                } else {
+                    $(this).toggleClass('expanded');
+                    self.placesRequest(locType);
+                }
             } else {
                 $('dd.' + locType).html('').slideToggle();
             }
@@ -134,6 +138,13 @@ var MapModuleView = Backbone.View.extend({
             //Append the No Result string to the correct section, and animate the display
             $('dd.' + locType).html(noResults).slideDown();
         }
+    },
+    
+    embassyLink: function (){
+        window.open(
+            'http://www.usembassy.gov/index.html',
+            '_blank' // <- This is what makes it open in a new window.
+            );
     }
 
 });
