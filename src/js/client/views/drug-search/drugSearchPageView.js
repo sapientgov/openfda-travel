@@ -55,8 +55,9 @@ var DrugSearchPageView = Backbone.View.extend({
 
         //set the title
         $('#full-width-container').html('<div class="landing-page col-xs-offset-1 col-xs-10 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10 remove-padding"><h1><a href="#q" class="back-nav"><i class="fa fa- fa-chevron-circle-left"></i></a>' + title + '</h1></div>');
-		$('aside').addClass('tamped');
-
+		
+		$('aside').addClass('pushedDown');
+		
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
         this.$el.html(inputTemplate());
@@ -71,7 +72,6 @@ var DrugSearchPageView = Backbone.View.extend({
 		
         //split the query into parts
         var apiQ = DataUtils.combineMultipartQuery(q, '+AND+');
-        console.log('count results for query %s', apiQ);
         
         //check the search type and react accordingly
         switch(this.searchType) {
@@ -97,8 +97,6 @@ var DrugSearchPageView = Backbone.View.extend({
 		//replace all commas with plus signs before querying
 		var q = qOriginal.replace(/,/gi, "+");
 		
-		console.log("in showProductOptions for %s with search type as %s", q, this.searchType);
-        
         //check the search type and react accordingly
         switch(this.searchType) {
             case 'BRAND':
@@ -122,25 +120,15 @@ var DrugSearchPageView = Backbone.View.extend({
 	//This function will update the input field with the chosen drug's brand name, and save the selection 
 	//and count to use once the user clicks on the Submit button.*/
     chooseResult: function(selection, count) {
-	
-		console.log("chooseResult: selection is: ", selection);
-		console.log("chooseResult: count is: ", count);
 		
 		var inputObj = document.getElementsByClassName("form-control");
 		
-		console.log("inputObj is: ", inputObj);
-		
-		var inputField1 = document.getElementsByName("brand-name");
 		var inputField = document.getElementsByName("brand-name")[0];
-		
-		console.log("chooseResult: inputField is: ", inputField);
-		
-		if(typeof(inputField) !== "undefined" && typeof(count) !== "undefined")
+	
+	if(typeof(inputField) !== "undefined" && typeof(count) !== "undefined")
 		{
-			console.log("chooseResult: neither inputField nor count are undefined, setting inputField.value to selection: ", selection);
 			inputField.value = selection;
 		}else if(typeof(selection.openfda) !== "undefined") {
-			console.log("chooseResult: count is undefined, setting inputField.value to selection.openfda.brand_name: ", selection.openfda.brand_name);
 			inputField.value = selection.openfda.brand_name;
 		}
 
@@ -149,10 +137,8 @@ var DrugSearchPageView = Backbone.View.extend({
 			
 			if(typeof(count) != "undefined")
 			{
-				console.log("chooseResult: inputObj length is greater than 0, setting inputObj[0].value to selection: ", selection);
 				inputObj[0].value = selection;
 			}else if(selection.openfda !== "undefined") {
-				console.log("chooseResult: inputObj length is greater than 0, setting inputObj[0].value to selection.openfda.brand_name: ", selection.openfda.brand_name);
 				inputObj[0].value = selection.openfda.brand_name;
 			}
         }
@@ -165,7 +151,6 @@ var DrugSearchPageView = Backbone.View.extend({
 		if(typeof(count) == "undefined") {
 			if(_.isObject(self.selection)) {
 				//this is an actual object being passed back - send it to the target page
-				console.log('triggering search for %s', self.selection);
 				this.trigger('drug-search-complete', {
 					type: this.searchType,
 					result: self.selection
@@ -193,7 +178,6 @@ var DrugSearchPageView = Backbone.View.extend({
 		previously selected a drug in the autopopulate dropdown, then a search will be performed on that drug
 		based on the current search page.*/
 	submitSearch: function() {
-		console.log("submitSearch: called on button click");
 		var self = this;
 		
 		self.clearPreviousResults();
@@ -204,7 +188,6 @@ var DrugSearchPageView = Backbone.View.extend({
 		
 			if(_.isObject(self.selection)) {
 				//this is an actual object being passed back - send it to the target page
-				console.log('submitSearch: triggering search for %s', self.selection);
 				this.trigger('drug-search-complete', {
 					type: this.searchType,
 					result: self.selection
@@ -212,15 +195,11 @@ var DrugSearchPageView = Backbone.View.extend({
 				return;
 			}
 			
-			console.log('submitSearch: count is ', self.count);
-			
 			//if the selection is not an object, it must be a query term
 			if(self.count > 1) {
 				//we need the user to choose a product since we have multiple matches
-				console.log('submitSearch: count is greater than 1, calling showProductOptions');
 				this.showProductOptions(self.selection);
 			} else {
-				console.log('submitSearch: count is less than or equal to 1, triggering search for %s', self.selection);
 				//only one object to match - just send it back
 				//should we go ahead and fetch the actual result object here?
 				this.trigger('drug-search-complete', {
@@ -238,9 +217,7 @@ var DrugSearchPageView = Backbone.View.extend({
 		
 		//split the query into parts
         var apiQ = DataUtils.combineMultipartQuery(val, '+AND+');
-        console.log('count results for query %s', apiQ);
 		
-		console.log("this.searchType: ",this.searchType);
         var apiPromise = FdaService.findDrugsByBrand(apiQ);
         //check the search type and react accordingly
         switch(this.searchType) {
@@ -268,7 +245,6 @@ var DrugSearchPageView = Backbone.View.extend({
 				document.getElementById("multi_results_text").innerHTML = (data.results.length) + " results for <b>\"" + val + "\"</b>";
 			});
             
-			console.log("value of input: ", self.$('input[name="brand-name"]').val());
             //only update results if the field value is the same as what was requested
             if(self.$('input[name="brand-name"]').val() === val) {
                 self.$('#count-results-list').empty();
@@ -299,12 +275,9 @@ var DrugSearchPageView = Backbone.View.extend({
     
     getProductsByBrand: function(q) {
         var self = this;
-		console.log("getProductsByBrand: calling fda service findLabelInfoByBrand for %s", q);
         FdaService.findLabelInfoByBrand(q).done(function(data) {
-			console.log("getProductsByBrand: data retrieved from findLabelInfoByBrand: ", data);
             //trim brand data and display
             var exacts = DataUtils.findExactBrandMatches(data.results, q);
-			console.log("getProductsByBrand: data results (exact match) for brand: ", exacts);
 			document.getElementById("multi_results_text").innerHTML = (exacts.length) + " results for <b>\"" + q + "\"</b>";
             self.displayProductOptions(exacts);
         });
@@ -313,11 +286,7 @@ var DrugSearchPageView = Backbone.View.extend({
     
     getProductsByActive: function(q) {
         var self = this;
-		console.log("getProductsByActive: calling fda service findLabelInfoByIngredient for %s", q);
         FdaService.findLabelInfoByIngredient(q).done(function(data) {
-            console.log("getProductsByBrand: data retrieved from findLabelInfoByIngredient: ", data);
-            //display products
-			console.log("getProductsByBrand: data results for active: ", data.results);
 			
 			//replace plus signs with comma signs for display
 			var qDisplay = q.replace(/\+/g, ",");
@@ -329,11 +298,7 @@ var DrugSearchPageView = Backbone.View.extend({
     getProductsByGeneric: function(q) {
         var self = this;
 		var testSel = self.selection;
-		console.log("getProductsByGeneric: calling fda service findLabelInfoByGeneric for %s", q);
         FdaService.findLabelInfoByGeneric(q).done(function(data) {
-            console.log("getProductsByBrand: data retrieved from findLabelInfoByGeneric: ", data);
-            //display products
-			console.log("getProductsByBrand: data results for generic: ", data.results);
 			//replace plus signs with comma signs for display
 			var qDisplay = q.replace(/\+/g, ",");
 			document.getElementById("multi_results_text").innerHTML = (data.results.length) + " results for <b>\"" + qDisplay + "\"</b>";
@@ -347,7 +312,6 @@ var DrugSearchPageView = Backbone.View.extend({
 		
 		self.clearPreviousResults();
         
-        //console.log('found label data for product list', prodList);
         _.each(prodList, function(item) {
             var view = new DrugProductResultsView({
                 result: item,
@@ -395,19 +359,15 @@ var DrugSearchPageView = Backbone.View.extend({
                         callback: _.bind(self.chooseResult, self)
                     });
 					
-					console.log("handleAutocompleteDrugSearch: dropdown has been populated, DrugSearchResultsView created for: ", item.term);
-					
 					//display each result in the autopopulate dropdown ONLY IF the user-entered search term is in the result string
 					if(item.term.toLowerCase().indexOf(q.toLowerCase()) > -1)
 					{
 						self.$('#count-results-list').append(view.render().el); 
-						console.log("handleAutocompleteDrugSearch: rendering dropdown result to view for: ", item.term);
 					}					
                 });
             }
             
         }).fail(function() {
-            console.error('call failed!');
             //if the input value is the same as what we're looking for, clear the results
             if(self.$('input[name="brand-name"]').val() === q) {
                 self.$('#count-results-list').empty();
@@ -430,10 +390,16 @@ var DrugSearchPageView = Backbone.View.extend({
 		var self = this;
 		
 		var numChildren = document.getElementById("primary-content").childNodes.length;
-				
+
 		if(numChildren > 1)
 		{
 			document.getElementById("primary-content").lastChild.remove();
+		}
+		
+		var oldApprovedResults = document.getElementById("approved-results");
+		if(typeof(oldApprovedResults) !== "undefined")
+		{
+			$("#approved-results").empty();
 		}
 		
 	},
@@ -478,7 +444,6 @@ var DrugSearchPageView = Backbone.View.extend({
     
     changeSearchType: function(newType, label, activeClass) {
         this.searchType = newType;
-        console.log('active class: %s', activeClass);
         this.$('.btn-group').removeClass('active');
         this.$('.' + activeClass).parent().addClass('active');
         this.$('input[name="brand-name"]').attr('placeholder', label).val('');

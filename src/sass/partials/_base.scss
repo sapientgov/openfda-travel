@@ -218,9 +218,10 @@ input.form-control {
 
 aside{
     padding:  0 0 15px 0;
-    &.tamped{
-        margin-top: 160px;
-    }
+	margin: 0;
+	&.pushedDown{
+		margin-top: 25px;
+	}
 }
 
 #map-module{
