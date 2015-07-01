@@ -27,3 +27,8 @@ var header = new MainHeaderView({
     model: user
 });
 header.render();
+
+//add error handling
+window.onerror = function() {
+    alert('Whoops! FDA Anywhere encountered an error and cannot complete your request. Please cross your fingers and try again.');
+};
