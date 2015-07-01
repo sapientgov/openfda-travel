@@ -14,6 +14,7 @@ var InitialQuestionsView = Backbone.View.extend({
     
     render: function() {
     	$('aside').removeClass('tamped');
+    	$('[data-toggle="tooltip"]').tooltip();
         //just render template into element
         this.$el.html(this.template());
     }
