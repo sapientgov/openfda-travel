@@ -382,10 +382,13 @@ var DrugSearchPageView = Backbone.View.extend({
                         callback: _.bind(self.chooseResult, self)
                     });
 					
+					console.log("handleAutocompleteDrugSearch: dropdown has been populated, DrugSearchResultsView created for: ", item.term);
+					
 					//display each result in the autopopulate dropdown ONLY IF the user-entered search term is in the result string
 					if(item.term.toLowerCase().indexOf(q.toLowerCase()) > -1)
 					{
-						self.$('#count-results-list').append(view.render().el);  
+						self.$('#count-results-list').append(view.render().el); 
+						console.log("handleAutocompleteDrugSearch: rendering dropdown result to view for: ", item.term);
 					}					
                 });
             }

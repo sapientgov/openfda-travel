@@ -13,13 +13,19 @@ var DrugSearchResultsView = Backbone.View.extend({
     },
     
     events: {
-        'click': 'handleSelect'
+        'click': 'handleSelect',
+		'mouseover': 'mouseoverTest'
     },
     
     initialize: function(options) {
+		console.log("initializing DrugSearchResultsView for ", options.result);
         this.result = options.result;
         this.callback = options.callback;
     },
+	
+	mouseoverTest: function() {
+		console.log('mouseover ', this.result.term);
+	},
     
     render: function() {
         var self = this;
