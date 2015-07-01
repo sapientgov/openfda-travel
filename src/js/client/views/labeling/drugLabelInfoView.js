@@ -18,6 +18,9 @@ var DrugLabelInfoView = Backbone.View.extend({
         console.log('rendering label: ', this.drug);
         this.$el.html(this.template(this.drug));
         
+        //init tooltips
+        this.$('[data-toggle="tooltip"]').tooltip();
+        
         var self = this;
         this.$('dt').click(function(){
             self.$(this).toggleClass('expanded');
