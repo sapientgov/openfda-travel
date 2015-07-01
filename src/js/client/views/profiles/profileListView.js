@@ -12,6 +12,10 @@ var ProfileListView = Backbone.View.extend({
         this.listenTo(this.collection, 'update', this.render);
     },
     
+    events: {
+        'click dt': 'expandProfile'
+    },
+    
     render: function() {
         var self = this;
         
@@ -23,16 +27,32 @@ var ProfileListView = Backbone.View.extend({
         
         //insert each profile into the list
         if(this.collection) {
-            this.collection.each(function(item) {
+            this.collection.each(function(item, index) {
                 var itemView = new ProfileListItemView({
                     model: item
                 });
-                self.$('.profile-list').append(itemView.render().el);
+                var $itemDom = itemView.render().$el;
+                if(index > 0) {
+                    //only show the first item fully
+                    $itemDom.find('dd').hide();
+                }
+                self.$('.profile-list').append($itemDom);
             });
         }
         
         //enable chaining
         return this;
+    },
+    
+    expandProfile: function(e) {
+        var $clicked = $(e.target);
+        
+        //check whether this profile is already expanded
+        if(!$clicked.siblings('dd').is(':visible')) {
+            //close all of the profiles
+            this.$('dd:visible').slideUp();
+            $clicked.siblings('dd').slideDown();
+        }
     }
 });
 

@@ -172,10 +172,9 @@ var AppRouter = Backbone.Router.extend({
 
             //init the profile list view
             this.fullView = new ProfileListView({
-                el: $('#full-width-container'),
                 collection: UserUtils.getCurrentUser().get('profiles')
             });
-            this.fullView.render();
+            $('#full-width-container').html(this.fullView.render().el);
         }
     },
     
