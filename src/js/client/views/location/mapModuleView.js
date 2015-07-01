@@ -50,6 +50,15 @@ var MapModuleView = Backbone.View.extend({
         });
     },
     
+    triggerResize: function() {
+        if(typeof this.map !== 'undefined') {
+            google.maps.event.trigger(this.map, 'resize');
+            this.map.setOptions({
+                center: this.center
+            });
+        }
+    },
+    
     loadScript: function() {
         //add listener for custom load event
         $(document).off('map-api-load').one('map-api-load', _.bind(this.initializeMap, this));
@@ -63,10 +72,10 @@ var MapModuleView = Backbone.View.extend({
     
     initializeMap: function() {
         //set map cetner
-        var center = new google.maps.LatLng(this.location.coords.latitude, this.location.coords.longitude);
+        this.center = new google.maps.LatLng(this.location.coords.latitude, this.location.coords.longitude);
         var mapOptions = {
             zoom : 14,
-            center : center,
+            center : this.center,
             mapTypeId : google.maps.MapTypeId.ROADMAP,
             disableDefaultUI : true,
             draggable: false
@@ -77,7 +86,7 @@ var MapModuleView = Backbone.View.extend({
         
         //add center marker
         var marker = new google.maps.Marker({
-            position: center,
+            position: this.center,
             animation: google.maps.Animation.DROP,
             map: this.map
         });

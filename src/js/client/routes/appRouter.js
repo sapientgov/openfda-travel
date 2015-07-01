@@ -76,6 +76,9 @@ var AppRouter = Backbone.Router.extend({
         //add buttons
         this.mainView = new InitialQuestionsView();
         this.mainView.render();
+        
+        //show map
+        MapModuleView.getInstance().triggerResize();
     },
     
     label: function() {
@@ -91,6 +94,9 @@ var AppRouter = Backbone.Router.extend({
         //init drug label view
         this.mainView = new DrugLabelPageView();
         this.mainView.render();
+        
+        //show map
+        MapModuleView.getInstance().triggerResize();
     },
     
     recall: function() {
@@ -106,6 +112,9 @@ var AppRouter = Backbone.Router.extend({
         //init drug recall view
         this.mainView = new DrugRecallPageView();
         this.mainView.render();
+        
+        //show map
+        MapModuleView.getInstance().triggerResize();
    },
     
     approved: function() {
@@ -121,6 +130,9 @@ var AppRouter = Backbone.Router.extend({
         //init drug approved view
         this.mainView = new DrugApprovedPageView();
         this.mainView.render();
+        
+        //show map
+        MapModuleView.getInstance().triggerResize();
     },
     
     editProfile: function(pid) {
