@@ -7,7 +7,6 @@ var _ = require('underscore');
 var UserUtils = require('../../utils/userUtils');
 
 var EditProfileView = Backbone.View.extend({
-    el: '#full-width-container',
     events: {
         'click button.btn-profile-save': 'handleProfileSubmit'
     },
@@ -21,6 +20,8 @@ var EditProfileView = Backbone.View.extend({
         //set the select values if needed
         this.setSelectValue(this.model.get('ageRange'), 'select[name="age-range"] option');
         this.setSelectValue(this.model.get('gender'), 'select[name="gender"] option');
+        
+        return this;
     },
     
     handleProfileSubmit: function(e) {

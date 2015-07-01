@@ -146,7 +146,7 @@ var AppRouter = Backbone.Router.extend({
             this.fullView = new ProfileEditView({
                 model: editModel
             });
-            this.fullView.render();
+            $('#full-width-container').html(this.fullView.render().el);
         }
     },
     
