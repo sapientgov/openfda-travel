@@ -4,6 +4,8 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
+var currentResult;
+var currentCount;
 
 var DrugSearchResultsView = Backbone.View.extend({
     tagName: 'li',
@@ -13,13 +15,22 @@ var DrugSearchResultsView = Backbone.View.extend({
     },
     
     events: {
-        'click': 'handleSelect'
+        'click': 'handleSelect',
+		'mouseover': 'mouseoverTest'
     },
     
     initialize: function(options) {
+		console.log("initializing DrugSearchResultsView for ", options.result);
         this.result = options.result;
         this.callback = options.callback;
     },
+	
+	mouseoverTest: function() {
+		console.log('mouseover ', this.result.term);
+		currentResult = this.result.term;
+		currentCount = this.result.count;
+		this.callback(this.result.term, this.result.count);
+	},
     
     render: function() {
         var self = this;
