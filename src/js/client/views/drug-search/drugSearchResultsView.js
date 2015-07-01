@@ -29,6 +29,7 @@ var DrugSearchResultsView = Backbone.View.extend({
 		console.log('mouseover ', this.result.term);
 		currentResult = this.result.term;
 		currentCount = this.result.count;
+		this.callback(this.result.term, this.result.count);
 	},
     
     render: function() {
