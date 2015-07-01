@@ -45,13 +45,14 @@ var DrugSearchPageView = Backbone.View.extend({
                 title = 'Has a medication been recalled?';
                 break;
             case 'APPROVED':
-                title = 'Is this medication FDA approved?';
+                title = 'Is a medication FDA approved?';
                 break;
             default:
                 title = 'TITLE NOT CONFIGURED';
         }
         var searchType = this.searchTarget;
         
+
         //set the title
         $('#full-width-container').html('<div class="landing-page col-xs-offset-1 col-xs-10 col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-1 col-lg-10 remove-padding"><h1><a href="#q" class="back-nav"><i class="fa fa- fa-chevron-circle-left"></i></a>' + title + '</h1></div>');
 		$('aside').addClass('tamped');
@@ -59,7 +60,7 @@ var DrugSearchPageView = Backbone.View.extend({
         //setup search fields
         var inputTemplate = _.template($('#drug-search-template').html());
         this.$el.html(inputTemplate());
-        
+
         //enable chaining
         return this;
     },
