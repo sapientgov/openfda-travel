@@ -4,6 +4,8 @@ var $ = require('jquery');
 var Backbone = require('backbone');
 Backbone.$ = $;
 var _ = require('underscore');
+var currentResult;
+var currentCount;
 
 var DrugSearchResultsView = Backbone.View.extend({
     tagName: 'li',
@@ -25,6 +27,8 @@ var DrugSearchResultsView = Backbone.View.extend({
 	
 	mouseoverTest: function() {
 		console.log('mouseover ', this.result.term);
+		currentResult = this.result.term;
+		currentCount = this.result.count;
 	},
     
     render: function() {

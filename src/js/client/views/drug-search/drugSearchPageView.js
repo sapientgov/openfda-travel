@@ -122,14 +122,25 @@ var DrugSearchPageView = Backbone.View.extend({
 	//This function will update the input field with the chosen drug's brand name, and save the selection 
 	//and count to use once the user clicks on the Submit button.*/
     chooseResult: function(selection, count) {
+	
+		console.log("chooseResult: selection is: ", selection);
+		console.log("chooseResult: count is: ", count);
+		
 		var inputObj = document.getElementsByClassName("form-control");
 		
+		console.log("inputObj is: ", inputObj);
+		
+		var inputField1 = document.getElementsByName("brand-name");
 		var inputField = document.getElementsByName("brand-name")[0];
+		
+		console.log("chooseResult: inputField is: ", inputField);
 		
 		if(typeof(inputField) !== "undefined" && typeof(count) !== "undefined")
 		{
+			console.log("chooseResult: neither inputField nor count are undefined, setting inputField.value to selection: ", selection);
 			inputField.value = selection;
 		}else if(typeof(selection.openfda) !== "undefined") {
+			console.log("chooseResult: count is undefined, setting inputField.value to selection.openfda.brand_name: ", selection.openfda.brand_name);
 			inputField.value = selection.openfda.brand_name;
 		}
 
@@ -138,8 +149,10 @@ var DrugSearchPageView = Backbone.View.extend({
 			
 			if(typeof(count) != "undefined")
 			{
+				console.log("chooseResult: inputObj length is greater than 0, setting inputObj[0].value to selection: ", selection);
 				inputObj[0].value = selection;
 			}else if(selection.openfda !== "undefined") {
+				console.log("chooseResult: inputObj length is greater than 0, setting inputObj[0].value to selection.openfda.brand_name: ", selection.openfda.brand_name);
 				inputObj[0].value = selection.openfda.brand_name;
 			}
         }
@@ -433,7 +446,7 @@ var DrugSearchPageView = Backbone.View.extend({
         var self = this;
        _.delay(function() {
            self.$('#count-results-list').empty();
-       }, 100);
+       }, 300);
     },
     
     checkEnter: function(event) {
