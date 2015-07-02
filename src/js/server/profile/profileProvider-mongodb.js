@@ -37,6 +37,10 @@ var dbConnectUrl = 'mongodb://localhost:27017/';
 if(process.env.OPENSHIFT_MONGODB_DB_URL){
   dbConnectUrl = process.env.OPENSHIFT_MONGODB_DB_URL;
 }
+//Code for connecting using Docker environments
+if (process.env.MONGO_PORT_27017_TCP_ADDR && process.env.MONGO_PORT_27017_TCP_PORT) {
+  dbConnectUrl = 'mongodb://'+process.env.MONGO_PORT_27017_TCP_ADDR+':'+process.env.MONGO_PORT_27017_TCP_PORT+'/';
+}
 console.log('mongo URL: ' + dbConnectUrl);
 
 var _db;
