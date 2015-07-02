@@ -69,9 +69,15 @@ var MainHeaderView = Backbone.View.extend({
         if(value) {
             //user is now logged in
             this.$('.login-link').text('Logout');
+			$("#login-info").css("display", "none");
+			
         } else {
             //user is now logged out
             this.$('.login-link').text('Login');
+			if(location.href.indexOf("#profile") <= 0 && location.href.indexOf("#pmanage") <= 0)
+			{
+				location.reload();
+			}
         }
     },
     

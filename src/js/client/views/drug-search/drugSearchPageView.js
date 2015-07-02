@@ -182,7 +182,16 @@ var DrugSearchPageView = Backbone.View.extend({
 		
 		self.clearPreviousResults();
 		
-		if(typeof(self.selection) === "undefined") {
+		var inputObj = document.getElementsByClassName("form-control");
+		
+		var inputField = "";
+		
+		if(typeof(document.getElementsByName("brand-name")[0].value) !== "undefined")
+		{
+			inputField = document.getElementsByName("brand-name")[0].value;
+		}
+		
+		if(typeof(self.selection) === "undefined" || (self.selection !== inputField)) {
 			self.searchByTextInput();
 		} else {
 		
@@ -263,11 +272,16 @@ var DrugSearchPageView = Backbone.View.extend({
                 self.$('#count-results-list').empty();
             }
 			
-			// if no results are returned (drug is not in the fda api) then display "Not Approved" to the user
+			// If the search is for approved drugs and no results are returned, display "The FDA has not recalled this medication". If no results are returned for a recall search, display "No recall information available." 
 			if(jqXHR.status == 404)
 			{
-				var curView = self.currentView = new DrugApprovedInfoView({drug: val});
+				var curView = self.currentView = new DrugApprovedInfoView({drug: val, notInApi: "true"});
 				self.$el.append(self.currentView.render().el);
+				var testDoc = document.getElementById("approvedInfoMsg");
+					if(testDoc !== null && typeof(testDoc) !== "undefined" && window.location.href.indexOf("recall") > -1)
+					{
+						document.getElementById("approvedInfoMsg").innerHTML = "No recall information available. <br>The medication name is misspelled or the FDA has not approved the medication.";
+					}
 			}
         });
         
