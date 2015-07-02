@@ -4,11 +4,11 @@
 .landing-page{
     margin-bottom: 30px;
     h1{
-        font-size: 34px;  
+        font-size: 28px;  
         font-weight: 700;  
     }
     p{
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 400;
         margin-bottom: $global-margin;
     }
@@ -16,7 +16,7 @@
         list-style-type:disc; 
         margin: 0 0 $global-margin $global-margin;
         li{margin-left: $global-margin;
-            font-size: 16px;
+            font-size: 14px;
             line-height: 175%
         }
     }
@@ -128,7 +128,7 @@
                     color: #c00;
                 }
                 &.info{
-                    color: $fda-teal;
+                    color: #ccc;
                     margin-right: 30px;
                 }
             }
