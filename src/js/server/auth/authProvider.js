@@ -127,6 +127,10 @@ var AuthProvider = {
     
     getUserId: function(uuid) {
         return _active[uuid];
+    },
+    
+    setUserId: function(uuid, accountId) {
+        _active[uuid] = accountId;
     }
 };
 

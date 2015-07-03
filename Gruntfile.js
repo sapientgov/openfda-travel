@@ -109,6 +109,15 @@ module.exports = function(grunt) {
                     script: 'dist/server/app.js'
                 }
             }
+        },
+        
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec',
+                },
+                src: ['test/js/server/**/*.js']
+            }
         }
 
     });
@@ -121,11 +130,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('bootstrap-sass');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-express-server');
+    grunt.loadNpmTasks('grunt-mocha-test');
 
     grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify']);
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
     grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'express:dev', 'watch']);
-    grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci']);
+    grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci', 'mocha']);
 
 }
