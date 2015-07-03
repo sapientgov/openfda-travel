@@ -8,6 +8,7 @@
     <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut" type="image/x-icon" href="./favicon.ico?" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?" />
+			
 </head>
 
 <body>
@@ -20,7 +21,7 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">
-              <li><a class="login-link" href="#">Login</a></li>
+              <li><a id="nav-login" class="login-link" href="#">Login</a></li>
               <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                 <ul class="dropdown-menu pull-right" id="profile-list">
                     <li class="divider"></li>
@@ -40,6 +41,8 @@
     </div>
 </nav>
 </header>
+
+			
 
     <!-- main content -->
     <main id="content" role="main">
@@ -113,12 +116,17 @@
             <li> Check medications for FDA approval</li>
             <li> See medication recalls</li>
             </ul>
-            <p>Travel smart with FDA Anywhere.</p>
-            <div class="landing-actions">
-                <a href="#" class="diglogin">Log-In</a>
-                <a href="#q">Continue as guest</a>
+            <p style="margin-bottom: 0px;">Travel smart with FDA Anywhere.</p>
+            
+			<div id="login-info" style="display:all;">
+			<p>Login to create a profile and personalize your results.</p>
+			
+			<div class="landing-actions">
+                <a href="#" id="homelogin" class="diglogin">Login</a>
+                <a href="#q">Continue as guest</a> 
             </div>
-            <p id="login-success-msg" style="display:none; color: #19B8A6; margin: 10px 0; font-size:24px;">Login Success!</p>
+			</div>
+			<p id="login-success-msg" style="display:none; color: #19B8A6; margin: 10px 0; font-size:24px;">Login Success!</p>
         </div>
     </script>
     
@@ -185,13 +193,13 @@
     
     <!-- multiple results li content -->
     <script type="text/template" id="search-product-result">
-        <label>Brand:</label> <%- openfda.brand_name %><br />
-        <label>Generic:</label> <%- openfda.generic_name %><br />
-        <label>Ingredients:</label> <%- openfda.substance_name %>
+        <label>Brand:</label> <%if (typeof(openfda) !== "undefined") {%><%- openfda.brand_name %><% } %><br />
+        <label>Generic:</label> <%if (typeof(openfda) !== "undefined") {%><%- openfda.generic_name %><% } %><br />
+        <label>Ingredients:</label> <%if (typeof(openfda) !== "undefined") {%><%- openfda.substance_name %><% } %>
     </script>
 	
 	<script type="text/template" id="drug-approved-info">
-<div id="approved-results" class="display-module">
+		<div id="approved-results" class="display-module">
 			
 			<%if (typeof(openfda) !== "undefined") {%>
 				<div class="module-title"></div>
@@ -202,10 +210,13 @@
 				<%if (typeof(openfda) !== "undefined") { %>
 				<h3 class="hasRecall">Yes</h3>
                 <% } %>
+				<%if (typeof(notInApi) !== "undefined") { %>
+					<h3><% notInApi %></h3>
+				<% } %>
 				<%if (typeof(openfda) == "undefined") { %>
 				<h3>No</h3>
-                <p>The FDA has not approved this medication.</p>
-                <p>Check the spelling of the medication or start a new search.</p>
+                <p id="approvedInfoMsg">The FDA has not approved this medication.
+                <br>Check the spelling of the medication or start a new search.</p>
                 <% } %>
                 <div class="label-section"  id="open-fda-fields-data">
                     <%if (typeof(openfda) !== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
@@ -227,7 +238,7 @@
    <script type="text/template" id="drug-label-info">
 <div class="display-module">
 
-        <div class="module-title">FDA drug label information for <%- openfda.brand_name %></div>
+        <div class="module-title">FDA drug label information for <%if (typeof(openfda) !== "undefined") {%> <%- openfda.brand_name %> <%}%></div>
 		<div class="label-results">
 
 			<div class="label-section"  id="warnings">
@@ -391,7 +402,6 @@ Information about whether the drug is a controlled substance, potential abuses w
                     <%if (typeof(isRecalled) !== "undefined" && isRecalled == false) {%>
                            <h3>No</h3>
                            <p>The FDA has not recalled this medication. </p>
-                           <p>Check the spelling of the medication or start a new search.</p>
                     <% } %>
 
 					<%if (typeof(openfda)!== "undefined" && typeof(openfda.brand_name) !== "undefined") {%>
@@ -426,21 +436,23 @@ Information about whether the drug is a controlled substance, potential abuses w
     <script type="text/template" id="edit-profile-template">
         <div class="profile-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-7 clearfix">
             <h1>Create Medication Profile</h1>
+			<p>Create your profile to personalize your results. The warning icons alert you to areas of possible concern. </p>
             <div class="display-module">
                 <div class="module-title">Complete the steps below to personalize your results.</div>
-                    <div class="module-content">
+					<div class="module-content">
                         <div class="form-group">
-                            <label for="txtName">Profile name:</label><br>
+                            <label for="txtName"><span style="color:#c20430;">*</span>Profile name: <span style="color:#aaa;">(required)</span></label><br>
                             <input type="text" id="txtName" class="form-control" name="name" value="<%- name %>" />
                         </div>
                         <div class="form-group">
                             <label for="ddAge">Your age range:</label>
                             <select id="ddAge" name="age-range" class="form-control">
                                 <option value=""></option>
-                                <option value="infant">Infant</option>
-                                <option value="child">Child</option>
-                                <option value="adult">Adult</option>
-                                <option value="elderly">Elderly</option>
+                                <option value="infant">Infant (0-2)</option>
+                                <option value="child">Child (3-11)</option>
+								<option value="adolescent">Adolescent (12-19)</option>
+                                <option value="adult">Adult (20-69)</option>
+                                <option value="elderly">Elderly (70+)</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -453,18 +465,22 @@ Information about whether the drug is a controlled substance, potential abuses w
                         </div>
                         <div class="form-group">
                             <label for="txtMeds">Medications you take:</label><br>
+							<span style="color:#aaa;">(Separate multiple entries with commas)</span><br>
                             <input type="text" id="txtMeds" name="meds" class="form-control" value="<%- medications %>" />
                         </div>
                         <div class="form-group">
                             <label for="txtConditions">Medical conditions you have:</label><br>
+							<span style="color:#aaa;">(Separate multiple entries with commas)</span><br>
                             <input type="text" id="txtConditions" name="conditions"  class="form-control" value="<%- conditions %>" />
                         </div>
                         <div class="form-group">
                             <label for="txtAllergies">Allergies you may have:</label><br>
+							<span style="color:#aaa;">(Separate multiple entries with commas)</span><br>
                             <input type="text" id="txtAllergies" name="allergies" class="form-control" value="<%- allergies %>" />
                         </div>
                         <div class="form-group">
-                            <button class="btn-teal btn-profile-save">Submit</button>
+							<button class="btn-wire btn-profile-cancel">Cancel</button>
+                            <button style="float: right;" class="btn-teal btn-profile-save">Submit</button>
                         </div>
                     </div>
                 </div>

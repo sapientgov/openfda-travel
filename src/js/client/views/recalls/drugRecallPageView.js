@@ -134,11 +134,8 @@ var DrugRecallPageView = Backbone.View.extend({
             console.log('no results returned');
             
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('failed to find drug recall by brand');
 			if(jqXHR.status == 404)
 			{
-				console.log("drug has not been recalled");
-				
 				var curView = self.currentView = new DrugRecallInfoView({drug: drugId, isRecalled: false});
 				self.$el.append(self.currentView.render().el);
 			}
@@ -170,11 +167,8 @@ var DrugRecallPageView = Backbone.View.extend({
             console.log('no results returned');
             
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('failed to find drug recall by brand');
 			if(jqXHR.status == 404)
 			{
-				console.log("drug has not been recalled");
-				
 				var curView = self.currentView = new DrugRecallInfoView({drug: drugId, isRecalled: false});
 				self.$el.append(self.currentView.render().el);
 			}
@@ -206,7 +200,6 @@ var DrugRecallPageView = Backbone.View.extend({
             console.log('no results returned');
             
         }).fail(function(jqXHR, textStatus, errorThrown) {
-            console.error('failed to find drug recall by brand');
 			if(jqXHR.status == 404)
 			{
 				console.log("drug has not been recalled");

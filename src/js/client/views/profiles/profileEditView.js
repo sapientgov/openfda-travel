@@ -8,7 +8,8 @@ var UserUtils = require('../../utils/userUtils');
 
 var EditProfileView = Backbone.View.extend({
     events: {
-        'click button.btn-profile-save': 'handleProfileSubmit'
+        'click button.btn-profile-save': 'handleProfileSubmit',
+		'click button.btn-profile-cancel': 'handleProfileCancel'
     },
     initialize: function() {
         this.template = _.template($('#edit-profile-template').html());
@@ -23,6 +24,11 @@ var EditProfileView = Backbone.View.extend({
         
         return this;
     },
+	
+	handleProfileCancel: function(e) {
+		e.preventDefault();
+		window.location.replace("/#q");
+	},
     
     handleProfileSubmit: function(e) {
         e.preventDefault();
