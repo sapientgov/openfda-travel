@@ -21,6 +21,10 @@ var AuthProvider = {
         }
     },
     
+    clearAllLogins: function() {
+        _active = {};
+    },
+    
     verifyLoginWithDigits: function(options) {
 
         //parse url
