@@ -10,14 +10,14 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine-jquery', 'jasmine-ajax', 'jasmine'],
+    frameworks: ['jasmine-jquery', 'jasmine-ajax', 'jasmine', 'browserify'],
 
 
     // list of files / patterns to load in the browser
     files: [
         'js/client/**/*.js',
         {
-            pattern: 'fixtures/**/*.html',
+            pattern: 'js/client/fixtures/**/*.html',
             watched: true,
             included: false,
             served: true
@@ -32,9 +32,9 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    //preprocessors: {
-    //    'js/**/*.js': ['browserify'],
-    //},
+    preprocessors: {
+        'js/client/**/*.js': ['browserify'],
+    },
 
 
     // test results reporter to use
@@ -62,10 +62,10 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
       
-    //browserify: {
-    //    transform: ["browserify-shim", "browserify-istanbul"]
-    //}
+    browserify: {
+        transform: ["browserify-istanbul"]
+    }
   });
 };

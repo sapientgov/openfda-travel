@@ -14,10 +14,6 @@ var DigitsLoginView = Backbone.View.extend({
     launchLogin: function(e) {
         e.preventDefault();
         
-        if(typeof Digits === 'undefined') {
-            throw new Error('Digits is not yet initialized');
-        }
-        
         //swtich based on current status
         var user = UserUtils.getCurrentUser();
         console.log(user);

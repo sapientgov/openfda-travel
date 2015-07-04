@@ -79,9 +79,13 @@ module.exports = function(grunt) {
                 files: 'src/**/*.html',
                 tasks: ['copy:html']
             },
-            js_test: {
-                files: ['test/js/**/*.js', 'src/js/client/**/*.js'],
+            js_client: {
+                files: ['test/js/client/**/*.js', 'src/js/client/**/*.js'],
                 tasks: ['karma:dev:run']
+            },
+            js_server: {
+                files: ['test/js/server/**/*.js', 'src/js/server/**/*.js'],
+                tasks: ['mochaTest']
             },
             js: {
                 files: ['src/js/**/*.js'],
@@ -135,7 +139,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build-prod', ['clean', 'copy', 'compass:dist', 'browserify']);
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
-    grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'express:dev', 'watch']);
+    grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'mochaTest', 'express:dev', 'watch']);
     grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci', 'mocha']);
 
 }
