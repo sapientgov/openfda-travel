@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var ActionButtonsView = require('../../../../src/js/client/views/landing/actionButtonsView');
 var UserUtils = require('../../../../src/js/client/utils/userUtils');
-var User = require('../../../../src/js/client/data/user');
+var SpecUtils = require('../specUtils');
 
 describe('App Buttons', function() {
     var actionButtonsView;
@@ -51,28 +51,19 @@ describe('App Buttons', function() {
     describe('renders profile text', function() {
         
         it('handles logged in users with profile', function() {
-            spyOn(UserUtils, 'getCurrentUser').and.returnValue(new User({
-                loggedIn: true,
-                selectedPid: '12345'
-            }));
+            spyOn(UserUtils, 'getCurrentUser').and.returnValue(SpecUtils.createUserWithProfiles());
             actionButtonsView.render({view: 'Q'});
             expect($('#action-btn-profile')).toContainText('Add an additional profile');
         });
         
         it('handles logged in users without profile', function() {
-            spyOn(UserUtils, 'getCurrentUser').and.returnValue(new User({
-                loggedIn: true,
-                selectedPid: null
-            }));
+            spyOn(UserUtils, 'getCurrentUser').and.returnValue(SpecUtils.createEmptyLoggedinUser());
             actionButtonsView.render({view: 'Q'});
             expect($('#action-btn-profile')).toContainText('Personalize your results');
         });
         
          it('handles logged out users', function() {
-            spyOn(UserUtils, 'getCurrentUser').and.returnValue(new User({
-                loggedIn: false,
-                selectedPid: null
-            }));
+            spyOn(UserUtils, 'getCurrentUser').and.returnValue(SpecUtils.createLoggedOutUser());
             actionButtonsView.render({view: 'Q'});
             expect($('#action-btn-profile')).toContainText('Personalize your results');
         });
