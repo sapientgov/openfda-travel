@@ -19,11 +19,13 @@ var MainHeaderView = Backbone.View.extend({
     },
     
     events: {
-        'click .profile-link': 'switchProfile',
-        'click .login-link': 'loginAction'
+        'click .profile-link': 'switchProfile'
     },
     
     render: function() {
+        
+        //login link
+        this.checkLogin(this.model.get('loggedIn'));
             
         //setup profiles
         this.setupProfileList();
@@ -66,6 +68,10 @@ var MainHeaderView = Backbone.View.extend({
     },
     
     loginStateChange: function(model, value, options) {
+        this.checkLogin(value);
+    },
+    
+    checkLogin: function(value) {
         if(value) {
             //user is now logged in
             this.$('.login-link').text('Logout');
@@ -74,9 +80,9 @@ var MainHeaderView = Backbone.View.extend({
         } else {
             //user is now logged out
             this.$('.login-link').text('Login');
-			if(location.href.indexOf("#profile") <= 0 && location.href.indexOf("#pmanage") <= 0)
+			if(location.href.indexOf("#profile") >= 0 || location.href.indexOf("#pmanage") >= 0)
 			{
-				location.reload();
+				Backbone.history.navigate('q', {trigger: true});
 			}
         }
     },
