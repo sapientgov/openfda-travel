@@ -45,6 +45,7 @@ var ActionButtonsView = Backbone.View.extend({
 var SingletonWrapper = {
     createInstance: function() {
         _instance = new ActionButtonsView();
+        return _instance;
     },
     
     getInstance: function() {
