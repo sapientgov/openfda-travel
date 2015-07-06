@@ -110,11 +110,16 @@ var UserUtils = {
         });
     },
     
-    fetchProfiles: function(profiles) {
-        //check for existing profiles
-        profiles.fetch({
-            success: function(collection, response, options) {
-                console.log('profile fetch success', collection);
+fetchProfiles: function(profiles) {
+         //check for existing profiles
+         profiles.fetch({
+             success: function(collection, response, options) {
+                 console.log('profile fetch success', collection);
+				
+				if(collection.length > 0)
+				{
+					$('#action-btn-profile').text('Add an additional profile');
+				}
                 
                 //set the user object attributes
                 _user.set({
