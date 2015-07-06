@@ -30,9 +30,7 @@ var DrugLabelInfoView = Backbone.View.extend({
         //toggle the sections
         this.toggleSectionDisplays();
 		this.deleteLastResults();
-        
-        //update the section heights
-        this.updateSectionHeights();
+
         
         //personalize results
         this.personalizeLabelResults();
@@ -88,33 +86,6 @@ var DrugLabelInfoView = Backbone.View.extend({
         return false;
     },
     
-    updateSectionHeights: function() {
-        //update the heigh of sections based on content length
-        this.$('.label-section').each(function() {
-            var $dd = $(this).find('dd');
-            var contentLength = $dd.html().length;
-            if(contentLength >= 3200) {
-                //XXL
-                $dd.siblings('dt').css('min-height', '200px');
-                $dd.css('margin-top', '-150px');
-            } else if (contentLength < 3200 && contentLength >= 1600) {
-                //XL
-                $dd.siblings('dt').css('min-height', '150px');
-                $dd.css('margin-top', '-100px');
-            } else if (contentLength < 1600 && contentLength >= 800) {
-                //L
-                $dd.siblings('dt').css('min-height', '100px');
-                $dd.css('margin-top', '-50px');
-            } else if (contentLength < 800 && contentLength >= 400) {
-                //M
-                $dd.siblings('dt').css('min-height', '75px');
-                $dd.css('margin-top', '-25px');
-            } else if (contentLength < 400) {
-                //S
-                $dd.siblings('dt').css('min-height', '50px');
-            }
-        });
-    },
 	
 	deleteLastResults: function() {
 		
