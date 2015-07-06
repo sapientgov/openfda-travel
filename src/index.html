@@ -13,7 +13,7 @@
 
 <body>
     <header role="banner">
-<nav class="navbar navbar-default" id="app-header">
+<nav class="navbar navbar-default" id="app-header" role="navigation">
     <div class="container col-md-offset-1 col-md-10 ">
         <div class="navbar-header ">
           <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -58,7 +58,7 @@
                     
                     <!-- right column -->
                     <div class="clearfix visible-xs-block"></div>
-                    <aside class="col-xs-12  col-sm-4 col-md-4 col-lg-4">
+                    <aside class="col-xs-12  col-sm-4 col-md-4 col-lg-4" >
                         <div id="action-buttons">
                             <a href="#profile" class="btn-cta" id="action-btn-profile"><i class="fa fa-double-angle-right"></i> Click here to enter your profile information</a>
                             <a href="#label" class="btn-cta" id="action-btn-label"><i class="fa fa-double-angle-right"></i>Search medication information</a>
@@ -489,10 +489,11 @@ Information about whether the drug is a controlled substance, potential abuses w
     </script>
     
     <script type="text/template" id="list-profiles-template">
-        <div class="profile-page col-xs-12 col-sm-offset-2 col-sm-6 col-md-offset-1 col-md-7 clearfix">
+        <div class="profile-page col-xs-12 col-sm-offset-1 col-sm-7 col-md-offset-1 col-md-7 clearfix">
             <h1>Manage Medication Profile</h1>
             <div class="display-module">
-                <div class="module-title">Click 'Edit Profile' to change your settings<a class="btn-add-profile pull-right" href="#profile"><i class="fa fa-user-plus"></i> Add Profile</a></div>
+                <div class="module-title clearfix"><p>Click 'Edit Profile' to change your settings</p>
+                <a class="btn-add-profile pull-right" href="#profile"><i class="fa fa-user-plus"></i> Add Profile</a></div>
                 <div class="module-content">
                     <dl class="profile-list"></dl>
                 </div>
