@@ -53,7 +53,7 @@ For evidence of our alignment to all Criteria for the Full Stack Pool, please re
 
 In the table below, we provide a brief summary narrative in response to the criteria for the Full Stack Pool.
 
-```
+
 | **Criteria #** | **Evidence Summary** |
 | --------------- | -------------- |
 | A | Kirsten Rohde served as our leader. Kirsten was responsible for managing track leads, dividing/combining/shuffling sub-teams, and ensuring the quality of our final prototype. |
@@ -73,7 +73,7 @@ In the table below, we provide a brief summary narrative in response to the crit
 | O | CONTENT TBD |
 | P | Our documentation is provided in the README file. |
 | Q | The prototype architecture consists of only technologies freely available on the internet with variations of open source libraries. Source code is hosted on Github and is freely accessible. |
-```
+
 
 ## Additional Evidence
 ----------------------------------------------------
