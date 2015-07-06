@@ -530,12 +530,9 @@ Information about whether the drug is a controlled substance, potential abuses w
         </dd>
     </script>
     
-    <!-- Main JS File -->
-    <script src="./js/app.js"></script>
-    <script id="digits-sdk" src="https://cdn.digits.com/1/sdk.js" async></script>
-    
-    <!-- event trigger for google map api loading -->
+    <!--  event triggers -->
     <script type="text/javascript">
+        //event trigger for google map api loading
         function mapApiLoaded() {
             // Create the event.
             var event = document.createEvent('Event');
@@ -546,10 +543,17 @@ Information about whether the drug is a controlled substance, potential abuses w
             }
         
         //setup digits
-        document.getElementById('digits-sdk').onload = function() {
+        function initDigits() {
+            console.log('init Digits...');
             Digits.init({ consumerKey: '3fRmH8jiHfBH2CPu8ekjxsDXv' });
         }
     </script>
+    
+    <!-- Main JS File -->
+    <script src="./js/app.js"></script>
+    <script id="digits-sdk" onload="initDigits();" src="https://cdn.digits.com/1/sdk.js"></script>
+    
+    
 </body>
 
 </html>
