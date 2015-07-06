@@ -403,11 +403,11 @@ var DrugSearchPageView = Backbone.View.extend({
 		
 		var self = this;
 		
-		var numChildren = document.getElementById("primary-content").childNodes.length;
+		var numChildren = $('#primary-content').length;
 
 		if(numChildren > 1)
 		{
-			document.getElementById("primary-content").lastChild.remove();
+			$('#primary-content:last-child').remove();
 		}
 		
 		var oldApprovedResults = document.getElementById("approved-results");
