@@ -12,8 +12,7 @@ services:
 deploy:
   provider: openshift
   user: cperry@sapient.com
-  password:
-    secure: MUUxGLsPF6eX0g48OwouCfPh5RL6ARmp8XxitdQxV/T5n/A3013hM6SjJxda8pwasEyuV3k5rJeh6SwsgVb9O11OYg6iYoY9X1RuZsPXbgkT/6kVV+U+ZdCHkS3c3tIVpOFnzMCN2B0S4+eIargGbe7KHtzMsMvv8w2LXkFy3xXH7CZ59LhJRcO4k7CdazxCFB/m93CaNjasIndNtrIQCLZ57O2FD0Cq7ugIMpJ5I8oQVWW8ZsT4Ael56wqYXnGNUdgnZL0xcTOIT1eMjdu0xwnm6xwqfbBWsR+XVEpeb0VZs1M+JojdZ0oLKfaK3SdJ0537wwtw5mxWzpx9fK82cRLSz+e5vSykuJMORrY2n/kkRjBfHthN3zO1hZo4C7fhMJcSdyVmTla5MznmQa4z+6UEqFXj1KdFBH+lxuS7fMX8Pwnfqc3sNQGs8pQX8IoFHX/Li7pNV2KPB5+eEHF+x4ZUqYymssw6Miy2nDj2TQ3Run0dsNzoVyhumZUuzKcMBEbDZ42iFz19GdJ4Q8bWXzlkyIUYXPuxWEPmJW9gScCi/Sa/4vFmICIo/vRvpmbK6ESOZbPrHffk/u9er4rHu3/eB0HQo3RabRBUCdMruU4c7IscF+8T0AS3/vk1M+MeTmRrBt/ejRmZCqYpURPePL2aVHa19PypaIbK1pSBjuU=
+  password: 1Z24vYx7P!Aji3m
   app: fdaanywhere
   domain: fifteenfifteen
   on:
