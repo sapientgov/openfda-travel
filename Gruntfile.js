@@ -140,6 +140,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build-dev', ['clean', 'copy', 'compass:dev', 'browserify']);
     grunt.registerTask('default',['build-prod']);
     grunt.registerTask('dev', ['build-dev', 'jshint', 'karma:dev:start', 'mochaTest', 'express:dev', 'watch']);
-    grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci', 'mocha']);
+    grunt.registerTask('ci',['build-prod', 'jshint', 'karma:ci', 'mochaTest']);
 
 }
