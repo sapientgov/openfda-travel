@@ -537,9 +537,13 @@ Information about whether the drug is a controlled substance, potential abuses w
     <!-- event trigger for google map api loading -->
     <script type="text/javascript">
         function mapApiLoaded() {
-            var event = new Event('map-api-load');
-            document.dispatchEvent(event);
-        }
+            // Create the event.
+            var event = document.createEvent('Event');
+
+            // Define that the event name is 'build'.
+            event.initEvent('map-api-load', true, true);
+                document.dispatchEvent(event);
+            }
         
         //setup digits
         document.getElementById('digits-sdk').onload = function() {
