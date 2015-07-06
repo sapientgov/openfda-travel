@@ -115,6 +115,11 @@ var UserUtils = {
         profiles.fetch({
             success: function(collection, response, options) {
                 console.log('profile fetch success', collection);
+				
+				if(collection.length > 0)
+				{
+					$('#action-btn-profile').text('Add an additional profile');
+				}
                 
                 //set the user object attributes
                 _user.set({

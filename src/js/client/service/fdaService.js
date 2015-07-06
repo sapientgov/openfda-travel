@@ -126,9 +126,9 @@ var FdaService = {
      */
     findRecallInfoByDrugId: function(id) {
         var reqUrl = ENFORCEMENT_URL;
-        
+		
         //add qs parameters
-        var qs = BEGIN_QS + '&limit=100&search=openfda.spl_id:\"[\"' + id + '\"]\"';
+        var qs = BEGIN_QS + '&limit=100&search=openfda.spl_id:"' + id + '"';
         console.log('api call: ' + qs);
         
         //make json call
@@ -142,8 +142,8 @@ var FdaService = {
      */
     findLabelInfo: function(ndc) {
         var reqUrl = LABEL_URL;
-        
-        //add qs parameters
+		
+		//add qs parameters
         var qs = BEGIN_QS + '&search=application_number:' + ndc;
         
         //make json call
