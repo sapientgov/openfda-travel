@@ -6,6 +6,7 @@ a{
         }
     }
 }
+
 .capitalize {
     text-transform: capitalize;
 }
@@ -73,5 +74,9 @@ $class-slug: col !default;
     }
 }
 
-
-
+.ieDisplay{display: none;}
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .ieDisplay{
+        display: block;
+    }
+}

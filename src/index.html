@@ -2,13 +2,20 @@
 <html>
 
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FDA | Anywhere</title>
     <link href="css/appstyles.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut" type="image/x-icon" href="./favicon.ico?" />
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico?" />
-			
+	<!--[if IE]>
+        <style type="text/css">
+        .ieDisplay{
+            display: block;
+        }
+        </style>
+    <![endif]-->
 </head>
 
 <body>
@@ -42,9 +49,13 @@
 </nav>
 </header>
 
-			
+<!-- IE banner * should not show for other browsers-->
+<div class="ieDisplay alert alert-warning alert-dismissible add-margin" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Note:</strong> IE Users will not have the ability to login or create a profile. You may continue to use this application as a guest.<br /><br />
+  To get the best experience and full functionality, please use this application running Chrome or Firefox. 
+</div>
 
-    <!-- main content -->
     <main id="content" role="main">
         <section>
             <div id="container-main" class="container">
