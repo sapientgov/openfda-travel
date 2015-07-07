@@ -27,8 +27,11 @@ var DrugApprovedPageView = Backbone.View.extend({
 		
 		//if we got an actual result object from the search we just need to show it
         if(searchData.result) {
-		
-			//this.brandSearch(searchData.result.openfda.spl_id);
+            
+            //remove existing results
+            if(this.approvedInfoView) {
+                this.approvedInfoView.remove();
+            }
 			
             //hide the search result stuff
             this.$('#product-results').hide();
@@ -53,34 +56,6 @@ var DrugApprovedPageView = Backbone.View.extend({
 			}
         }
     },
-    
-    ///////////
-    //just a placeholder for now - not functional
-    ////////////
-    search: function(brand) {
-        //find the drug we want
-        console.log('getting drug recall info for %s.', brand);
-        FdaService.findRecallInfoByBrandName(brand).done(function(data) {
-            if(data.results && data.results.length > 0) {
-                
-                //make sure we only include exact matches
-                var exacts = DataUtils.findExactBrandMatches(data.results, brand);
-                if(exacts.length > 0) {
-                    
-                    //for now just take the first result - may need to have the user choose?
-                    this.currentView = new DrugApprovedPageView({drug: exacts[0]});
-                    this.currentView.render();
-                    return;
-                }
-            }
-            
-            //if we get here there were no results we could use
-            console.log('no results returned');
-            
-        }).fail(function() {
-            console.error('failed to find drug approved by brand');
-        });
-    },
 	
 	    /* This search function is called when the user selects a specific drug in the automated dropdown for the brand search.
 	*/
@@ -99,7 +74,6 @@ var DrugApprovedPageView = Backbone.View.extend({
                     //for now just take the first result - may need to have the user choose?
                     self.approvedInfoView = new DrugApprovedInfoView({drug: exacts[0]});
 					var viewTest = self.approvedInfoView;
-					self.approvedInfoView.deleteLastResults();
 					self.$el.append(self.approvedInfoView.render().el);
                 }
             }
@@ -112,8 +86,8 @@ var DrugApprovedPageView = Backbone.View.extend({
 			{
 				console.log("drug has not been recalled");
 				
-				var curView = self.currentView = new DrugApprovedInfoView({drug: brand});
-				self.$el.append(self.currentView.render().el);
+				var curView = self.approvedInfoView = new DrugApprovedInfoView({drug: brand});
+				self.$el.append(self.approvedInfoView.render().el);
 			}
         });
     },
@@ -134,7 +108,6 @@ var DrugApprovedPageView = Backbone.View.extend({
                     //for now just take the first result - may need to have the user choose?
                     self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0]});
 					var viewTest = self.approvedInfoView;
-					self.approvedInfoView.deleteLastResults();
 					self.$el.append(self.approvedInfoView.render().el);
                 }
             }
@@ -147,8 +120,8 @@ var DrugApprovedPageView = Backbone.View.extend({
 			{
 				console.log("drug has not been recalled");
 				
-				var curView = self.currentView = new DrugApprovedInfoView({drug: generic});
-				self.$el.append(self.currentView.render().el);
+				var curView = self.approvedInfoView = new DrugApprovedInfoView({drug: generic});
+				self.$el.append(self.approvedInfoView.render().el);
 			}
         });
     },
@@ -169,7 +142,6 @@ var DrugApprovedPageView = Backbone.View.extend({
                     //for now just take the first result - may need to have the user choose?
                     self.approvedInfoView = new DrugApprovedInfoView({drug: data.results[0]});
 					var viewTest = self.approvedInfoView;
-					self.approvedInfoView.deleteLastResults();
 					self.$el.append(self.approvedInfoView.render().el);
                 }
             }
@@ -182,8 +154,8 @@ var DrugApprovedPageView = Backbone.View.extend({
 			{
 				console.log("drug has not been recalled");
 				
-				var curView = self.currentView = new DrugApprovedInfoView({drug: ingredient});
-				self.$el.append(self.currentView.render().el);
+				var curView = self.approvedInfoView = new DrugApprovedInfoView({drug: ingredient});
+				self.$el.append(self.approvedInfoView.render().el);
 			}
         });
     }

@@ -11,8 +11,19 @@ var DrugRecallInfoView = Backbone.View.extend({
     initialize: function(options) {
 		this.isRecalled = options.isRecalled;
         this.template = _.template($('#drug-recall-info').html());
-		options.drug.isRecalled = options.isRecalled;
-        this.drug = options.drug;
+        
+        //get drug info
+        var recallDrug;
+        if(typeof options.drug === 'object') {
+            recallDrug = options.drug;
+            recallDrug.isRecalled = options.isRecalled;
+        } else {
+            recallDrug = {
+                id: options.drug,
+                isRecalled: options.isRecalled
+            };
+        }
+        this.drug = recallDrug;
 		
     },
     
@@ -28,11 +39,11 @@ var DrugRecallInfoView = Backbone.View.extend({
 		
 		var self = this;
 		
-		var numChildren = document.getElementById("primary-content").childNodes.length;
+		var numChildren = $('#primary-content').length;
 				
 		if(numChildren > 1)
 		{
-			document.getElementById("primary-content").lastChild.remove();
+            $('#primary-content:last-child').remove();
 		}
 		
 	}

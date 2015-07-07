@@ -25,6 +25,11 @@ var DrugRecallPageView = Backbone.View.extend({
     
     renderRecallInfo: function(searchData) {
         
+        //remove existing results
+        if(this.currentView) {
+            this.currentView.remove();
+        }
+        
         //if we got an actual result object from the search we just need to show it
         if(searchData.result) {
 		

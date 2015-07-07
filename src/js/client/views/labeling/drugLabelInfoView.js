@@ -8,6 +8,9 @@ var FdaService = require('../../service/fdaService');
 var UserUtils = require('../../utils/userUtils');
 
 var DrugLabelInfoView = Backbone.View.extend({
+    attributes: {
+        class: 'drug-content'
+    },
     
     initialize: function(options) {
         this.template = _.template($('#drug-label-info').html());
@@ -91,12 +94,14 @@ var DrugLabelInfoView = Backbone.View.extend({
 		
 		var self = this;
 		
-		var numChildren = document.getElementById("primary-content").childNodes.length;
-				
-		if(numChildren > 1)
-		{
-			document.getElementById("primary-content").lastChild.remove();
-		}
+		//var numChildren = $('#primary-content').children().length;
+        //console.log('numChild = ' + numChildren);
+		//if(numChildren > 1)
+		//{
+        //    console.log('******removing last child');
+        //    $('#primary-content div:last-child').remove();
+		//}
+        
 		
 	},
     

@@ -27,6 +27,11 @@ var DrugLabelPageView = Backbone.View.extend({
     renderLabelInfo: function(searchData) {
         console.log('Rendering label info!', searchData);
         
+        //remove existing label results
+        if(this.labelInfoView) {
+            this.labelInfoView.remove();
+        }
+        
         //if we got an actual result object from the search we just need to show it
         if(searchData.result) {
             //hide the search result stuff
@@ -66,10 +71,9 @@ var DrugLabelPageView = Backbone.View.extend({
                 //make sure we only include exact matches
 				var exacts = DataUtils.findExactBrandMatches(data.results, brand);
                 if (exacts.length > 0) {
+                    
                     //for now just take the first result - may need to have the user choose?
                     self.labelInfoView = new DrugLabelInfoView({drug: exacts[0]});
-					var viewTest = self.labelInfoView;
-					self.labelInfoView.deleteLastResults();
 					self.$el.append(self.labelInfoView.render().el);
                 }
             }
@@ -93,13 +97,9 @@ var DrugLabelPageView = Backbone.View.extend({
         FdaService.findLabelInfoByGeneric(generic).done(function(data) {
             if(data.results && data.results.length > 0) {
                 
-                //make sure we only include exact matches
-				//var exacts = DataUtils.findExactBrandMatches(data.results, generic);
                 if (data.results.length > 0) {
                     //for now just take the first result - may need to have the user choose?
                     self.labelInfoView = new DrugLabelInfoView({drug: data.results[0]});
-					var viewTest = self.labelInfoView;
-					self.labelInfoView.deleteLastResults();
 					self.$el.append(self.labelInfoView.render().el);
                 }
             }
@@ -123,13 +123,9 @@ var DrugLabelPageView = Backbone.View.extend({
         FdaService.findLabelInfoByIngredient(activeIng).done(function(data) {
             if(data.results && data.results.length > 0) {
                 
-                //make sure we only include exact matches
-				//var exacts = DataUtils.findExactBrandMatches(data.results, generic);
                 if (data.results.length > 0) {
                     //for now just take the first result - may need to have the user choose?
                     self.labelInfoView = new DrugLabelInfoView({drug: data.results[0]});
-					var viewTest = self.labelInfoView;
-					self.labelInfoView.deleteLastResults();
 					self.$el.append(self.labelInfoView.render().el);
                 }
             }

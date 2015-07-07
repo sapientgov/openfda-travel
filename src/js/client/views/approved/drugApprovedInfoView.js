@@ -26,18 +26,20 @@ var DrugApprovedInfoView = Backbone.View.extend({
 		
 		var self = this;
 		
-		var numChildren = document.getElementById("primary-content").childNodes.length;
+		var numChildren = ('#primary-content').length;
 				
 		if(numChildren > 1)
 		{
-			document.getElementById("primary-content").lastChild.remove();
+            $('#primary-content:last-child').remove();
 		}
 		
 		var approvedRes = document.getElementById("approved-results");
 		
 		if(approvedRes !== null)
 		{
-			approvedRes.remove();
+            if(typeof approvedRes.remove === 'function') {
+                approvedRes.remove();
+            }
 		}
 	},
 });
