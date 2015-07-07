@@ -63,7 +63,9 @@ input:-moz-placeholder, input.form-control:-moz-placeholder {
 input:-ms-input-placeholder, input.form-control:-ms-input-placeholder {
     color: rgba(255, 255, 255, 0.5);
 }
-
+input[type=text]::-ms-clear {
+    display: none;
+}
 $class-slug: col !default;
 @for $i from 1 through 100{
   .#{$class-slug}#{$i*1}{

@@ -388,9 +388,6 @@ aside{
         outline: none;
         font-weight: bold;
         height: 48px;
-        &:-ms-clear {
-            display: none;
-        }
     }
     button{
         width: 48px;
