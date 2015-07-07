@@ -1,0 +1,39 @@
+[FDA Anywhere Server Build & Deploy Setup]
+
+Overview
+--------------
+This document provides the steps to setup the FDA Anywhere application build and deployment infrastructure.  Application code is hosted on GitHub. The application is deployed to a Node.js and MongoDB based application architecture hosted on the platform-as-a-service provider, OpenShift.  The continuous integration service, Travis-CI, is used to build and deploy the code.  The build plan on Travis CI monitors the GitHub repository for code check-in on the master branch and automatically kicks off a build that includes running unit tests and deploying code to OpenShift.
+Also, we provide instructions for creating a Docker (VM) container that can be deployed to another machine.
+
+
+OpenShift Setup
+
+1. Create an OpenShift account.( https://www.openshift.com/app/account/new)
+2. Follow the instructions here (https://developers.openshift.com/en/getting-started-windows.html or https://developers.openshift.com/en/getting-started-osx.html) to setup the OpenShift command line tools
+3. Create an application using a node.js cartridge on Openshift as outlined in the tutorials or on the web interface.
+	a. Note that an additional gigabyte of storage may be required for our application, if it is built on OpenShift servers
+4. Add a MongoDB cartridge to your application
+
+-If Building on Openshift
+	5. Connect your application's git repository and your local copy of the code by setting a remote origin
+		a. See the guide here: https://help.openshift.com/hc/en-us/articles/202398470-Sync-new-git-repo-with-your-own-existing-git-repo
+	6. Push to the OpenShift repo. The buildhook already present in the repo will build and start the app.
+
+-If Building on Local Machine
+	5. Clone the OpenShift application  git repo and setup a local development environment using the readme.md 
+	6. Build the application using "grunt" command in the local copy of the code at  https://github.com/sapientgov/openfda-travel
+		a. This requires installing grunt-cli with "npm install grunt-cli" and compass with "gem install compass"
+	7. Copy the dist folder, package.json, and server.js files  from the local copy of the github repo into the local copy of the OpenShift application repo.
+	8. Commit and push the changes. 
+
+-Docker Setup
+1. Download and install docker (https://www.docker.com/) 
+2. Download the mongo and node cartridges from Docker hub (execute the commands: 'docker pull mongo' and 'docker pull node')
+3. Build the fdaanywhere container from the local copy of the code ('cd /path/to/local/repo' and 'docker build -t fdaanywhere .')
+4. Start the mongo container ('docker run --name mongo -d mongo mongod --small files')
+5. Start the fdaanywhere container and link to the mongo container ('docker run -it -d --name fda --link mongo:mongo -p 8080:8080 fdaanywhere')
+6. Access the site at localhost:8080
+	- Special Instructions for Mac
+	a. In terminal run 'boot2docker ip'
+	b. Copy the ip address provided (192.168.59.103 usually)
+	c. Go to <ipaddress>:8080
