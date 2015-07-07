@@ -1,6 +1,0 @@
-cd $OPENSHIFT_REPO_DIR
-python misc/wapiti-2.3.0/bin/wapiti http://fdaanywhere-fifteenfifteen.rhcloud.com/#q -o vuln_results_q
-#python misc/wapiti-2.3.0/bin/wapiti http://fdaanywhere-fifteenfifteen.rhcloud.com/#label -o vuln_results_label
-#python misc/wapiti-2.3.0/bin/wapiti http://fdaanywhere-fifteenfifteen.rhcloud.com/#recall -o vuln_results_recall
-#python misc/wapiti-2.3.0/bin/wapiti http://fdaanywhere-fifteenfifteen.rhcloud.com/#approved -o vuln_results_approved
-
